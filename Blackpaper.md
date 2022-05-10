@@ -3,7 +3,6 @@
 Nikoloz Tvildiani <br>
 Teimuraz Vanidze <br>
 nikoloz.tvildiani@dtmu.edu.ge <br>
-www.tvildiani.com <br>
 teimurav00@zedat.fu-berlin.de<br></div>
 
 **Abstract**.
