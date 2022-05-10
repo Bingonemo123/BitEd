@@ -1,4 +1,4 @@
-# K for Knowledge: Cryptocurrency backed knowledge testing system
+# B for Knowledge: Cryptocurrency backed knowledge testing system
 <div align="center">
 Nikoloz Tvildiani <br>
 Teimuraz Vanidze <br>
