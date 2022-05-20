@@ -1,6 +1,6 @@
 # K
 <p align="center">
-  <img src="src/Logo.png" style="width:650px";>
+  <img src="src/Logo.png" style="width:325px";>
 </p>
 
 Crypto Learing
