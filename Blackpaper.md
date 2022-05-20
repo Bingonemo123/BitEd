@@ -62,7 +62,7 @@ The hard part of the system is designing protocols which can in non centralised 
 
 [^4]: [IPFS Powers the Distributed Web](https://ipfs.io/)  
 
-[&5]: [“Filecoin: A Decentralized Storage Network”](https://filecoin.io/) 
+[^5]: [“Filecoin: A Decentralized Storage Network”](https://filecoin.io/) 
 
 [^6]: David Chaum. Blind signatures for untraceable payments. In Proceedings of the 2nd Annual International Cryptology  Conference, CRYPTO ’82, pages 199–203, 1982.   
 
