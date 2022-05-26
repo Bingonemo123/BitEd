@@ -54,7 +54,7 @@ By the time of verification, verifier should check:
 
 If `Question` doesn't satisfy one of these criteria, verifier should report problem. If `Question` doesn't satisfy 3 criteria, verifier should indicate to original `Question`.If `Question` doesn't satisfy 4 criteria, verifier should indicate new corrected tagging. By correcting tagging, verifier creates new `Question`, where author of original `Question` is referenced as coauthor. Correcting tagging can increase the chance of `Question` being accepted. Verification of new `Question` with corrected tagging and original `Question` is done independently. So that `Question` with updated tagging may be rejected, while original `Question` is accepted and author of original `Question` not losing any of stakes.
 
-Editing of `Question` by verifier is done in same way, as correcting tagging. By editing `Question` verifier creates new `Question`, where original author is also referenced. For the reason that editors are creating new `Question` , they also should back edited `Question` with `Tokens`.
+Editing of `Question` by verifier is done in same way, as correcting tagging. By editing `Question` verifier creates new `Question`, where original author is also referenced. For the reason that editors are creating new `Questions` , they also should back edited `Questions` with `Tokens`.
 
 After `Question` is accepted and process of answering `Questions` is started, `Question` is still in verification stage. Post-acceptance verification of `Question` is done in same way as pre-acceptance verification of `Question`, but students can report problem with `Question` during answering.
 Post-acceptance verification is permanent process and is done until `Question` exists on Blockchain.
