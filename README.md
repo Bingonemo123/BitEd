@@ -1,4 +1,4 @@
-# K for Knowledge
+<center> <h1> K for Knowledge </h1> </center>
 <p align="center">
   <img src="src/Logo.png" style="width:325px";>
 </p>
