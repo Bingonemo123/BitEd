@@ -1,3 +1,4 @@
+⚠️⚠️⚠️This is previos version of Project. Since Then BitEd has changed it's direction. This Document is not relevant anymore. ⚠️⚠️⚠️
 # K for Knowledge: Cryptocurrency backed knowledge testing system
 <div align="center">
 Nikoloz Tvildiani <br>
