@@ -7,6 +7,8 @@
 
 ## Milestones
 
+Essentals
+
 - [ ] Home Page
   - [ ] Header
     - [ ] Logo on left
@@ -29,4 +31,6 @@
 - [ ]  Test Set-Up Page
 - [ ]  Test Writing Page
 - [ ]  Test Review Page
-- [ ]
+- [ ]  Profile Page
+
+2. Step II
