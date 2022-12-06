@@ -125,9 +125,9 @@
     - [ ]  User must answer Review Question as all other usual Questions, before he can submit review.
   
 - [ ]  Profile Page
-  - [ ]  Change Password
+  - [ ]  Change Password Button
   - [ ]  Question History
-  - [ ]  Balance
+  - [ ]  Show Balance Details
   - [ ]  `Log out` Button
 
 ### Step II - Monetization
