@@ -143,3 +143,5 @@
 - [ ]  Search Users also at Homepage
 - [ ]  Comment section For Question Review
 - [ ]  Mark Question and Follow Comments on that Question
+- [ ]  Login/Sigh Up With Google, github, Facebook
+- [ ]  Develope rest API
