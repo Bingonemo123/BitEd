@@ -1,0 +1,13 @@
+
+.block-settings {
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    background-color: white;
+}
+
+html,body {
+    margin: 0;
+    padding: 0;
+}

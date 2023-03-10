@@ -1,0 +1,13 @@
+{% extends "profile_navbar/profile_navbar.html" %}
+
+{% block content %}
+{{ block.super }}
+<ul>
+    {% for wrd in object_list %}
+        <li>{{ wrd.id }} - {{ wrd.tile_created_from.tile_headline }} </li>
+    {% empty %}
+        <li>No history yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

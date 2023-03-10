@@ -1,0 +1,222 @@
+# TODO
+
+## Minimal Approach
+
+Due to high time consumption of perfect development high-yield approach is desired. Based on that  will be time invested during this development phase, only in that aspects of site, which are crucial for it's functionality.
+
+- [ ] Create test writing page
+  - [ ] create view for displaying answers
+- [ ] TestWriting Authorize on Owned Blocks
+- [ ] Remember Answered Question
+
+- [x] Make Navigation Bar Separate Template
+- [x] Insert CSS and JS in Homepage
+- [x] Insert CSS and JS in NavBar
+- [x] Develope Model for Tiles
+- [x] Create User Profile Model
+- [x] Create Link from HomePage To Login Page
+- [x] Develope contrib.auth Django
+- [x] Insert Random Data in Tiles Database for Testing
+- [x] requested_random_tiles
+- [x] Connect homepage view and tiles view
+  - [x] test insertion
+- [x] Create Tile Html for HomePage
+  - [x] Write if tags for blocks
+- [x] Make Login/SignUp with Django Forms
+- [x] Redirect SignUp failure back to Sign Up Page not login (Flash messages)
+- [x] add birth date to Profile model
+- [x] add sign up page to navbar
+- [x] create custom user createForm
+  - [x] add first name last name and email field from user model
+    - [x] Validate email from forms & in js
+    - [x] Validate email uniqueness
+    - [ ] [Future] add js event listeners `blur` and `input` to Sign page
+  - [x] Display Errors in red
+  - [x] add day_of birth from Profile model
+    - [x] how create view to have two forms
+      - [x] What are formsets
+      - [x] added Location Field
+      - [x] Added with inlineFormset_factory()
+        - [x] create custom inlineformset
+        - [x] overridden save method to link user_id
+- [x] What are Meta: field_classes [ Defines FieldClasses without in class creating in form ]
+  - [x] field_classes vs in class created field
+  - [ ] forms DateInput:inputype:'date' vs DateField
+- [x] Why CreateUserForm adds inherits title tag [it is not Django chrome adds it to every tab]
+- [x] Add login button to SignUP page
+- [x] Add SignUp page to login page
+- [x] Add reset button to login Page
+- [x] Change login url default success page redirect url
+- [x] Rewrite Login/Sign Up with Separate urls and Forms
+- [x] Learn two submits on one page forms ['inlineforms' + 'CreatView two forms']
+- [x] Remove whiteSpace on right in mobile version
+  - [x] Find cause of whiteSpace [ because navbar with content is bigger than screen size]
+  - [x] Fix it [Rewrite navbar flex css]
+- [x] Make HomePage Scroll Load Content
+  - [x] Javascript getBoundingClientRect()
+  - [x] get Home request and start database search - async
+  - [x] send HomePage with template tiles
+  - [x] make ajax call that template site is loaded
+  - [x] send loaded random tiles from database to site
+  - [x] receive sended data and display
+- [x] Create Tile Detail View
+  - [x] Add form to create WDR view
+  - [x] Create model For WDR view
+- [ ] limit Tile image size on resize
+- [ ] Create Model for Questions
+- [ ] Connect Questions and Tiles
+- [ ] Make block inheritance
+  - [ ] Move Css templates to apps sub statics
+  - [ ] Move Html templates to apps sub templates
+  - [ ] Test Page
+  - [ ] Design inheritance architecture
+  - [ ] Test multiple inheritances
+- [ ] Search Engine
+- [ ] Develope Django Rest Api
+- [ ] Develope React Login/Sign Up UI
+- [ ] Integrate SuperTokens Authentication
+- [ ] Remove line under logo and login links
+- [ ] Prepare Static files to be server from nginx
+- [ ] Connect server to domain name
+- [ ] add SSL Certificate
+- [ ] Turn off Debug Mode
+- [ ] resequence Tables for faster random queries
+
+***
+
+- [ ] Home Page
+  - [ ] Header
+    - [ ] Logo on left
+    - [ ] Search bar on middle left
+      - [ ] Visual Side
+      - [ ] Engine Side
+    - [ ] Show Profile Balance Number on middle right
+    - [ ] `Login/Sign Up` Button on right
+      - [ ] Display Username (email) if Logged in
+      - [ ] Link Username to Profile Page
+  - [ ] Left Side Bar
+    - [ ] `Create Questions` Button &#8594; Question creating Page
+    - [ ] Tags and Fields List
+      - [ ] Logic - Selecting one of elements from list changes body
+      - [ ]  *
+  - [ ]  Body
+    - [ ]  Scrolling and Loading Content
+      - [ ]  4 `Tests Tile` with small description of Test on each row
+        - [ ]  On Tiles `Title of Test`
+        - [ ]  on Tiles `Number` of Questions
+        - [ ]  on Tiles 5 Main `Tags` (Main means most Abstract)
+        - [ ]  on Tiles `Expected Reward` just number
+      - [ ]  Clicking on Test &#8594; Goes to Test Set-Up Page of selected Test
+- [ ]  Sign In/Up Page
+  - [ ]  Middle Body
+    - [ ]  Tile: Login
+      - [ ]  Username or email  Field
+      - [ ]  Password Field
+      - [ ]  Forgot Password Link
+      - [ ]  Create account Link
+- [ ]  Create Account Page
+  - [ ]  Middle Body
+    - [ ]  Tile: Create Account
+      - [ ]  Email Field
+      - [ ]  Password Field
+      - [ ]  Repeat Password Field
+      - [ ]  Submit Button
+- [ ]  Forgot Password Page
+  - [ ]  Middle Body
+    - [ ]  Enter your Email &#8594; sed email link to change password
+    - [ ]  Submit Button
+- [ ]  Change Password Field
+  - [ ]  Password Field
+  - [ ]  Repeat Password Field
+  - [ ]  Submit
+- [ ]  Test Set-Up Page
+  - [ ]  Display `Test Title`
+  - [ ]  Display `Number of Questions`
+  - [ ]  Display `Tags` of Tests
+  - [ ]  Switch Button `Public vs Private` Sector
+    - [ ]  Logic Behind Switch
+  - [ ]  Text Near Switch explaining Difference between Public and Private Sectors
+  - [ ]  Switch Button Between `Exam and Training` Modes
+    - [ ]  Logic Behind Switch
+  - [ ]   Text Near Switch explaining Difference between Exam and Training Switch
+  - [ ]   Display `Expected Reward` for Test
+  - [ ]   Display `Expected Receiving  Time` for Reward
+  - [ ]   `Start` Button
+    - [ ]   Linking to Test Writing Page
+- [ ]  Test Writing Page
+  - [ ]  Header
+    - [ ]  Display `Current Number of Question` out of total Question Number ( ex. 23 from 40 )
+  - [ ]  Footer
+    - [ ]  Display `Time Left` if Exam Mode
+    - [ ]  Display `Previous and Next` Buttons
+    - [ ]  Display `Submit` Button
+  - [ ]  Body
+    - [ ]  `Question Statement` - Text Containing Problem that user must answer.
+    - [ ]  `Multiple Choice Answers` - also Text, can be selected only one. (Radio Type Input)
+      - [ ]  Highlight Correct answer after Input Submitted
+    - [ ]  `Explanation` - Showed after Answer Submitted, Contains Text.
+  - [ ]  Logic
+    - [ ]  After Pressing on `Previous and Next` Button Body shows next or previous Question. If First Question previous button does nothing. If Last Question next Question ask in prompt if user wants to exits. If yes - Goes to Results Page. If No - exits prompt and does nothing.
+    - [ ]  If One of `Multiple Choice Answers` selected and Pressed `Submit` button - If Test in Exam Mode, goes to Next Question or asks prompt (discrowned above) if last Question, else Test in Training Mode shows correct answer and Explanation. If None of Answers selected `Submit` button does nothing.
+- [ ]  Results Page
+  - [ ]  Header
+    - [ ]  Logo On Left
+      - [ ]  Link To Home Page
+  - [ ]  Body
+    - [ ]  Display `Percentage of Correctly Answered`
+    - [ ]  Display `Expected Reward` changed after
+    - [ ]  Display `Expected Receiving  Time` changed after
+    - [ ]  Display `Number of Users` Already Finished The Test
+- [ ]  Question Creating Page
+  - [ ]  Header
+    - [ ]  Logo On Left
+      - [ ]  Link To Home Page
+  - [ ]  Body
+    - [ ]  Question Statement  Input Field (max 3,000 characters)
+    - [ ]  `Create Answer Option` Button (First One is Always correct one, Answers are shuffled randomly)
+      - [ ]  Creates Answer Input Field (max 150 characters)
+    - [ ]  Explanation Input Field  (max 10,000 characters)
+    - [ ]  Tag Input Field ( each Tag max 150 characters) {`:` - subtags, `;` - separate tags from each other}
+  - [ ]  Footer
+    - [ ]  `Submit` Button
+      - [ ]  Prompt Opens with text "Review 5 Question to Submit your Question."
+      - [ ]  Goes To Test Review Page and Saves Question
+      - [ ]  Question is not Submitted and only saved if Deposit Cost is higher than users balance.
+    - [ ]  Text That Warns User, that he must review 5 Question in order to Question Be Submitted.
+    - [ ]  Display `Deposit Cost`
+- [ ]  Test Review Page
+  - [ ]  Same as Test Writing Page in addition:
+  - [ ]  + Footer
+    - [ ]  Select From:
+  
+      - question is correct
+      - questions is too easy
+      - question is duplicate
+      - question is not tagged correctly
+      - question is incorrect
+
+    - [ ]  After selecting from above `Submit Review` button.
+      - [ ]  Goes to next Question or If last in Review Queue goes to Home page and prompts "you successfully submitted Question, which is under review right now"
+    - [ ]  User must answer Review Question as all other usual Questions, before he can submit review.
+  
+- [ ]  Profile Page
+  - [ ]  Change Password Button
+  - [ ]  Question History
+  - [ ]  Show Balance Details
+  - [ ]  `Log out` Button
+
+## Step II - Monetization
+
+- [ ]  Add advertisements
+- [ ]  Add option to Buy Points on balance
+
+## Step III - Additional Features
+
+- [ ]  `Edit` Button on Question Review Page
+- [ ]  `Save` Button on Question Create Page
+- [ ]  Report Question or Give Feedback while writing Tests
+- [ ]  Search Users also at Homepage
+- [ ]  Comment section For Question Review
+- [ ]  Mark Question and Follow Comments on that Question
+- [ ]  Login/Sigh Up With Google, github, Facebook
+- [ ]  Develope rest API

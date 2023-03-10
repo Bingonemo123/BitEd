@@ -1,0 +1,84 @@
+/* https://medium.com/coding-blocks/css-padding-a-magic-wand-2b8a66b84ebe */
+.tile {
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    background-color: rgb(240, 235, 230);
+    padding: 10px;
+
+}
+
+.tile:hover {
+    border-style: dotted;
+}
+
+.img-container {
+    height: 22vh; 
+    max-height: 200px;
+    position: relative; 
+    background-color: black;
+}
+
+.tile_author {
+    color: #606060;
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: .875rem
+}
+
+.img_flex_box {
+    width: 100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img{
+    width: 100%; 
+    height: auto; 
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 1px;
+    position: absolute;
+}
+
+.tile_type{
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    background-color: white;
+    border-radius: 1px;
+    padding: 1px;
+    font-family: monospace;
+    max-height: 1.2rem;
+}
+
+.tile_total_questions {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background-color: white;
+    border-radius: 1px;
+    padding: 1px;
+    font-family: monospace;
+    max-height: 1.2rem;
+}
+
+.bubble_container {
+    position: relative;
+    height: 1.2rem;
+}
+
+.tile_title {
+    font-family: Georgia;
+    font-size: 1rem;
+    line-height: 1.375rem ;
+}
+
+.writes_and_crtdate {
+    color: #606060;
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: .875rem;
+}

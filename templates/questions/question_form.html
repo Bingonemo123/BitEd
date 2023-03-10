@@ -1,0 +1,37 @@
+{% extends 'navbar/navbar.html' %}
+{% load static %}
+
+{% block head_links %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'questions/question_form.css' %}">
+{% endblock head_links %}
+
+
+{% block content %}
+    <form method="post" action="" id="form-container" > 
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        First Choice is Correct. Choices will be presented in random order.
+
+        <p></p>
+
+        {{ non_form_errors }}
+        {{ formset.management_form }}
+        {% for choice in formset %}
+        <div class='choice-form'>
+            {{ choice.as_table }}
+            <button id='form-{{ forloop.counter }}-delete-button' class="delete-form" type="button">Delete</button>
+            <p></p>
+        </div>
+        {% endfor %}
+        <button id="add-form" type="button">Add Another Choice</button>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock content %}
+
+
+{% block body_scripts %}
+    {{ block.super }}
+    <script src="{% static 'questions/question_form.js' %}"> </script>
+{% endblock body_scripts %}

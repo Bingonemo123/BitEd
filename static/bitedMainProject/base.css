@@ -1,0 +1,16 @@
+body {
+    --color-primary: white hsl(149, 100%, 9%);
+    --color-primary-dark: #000000;
+    --color-secondary: #252c6a;
+    --color-error: #cc3333;
+    --color-success: #4bb544;
+    /* https://stackoverflow.com/questions/39033070/css-color-vs-background-color-vs-background */
+    background: var(--color-primary);
+}
+
+html body {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    font-family: inherit;
+}

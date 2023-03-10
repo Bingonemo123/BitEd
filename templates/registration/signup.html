@@ -1,0 +1,34 @@
+<html>
+<title>SignUp Page</title>
+<head>
+    <style>
+        .login-customusercreationform-error{
+            color: red;
+        }
+        .errorlist{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed, please login with an ccount that has access.</p>
+    {% else %}
+        <p>Please login to see this site.</p>
+    {% endif %}
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+        {{ form.as_p }}
+        {{ formset.as_p }}
+    <input type="submit" class='btn btn-primary' value='Create Account'>
+    <input type="hidden" name='text' value=" {{ next }}">
+
+    <input type='button' class='btn btn-primary btn-signup'
+        value='Login' onclick="window.location.href='{% url 'login' %}'"> 
+</form>
+
+</body>                             

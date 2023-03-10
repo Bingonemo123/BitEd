@@ -1,0 +1,51 @@
+.navigation-bar{
+    --bs-sm: 0 1px 2px hsla(0,0%,0%,0.1), 0 1px 4px hsla(0, 0%, 0%, 0.1), 0 2px 8px hsla(0, 0%, 0%, 0.1);
+    top: 0;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* gap: 2em;  */
+    column-gap: 2em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: linear-gradient(74.84deg,#00C805 18.12%,#C3F53C 81.46%);;
+    min-height: 3.125rem;
+    box-shadow: var(--bs-sm);
+    z-index: 3;
+    padding-right: 1.57vw;
+    padding-left: .57vw;
+}
+
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold
+}
+.search-box {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 300px;
+    display: inline-flex;
+}
+
+.tbox {
+    font-family: monospace;
+    flex: 1;
+}
+
+
+.navbar-link {
+    color: black;
+    text-decoration:none;
+}
+
+.nav-bar.balance{
+    color: black;
+}
+
+button {
+    border-color: orange;
+    font-family: monospace;
+}

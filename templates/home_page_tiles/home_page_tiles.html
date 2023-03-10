@@ -1,0 +1,9 @@
+{% comment %} not displayed as view {% endcomment %}
+{% for object in home_page_tiles %}
+
+<a href="{% url 'tiles:tile_detail_view' pk=object.id %}" style='text-decoration: none'>
+{% include 'home_page_tiles/base_home_page_tile.html' %}
+</a>
+{% endfor %}
+
+
