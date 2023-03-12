@@ -24,13 +24,27 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://realpython.com/django-nginx-gunicorn/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+try: 
+    SECRET_KEY = os.environ["SECRET_KEY"]
+except KeyError:
+    SECRET_KEY = None
+if SECRET_KEY is None:
+    SECRET_KEY = os.getenv('SECRET_KEY')
+if SECRET_KEY is  None:
+    SECRET_KEY = env('SECRET_KEY')
 if SECRET_KEY is None:
     SECRET_KEY = 'django-insecure-_+b48@r2t#ttge5s9(08j^rikbh!*xto$4)a9=^l&7@=q=4_*q'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+try: 
+    DEBUG = os.environ["DEBUG"]
+except KeyError:
+    DEBUG = None
+if SECRET_KEY is None:
+    DEBUG = os.getenv('DEBUG')
 if DEBUG is None:
-    DEBUG = True    
+    DEBUG = env('DEBUG')
+if  DEBUG is None:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['http://www.tvildiani.com', '37.110.175.239', 
                 'tvildiani.com', 'www.tvildiani.com', 
@@ -131,7 +145,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_ROOT = '/static/'
+STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
