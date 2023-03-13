@@ -20,9 +20,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home_page.urls'), name='homepage'),
-    path('dj_auth/', include('user_accounts.urls')),
+    path('', include('home_page.urls')), # TODO: Rendame home_page app to home
+    path('', include('user_accounts.urls')), # TODO: Separate user_accounts in registration and profile
+    path('', include('testwriting.urls')),
     path('tiles/', include('tiles.urls')),
-    path('', include('testwriting.urls'), name='testwriting'),
-    path('create/', include('questions.urls'), name='create')
+    path('create/', include('questions.urls')),
+    path('verification/', include('verify_email.urls'))
 ]

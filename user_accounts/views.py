@@ -1,70 +1,27 @@
 
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-from django.contrib import messages
 from .models import Profile
-from .forms import CustomUserCreationForm, FormsetUserCreationForm
+from .forms import CustomUserCreationForm
 from django.views import generic
 from django.urls import reverse_lazy
 from tiles.models import WriteRequestData
 from questions.models import Question
-from user_accounts.forms import ActivateEmailMixin
-from django.utils.encoding import force_str
-from base64 import urlsafe_b64decode
-from user_accounts.tokens import account_activation_token
+from django.contrib import messages
+from verify_email.email_handler import send_verification_email
 
 # Create your views here.
-class SignUpView(generic.CreateView, ActivateEmailMixin):
+class SignUpView(generic.FormView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = "registration/signup.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.POST:
-            context['formset'] = FormsetUserCreationForm(self.request.POST) 
-        else:
-            context['formset'] = FormsetUserCreationForm() 
-
-        return context
-
     def form_valid(self, form):
-        result = super().form_valid(form)
-        self.send_activation_email(self.object, 
-                                form.cleaned_data.get('email'))
-       
-        inlineformset = FormsetUserCreationForm(self.request.POST,
-                                instance=self.object)
-
-        if inlineformset.is_valid():
-            inlineformset.save()
-        else: 
-            print(inlineformset.errors)
-            print(inlineformset.non_form_errors())
-        
-        return result
-    
-def activate(request, uidb64, token):
-    User = get_user_model()
-    try:
-        uid = force_str(urlsafe_b64decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-
-        messages.success(request, 'Thank you for your email confirmation. Now you can login your account.')
-        return redirect('login')
-    else:
-        messages.error(request, 'Activation link is invalid!')
-    
-    return redirect('load_home_page')
-    
+        inactive_user = send_verification_email(self.request, form)   
+        messages.success(self.request, f'Dear {inactive_user}, \
+                         please go to you email { form.cleaned_data.get("email")} inbox and click on \
+                         received activation link to confirm \
+                         and complete the registration. Note: Check your spam folder.')
+        return super().form_valid(form)    
 
 class UserAccountUpdateView(generic.UpdateView):
     model = User    

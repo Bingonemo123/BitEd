@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.core.validators import EmailValidator
 
 from django.core.exceptions import ValidationError
@@ -11,14 +10,6 @@ from django.forms import ModelForm, inlineformset_factory
 from django.forms import BaseInlineFormSet
 from django.forms import inlineformset_factory
 
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
-
-
-from .tokens import account_activation_token
 from .models import Profile
 
 # info: https://www.youtube.com/watch?v=HdrOcreAXKk add extra registration fields
@@ -34,29 +25,6 @@ def email_unique (value):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-
-class ActivateEmailMixin:
-
-    mail_subject = 'Activate your user account.'
-
-    def send_activation_email(self, user, to_email):
-        message = render_to_string('registration/activate_account.html', {
-        'user': user.username,
-        'domain': get_current_site(self.request).domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': account_activation_token.make_token(user),
-        'protocol': 'https' if self.request.is_secure() else 'http'
-    })
-        email = EmailMessage(self.mail_subject, message, to=[to_email])
-        if email.send():
-            messages.success(self.request, f'Dear {user}, please go to you email {to_email} inbox and click on \
-                received activation link to confirm and complete the registration. Note: Check your spam folder.')
-        else:
-            messages.error(self.request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
-
-    def activate_email_msg(self, user, to_email):
-        messages.success(self.request, f'Dear {user}, please go to you email {to_email} inbox and click on \
-        received activation link to confirm and complete the registration. Note: Check your spam folder.')
 
 class CustomUserCreationForm (UserCreationForm):
     error_css_class = 'login-customusercreationform-error'
