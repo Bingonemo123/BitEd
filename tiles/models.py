@@ -1,7 +1,22 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from home_page_tiles.models import HomePageTile
+from questions.models import Question
+
 # Create your models here.
+TYPES_OF_TILES = (
+    ('T', 'Tile/Tag'),
+    ('B', 'Block'),
+    ('O', 'Official Test'),
+    ('S', 'Subject'),
+    ('U', 'Organization'), 
+    ('K', 'Book'), 
+    ('C', 'Chapter'), 
+    ('P', 'Page'), 
+    ('C', 'Course'), 
+    ('R', 'Research Paper'), 
+    ('Q', 'Question')
+
+)
 
 BLOCK_MODE_CHOICES  = (
     (1, 'Test'),
@@ -13,6 +28,35 @@ BLOCK_SECTOR_CHOICES = (
     (2, 'Public')
 )
 
+class Tile(models.Model):
+    # static data
+    tile_headline = models.CharField(max_length=128) 
+    pointer_url = models.URLField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    subtype_of_tile = models.IntegerField(blank=True, null=True)
+    img_url = models.URLField(null=True, blank=True)
+    author = models.ForeignKey(get_user_model(), 
+                               null=True, blank=True,
+                                 on_delete=models.SET_NULL)
+    type_of_tile_char = models.CharField(max_length=1, choices=TYPES_OF_TILES)
+    
+    # calculated data
+    expected_reward = models.FloatField(null=True, blank=True)
+    total_questions = models.IntegerField(blank=True, null=True)
+    total_pass = models.IntegerField(default=0)
+    total_writes = models.IntegerField(default=0)
+
+    # Relations
+    children = models.ManyToManyField('self')
+    questions = models.ManyToManyField(Question)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self) -> str:
+        return self.tile_headline
+
 class WriteRequestData(models.Model):
     requested_by = models.ForeignKey(get_user_model(), null=True, on_delete=models.SET_NULL)
     expected_reward = models.FloatField(null=True, default=1)
@@ -23,7 +67,25 @@ class WriteRequestData(models.Model):
     finished = models.BooleanField(default=False)
     finished_at = models.DateTimeField(null=True, blank=True)
     total_correct = models.IntegerField(null=True, blank=True)
-    tile_created_from = models.ForeignKey(HomePageTile, null=True, blank=True,  on_delete=models.SET_NULL)
+    tile_created_from = models.ForeignKey(Tile, null=True, blank=True,  on_delete=models.SET_NULL)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+"""Hierarchy
+Individual  Question
+x Tiles -->      Collection of Question by tiles [Goto: Configuration - Write Random Block based on this tiles]
+xx Blocks -->   Random Collection of Questions limited by number [bl]-block limit
+                Can be Grouped by tiles [Goto: Configuration - Write specific Block ]
+                Example 'Hardest Question on USMLE STEP 2'
+xxx Official Test --> Group of Blocks or tiles in Subject; Official Test is like Tiles;
+xxxx Subject --> Goto
+""" 
+
+# Tiles can be for:
+# 1. Individual Question --> 
+# 2. For Custom Blocks -->
+# 3. For Official Test -->
+# 4. For Subjects -->
+# 5. For Organization/ University/ -->

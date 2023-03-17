@@ -3,12 +3,12 @@
 
 {% block head_links %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'home_page_tiles/base_home_page_tile.css'%}">
+    <link rel="stylesheet" href="{% static 'tiles/base_tile_details.css'%}">
     <link rel="stylesheet" href="{% static 'tiles/tile_view.css'%}">
 {% endblock head_links %}
 
 {% block content %}
-    {% include 'home_page_tiles/base_home_page_tile.html' %}
+    {% include 'tiles/base_tile_details.html' %}
 
     <div class='block-settings'>
         <form action='' method="post">

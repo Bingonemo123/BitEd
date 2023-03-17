@@ -15,15 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
+    path('', RedirectView.as_view(pattern_name='home') ),
     path('admin/', admin.site.urls),
-    path('', include('home_page.urls')), # TODO: Rendame home_page app to home
-    path('', include('user_accounts.urls')), # TODO: Separate user_accounts in registration and profile
-    path('', include('testwriting.urls')),
+    path('home/', include('home.urls')),
+    path('registration/', include('registration.urls')),
+    path('profile/', include('profile.urls')), 
+    path('writing/', include('writing.urls')),
     path('tiles/', include('tiles.urls')),
-    path('create/', include('questions.urls')),
+    path('question/', include('questions.urls')),
     path('verification/', include('verify_email.urls'))
 ]

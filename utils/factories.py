@@ -2,8 +2,8 @@ import factory
 import factory.random
 from factory.django import DjangoModelFactory
 
-from home_page_tiles.models import HomePageTile
-from user_accounts.models import Profile, User
+from tiles.models import Tile
+from profile.models import Profile, User
 factory.random.reseed_random('BHFOjfjeorhg')
 
 class UserFactory(DjangoModelFactory):
@@ -24,13 +24,10 @@ class ProfileFactory(DjangoModelFactory):
         model = Profile
 
     user = factory.SubFactory(UserFactory)
-    id_user = factory.Faker('random_int')
-    location = factory.Faker('address')
     
-
-class HomePageTileFactory (DjangoModelFactory):
+class TileFactory (DjangoModelFactory):
     class Meta:
-        model = HomePageTile
+        model = Tile
 
 
     tile_headline = factory.Faker("sentence")
@@ -48,8 +45,3 @@ class HomePageTileFactory (DjangoModelFactory):
     total_pass = factory.Faker("random_int") 
     total_writes = factory.Faker("random_int") 
 
-"""    
-    # tags = models.ManyToManyField(TilesTag)
-    # json_data_tags = models.JSONField(default=dict)
-    # subtype_of_tile = models.IntegerField(blank=True, null=True)
-"""

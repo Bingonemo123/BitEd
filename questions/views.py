@@ -1,45 +1,40 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, DetailView
+from django.views.generic import CreateView, UpdateView
 from django.views.generic.edit import FormView
 from django.views.generic.detail import SingleObjectMixin
+from django.urls import reverse_lazy
 
-from .forms import SelectTagsFormset
-from django.forms import ModelForm, formset_factory
+from questions.forms import SelectTilesFormset
+from questions.forms import basic_formset
+from questions.forms import ChoiceFormset
+from questions.forms import QuestionChoiceForm
 from django.forms import modelformset_factory
 
 
-from .models import Question
-from .models import QuestionChoice
-from home_page_tiles.models import HomePageTile
+from questions.models import Question
+from questions.models import QuestionChoice
+from tiles.models import Tile
 
 # Create your views here.
-# TODO: fix formsets [custom validation 
-# empty_permitted but validate min manually]
-
-class QuestionChoiceForm(ModelForm):
-
-    class Meta:
-        model = QuestionChoice
-        fields = ['choice_text',]
-
-basic_formset = formset_factory(QuestionChoiceForm, min_num=2,
-                                        validate_min=True, extra=0)
-
-class ChoiceFormset(basic_formset):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for form in self.forms:
-            form.empty_permitted = False
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
     model = Question
-    login_url='/dj_auth/login/'
 
     fields = ['question_title', 
               'question_body', 
               'question_explanation']
-    
-    success_url = '/create/select_tags/'
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = basic_formset(self.request.POST,
+                                               error_messages={
+                                            'too_few_forms': " Please submit at least %(num)d choices."
+                                               })
+            context['non_form_errors'] = context['formset'].non_form_errors()
+        else:
+           context['formset'] = basic_formset
+        return context
     
     def form_valid(self, form):
         self.formset = ChoiceFormset(self.request.POST)
@@ -66,7 +61,7 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
                 choice_obj.save()
             
         # Create Tile
-        tile_obj = HomePageTile(
+        tile_obj = Tile(
             tile_headline = form.cleaned_data['question_title'],
             author = self.request.user,
             type_of_tile_char='Q',
@@ -79,20 +74,8 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['formset'] = basic_formset(self.request.POST,
-                                               error_messages={
-                                            'too_few_forms': " Please submit at least %(num)d choices."
-                                               })
-            context['non_form_errors'] = context['formset'].non_form_errors()
-        else:
-           context['formset'] = basic_formset
-        return context
-    
-    def get_success_url(self):
-        return self.success_url + str(self.object.pk)
+    def get_success_url(self) -> str:
+        return reverse_lazy('select_tiles', kwargs={"pk":self.object.pk})
 
 
 class MyQuestionsUpdate(UpdateView):
@@ -101,7 +84,6 @@ class MyQuestionsUpdate(UpdateView):
               'question_body', 
               'question_explanation']
     
-    success_url = '/'
     basic_modelformset = modelformset_factory(QuestionChoice, 
                                          form=QuestionChoiceForm, extra=0)
         
@@ -143,13 +125,16 @@ class MyQuestionsUpdate(UpdateView):
                 context['formset'] = getmodelformset
             return context
     
+    def get_success_url(self) -> str:
+        return reverse_lazy('select_tiles', kwargs={"pk":self.object.pk})
+    
 
-class SelectTags(FormView,  SingleObjectMixin):
-    ''' For selecting Tags after creating Question '''
+class SelectTiles(FormView,  SingleObjectMixin):
+    ''' For selecting Tiles after creating Question '''
     model = Question
-    template_name = 'home_page_tiles/homepagetile_list.html'
-    form_class = SelectTagsFormset
-    success_url = '/'
+    template_name = 'tiles/tile_form_list.html'
+    form_class = SelectTilesFormset
+    success_url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

@@ -61,11 +61,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
-    'user_accounts',
-    'home_page',
-    'home_page_tiles', # TODO: combine with tiles
+    'home',
+    'registration',
+    'profile',
     'tiles',
-    'testwriting', # TODO: rename test_writing or writing
+    'writing',
     'questions'
 ]
 
@@ -159,7 +159,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LOGIN_URL = 'login'
+LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL= '/'
 LOGOUT_REDIRECT_URL = '/'
