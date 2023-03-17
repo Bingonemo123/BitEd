@@ -12,6 +12,7 @@ from tiles.models import WriteRequestData
 from writing.models import UserAnswer
 
 from tiles.forms import writeRequestDataForm
+from tiles.forms import TileCreateForm
 
 # Create your views here.
 class TileDetailView(DetailView):
@@ -84,7 +85,18 @@ class TileView(View):
 
 class TileCreateView(LoginRequiredMixin, CreateView):
     model = Tile
-    fields = ['tile_headline', 'type_of_tile_char']
+    form_class = TileCreateForm
     template_name = 'tiles/tile_create.html'
-    success_url = reverse_lazy('user_update')
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('user_update', kwargs={'pk':self.request.user.pk})
+    
+    def form_valid(self, form):
+        tile_obj = form.save(commit=False)
+        tile_obj.author = self.request.user
+        tile_obj.save()
+        for parent_tile in form.cleaned_data['parents']:
+            parent_tile.children.add(tile_obj)
+            parent_tile.save()
+        return super().form_valid(form)
 

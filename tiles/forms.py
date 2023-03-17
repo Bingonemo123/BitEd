@@ -1,8 +1,10 @@
 from django import forms
 from django.core.exceptions import ValidationError
+
 from tiles.models import BLOCK_MODE_CHOICES
 from tiles.models import BLOCK_SECTOR_CHOICES
 from questions.models import Question
+from tiles.models import Tile
 from tiles.rand import get_random_questions
 
 class writeRequestDataForm(forms.Form):
@@ -19,3 +21,17 @@ class writeRequestDataForm(forms.Form):
             raise ValidationError('Not Enough Questions in Database', code='invalid')
         else:
             return self.cleaned_data['block_total_questions']
+
+
+#### Tile Create Form #####
+
+class TileCreateForm(forms.ModelForm):
+    parents = forms.ModelMultipleChoiceField(
+        queryset=Tile.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    class Meta:
+        model = Tile
+        fields = ['tile_headline', 'type_of_tile_char']

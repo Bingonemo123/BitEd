@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from questions.models import Question
-
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 TYPES_OF_TILES = (
     ('T', 'Tile/Tag'),
@@ -28,9 +29,18 @@ BLOCK_SECTOR_CHOICES = (
     (2, 'Public')
 )
 
+def headline_unique(value):
+    if Tile.objects.filter(tile_headline=value).exists():
+        raise ValidationError(
+            _(f'{value} already Exists'),
+            params={'value': value},
+        )
+
+
 class Tile(models.Model):
     # static data
-    tile_headline = models.CharField(max_length=128) 
+    tile_headline = models.CharField(max_length=128,
+                                     validators=[headline_unique]) 
     pointer_url = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     subtype_of_tile = models.IntegerField(blank=True, null=True)
