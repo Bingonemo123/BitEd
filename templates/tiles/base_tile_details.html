@@ -67,9 +67,12 @@
         </div>
     {% endif %}
     
-    {% if object.tiles %}
-        <div class='tiles_tiles'>
-            {{ object.tiles }}
+    {% if object.children %}
+        <div class='tiles_children'>
+            SubTiles: 
+            {% for child_tile in object.children.all %}
+                {{ child_tile }}
+            {% endfor %}
         </div>
     {% endif %}
 </figure>

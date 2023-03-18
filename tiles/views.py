@@ -1,5 +1,6 @@
 from django.views import View
 from django.views.generic.detail import DetailView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -84,6 +85,7 @@ class TileView(View):
         return view(request, *args, **kwargs)
 
 class TileCreateView(LoginRequiredMixin, CreateView):
+    '''Currently in Profile'''
     model = Tile
     form_class = TileCreateForm
     template_name = 'tiles/tile_create.html'
@@ -100,3 +102,9 @@ class TileCreateView(LoginRequiredMixin, CreateView):
             parent_tile.save()
         return super().form_valid(form)
 
+class MyTilesListView (ListView):
+    model = Tile
+
+    def get_queryset(self) :
+        quesryset =  super().get_queryset()
+        return quesryset.filter(author=self.request.user)

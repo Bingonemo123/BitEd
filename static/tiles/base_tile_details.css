@@ -7,6 +7,7 @@
     cursor: pointer;
     background-color: rgb(240, 235, 230);
     padding: 10px;
+    max-width: 350px;
 
 }
 

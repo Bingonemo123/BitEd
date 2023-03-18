@@ -27,7 +27,6 @@ function loadContent() {
     if (scrollMargin <= 200 && end_pagination === false && block_request === false){
         block_request = true;
         page += 1;
-        console.log('scrolled');
 
         var xhttp = new XMLHttpRequest();
 
@@ -35,23 +34,15 @@ function loadContent() {
             var jsonTiles = JSON.parse(this.responseText);
             // https://stackoverflow.com/questions/7327056/appending-html-string-to-the-dom
             var contentEl = document.querySelector('.content-container');
-            console.log(contentEl);
             contentEl.insertAdjacentHTML( 'beforeend', jsonTiles.scroll_content);
             block_request = false;
         }
-    
-
         xhttp.open('GET', '/', true);
         xhttp.setRequestHeader("X-CSRFToken", csrftoken);
         xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhttp.send();
-
-        console.log('Req')
         return true
-        
         }
-
-
     };
 var page = 1;
 var block_request = false;
