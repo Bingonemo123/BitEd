@@ -14,6 +14,7 @@ from writing.models import UserAnswer
 
 from tiles.forms import writeRequestDataForm
 from tiles.forms import TileCreateForm
+from tiles.forms import InlineSubTilesListFormSet
 
 # Create your views here.
 class TileDetailView(DetailView):
@@ -24,9 +25,9 @@ class TileDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = writeRequestDataForm()
+        context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
         return context
-
-
+    
 class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
     '''For Submiting WRD'''
     template_name = 'tiles/tile_view.html'
@@ -34,13 +35,40 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
     model = Tile
 
     # from Formview how to pass data to form ? widget
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['inline_formset'] = self.formset
+        return context
+    
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
         self.object = self.get_object()
+        self.formset = InlineSubTilesListFormSet(self.request.POST, 
+                                                 instance=self.object)
+        
+        # if one subtile is selected 
+        if any([subtileform.get('is_selected', False)
+                 for subtileform in self.formset.cleaned_data]):
+            self.questions_queryset = Tile.objects.none()
+            for subtileform in self.formset.cleaned_data:
+                if subtileform.get('is_selected', False):
+                    self.questions_queryset |= subtileform['id'].from_tile.questions.all()
+        else: # else only Tiles Questions
+            self.questions_queryset = self.object.questions.all()
+
         return super().post(request, *args, **kwargs)
+    
+    def get_form_kwargs(self):
+        kwargs =  super().get_form_kwargs()
+        kwargs['questions_queryset'] = self.questions_queryset
+        return kwargs
 
     def form_valid(self, form):
+
+        ######## SUBTILES #########
+
+        ######## SUBTILES #########
         
         self.wrd = WriteRequestData(
             requested_by = self.request.user,
@@ -72,7 +100,6 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         return reverse_lazy('writing:writing', 
                        kwargs={'pk': self.first_question.pk})
         
-
 
 class TileView(View):
 

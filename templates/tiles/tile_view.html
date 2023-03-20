@@ -17,4 +17,16 @@
         <input type="submit" class='btn btn-primary' value='Submit'>
         <input type="hidden" name='text' value=" {{ next }}">
     </div>
+
+    <div class='subtiles'>
+        Select SubTiles:
+        {{ inline_formset.management_form }}
+        {% for tile in inline_formset %}
+            <div class='choice-form'>
+                <p></p>
+                {{ tile.instance.from_tile }}
+                {{ tile.as_table }}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}
