@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
     'home',
@@ -100,6 +101,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bitedMainProject.wsgi.application'
 
+DEFAULT_DOMAIN = 'http://tvildiani.com'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
