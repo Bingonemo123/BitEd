@@ -1,24 +1,24 @@
-{% extends 'navbar/navbar.html' %}
+{% extends "navbar/navbar.html" %}
 {% load static %}
 
 {% block head_links %}
 {{ block.super }}
-    <link rel="stylesheet" href="{% static 'writing/writing.css'%}">
+    <link rel="stylesheet" href="{% static 'writing/writing.css' %}">
 {% endblock head_links %}
 
 {% block content %}
-<div class='question_body'>
-{{ object.answer_to.question_body }}
+<div class="question_body">
+{{ object.answer_to.question_body | safe }}
 </div>
 
-<div class='answers_flex'>
-    <div class='answers_box'>
+<div class="answers_flex">
+    <div class="answers_box">
         <form action="" method='post'>
         {% csrf_token %}
         <p><label>{{ form.choosen_answer.label }}:</label></p>
         {% for radio in form.choosen_answer %}
-            {% if radio.choice_label  == correct_answer %}
-                <div class='correct_green'>{{ radio }}</div>
+            {% if radio.choice_label == correct_answer %}
+                <div class="correct_green">{{ radio }}</div>
             {% else %}
                 <div>{{ radio }}</div>
             {% endif %}
@@ -29,8 +29,8 @@
     </form></div>
 </div>
 
-<div class='explanation question_body'>
-{{ object.answer_to.question_explanation}}
+<div class="explanation question_body">
+{{ object.answer_to.question_explanation | safe }}
 </div>
 
 {% endblock content %}

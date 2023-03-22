@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class='question_body'>
-{{ object.answer_to.question_body }}
+{{ object.answer_to.question_body|safe }}
 </div>
 
 <div class='answers_flex'>
