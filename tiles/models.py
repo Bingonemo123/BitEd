@@ -57,8 +57,8 @@ class Tile(models.Model):
     total_writes = models.IntegerField(default=0)
 
     # Relations
-    children = models.ManyToManyField('self')
-    questions = models.ManyToManyField(Question)
+    children = models.ManyToManyField('self', blank=True)
+    questions = models.ManyToManyField(Question, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

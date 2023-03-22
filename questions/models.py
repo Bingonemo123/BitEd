@@ -23,17 +23,7 @@ class QuestionChoice (models.Model):
     choice_to = models.ForeignKey(Question, null=True, 
                                             blank=True, 
                                             on_delete=models.CASCADE)
-    choice_id = models.IntegerField()
-    choice_text = models.CharField(max_length=150, 
-                                   validators=[MinLengthValidator(1)])
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['choice_to', 'choice_id'],
-                name='unique choice'
-                )
-            ]
+    choice_text = models.TextField(validators=[MinLengthValidator(1)])
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

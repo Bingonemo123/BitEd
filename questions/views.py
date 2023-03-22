@@ -57,11 +57,10 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
                     question_obj.correct_choice = choice_obj    
                     correct_answer_setted = True 
                 choice_obj.choice_to = question_obj
-                choice_obj.choice_id = idx
                 choice_obj.save()
             
         # Create Tile
-        tile_obj = Tile(
+        '''tile_obj = Tile(
             tile_headline = form.cleaned_data['question_title'],
             author = self.request.user,
             type_of_tile_char='Q',
@@ -70,7 +69,7 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
 
         )
         tile_obj.save()
-        tile_obj.questions.add(question_obj)
+        tile_obj.questions.add(question_obj)'''
 
         return super().form_valid(form)
     
@@ -106,7 +105,6 @@ class MyQuestionsUpdate(UpdateView):
                     self.object.correct_choice = choice_obj    
                     correct_answer_setted = True 
                 choice_obj.choice_to = self.object
-                choice_obj.choice_id = idx
                 choice_obj.save()
         return super().form_valid(form)
 
@@ -145,6 +143,11 @@ class SelectTiles(FormView,  SingleObjectMixin):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
+        if not any([subtiles.get('is_selected', False) 
+                for subtiles in form.cleaned_data]):
+            root_tile = Tile.objects.filter(get='root')
+            root_tile.questions.add(self.object)
+            
         form.save()
         return super().form_valid(form)
     

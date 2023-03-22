@@ -19,7 +19,6 @@ def rnd_tiles_to_context ():
         tile_form['type_of_tile_char'] = dict(TYPES_OF_TILES)[tile.type_of_tile_char]
         tile_form['tile_headline'] = tile.tile_headline
         tile_form['author'] = tile.author
-        tile_form['children'] = tile.children
         tile_form['created_at'] = tile.created_at
         tile_form['expected_reward'] = tile.expected_reward
         tile_form['total_pass'] = tile.total_pass

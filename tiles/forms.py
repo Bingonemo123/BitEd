@@ -1,10 +1,10 @@
 from django import forms
 from django.forms import inlineformset_factory
+from django.forms import formset_factory
 from django.core.exceptions import ValidationError
 
 from tiles.models import BLOCK_MODE_CHOICES
 from tiles.models import BLOCK_SECTOR_CHOICES
-from questions.models import Question
 from tiles.models import Tile
 from tiles.rand import get_random_questions
 
@@ -39,7 +39,21 @@ InlineSubTilesListFormSet = inlineformset_factory(Tile, Tile.children.through,
                                                   fk_name='to_tile',
                                                   fields = [],
                                                   can_delete=False,
-                                                  extra =0)
+                                                  extra=0)
+
+class PersonalQueryQuestionsForm(forms.Form):
+
+    personal_filter_choices = (
+        ('unseen', 'unseen'),
+        ('mistakes', 'mistakes'),
+        ('omitted', 'omitted'),
+        ('correct', 'correct')
+    )
+
+    personal_filter = forms.MultipleChoiceField(choices=personal_filter_choices,
+                                                  required=False)
+
+PersonalFormset = formset_factory(PersonalQueryQuestionsForm)
 
 #### Tile Create Form #####
 

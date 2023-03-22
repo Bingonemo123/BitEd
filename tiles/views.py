@@ -15,6 +15,7 @@ from writing.models import UserAnswer
 from tiles.forms import writeRequestDataForm
 from tiles.forms import TileCreateForm
 from tiles.forms import InlineSubTilesListFormSet
+from tiles.forms import PersonalFormset
 
 # Create your views here.
 class TileDetailView(DetailView):
@@ -26,6 +27,7 @@ class TileDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = writeRequestDataForm()
         context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
+        context['personal_formset'] = PersonalFormset()
         return context
     
 class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):

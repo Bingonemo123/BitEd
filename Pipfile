@@ -8,6 +8,8 @@ django = "*"
 factory-boy = "*"
 django-environ = "*"
 django-verify-email = "*"
+pyyaml = "*"
+djlint = "*"
 
 [dev-packages]
 

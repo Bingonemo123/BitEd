@@ -1,3 +1,11 @@
 html, body {
     margin: 0;
 }
+
+label{
+    display: block;
+}
+
+#form-container{
+    margin: 10px;
+}
