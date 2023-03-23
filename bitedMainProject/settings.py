@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
     'home',
