@@ -49,9 +49,14 @@ function sendGetAjax(mnode){
             subAccordion_button.setAttribute('aria-expanded', 'false');
             subAccordion_button.setAttribute('aria-controls', `tile_target-${subtile['pk']}`);
             subAccordion_button.textContent = subtile['fields']['tile_headline'];
+            subAccordion_button.innerHTML += "&nbsp";
+
             subAccordion_button.addEventListener('click', function() {
                 sendGetAjax(this);
             });
+
+            var link_button = `<a href="/tiles/${subtile['pk']}/"><img height="20" width="20" src="/static/map/icon/green-play-button-icon.svg" alt=""></a>`
+            subAccordion_button.innerHTML += link_button;
 
             subAccordion_item.appendChild(subAccordion_button);
 

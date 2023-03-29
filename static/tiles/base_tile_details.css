@@ -83,3 +83,16 @@ img{
     font-family: "Roboto", "Arial", sans-serif;
     font-size: .875rem;
 }
+
+.tile_total_writes{
+    display: inline;
+}
+
+.space-holder-dot {
+    margin: 0 4px;
+    display: inline;
+}
+
+.tile_creation_date {
+    display: inline;
+}

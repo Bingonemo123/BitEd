@@ -9,6 +9,7 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
 from tiles.models import Tile
+from tiles.models import TYPES_OF_TILES
 from tiles.models import WriteRequestData
 from writing.models import UserAnswer
 
@@ -25,6 +26,7 @@ class TileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['object'].type_of_tile_char = dict(TYPES_OF_TILES)[self.object.type_of_tile_char]
         context['form'] = writeRequestDataForm()
         context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
         context['personal_formset'] = PersonalFormset()

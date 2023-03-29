@@ -1,54 +1,45 @@
 
-<figure class='tile' style=''>
-    
-    {% comment %} image {% endcomment %}
-
-    {% if object.img_url %}
-        <div class='img-container'>                       
-            <div class="img_flex_box">
-                <img src="{{ object.img_url }}" alt="">
+<figure class="tile">
+    {% comment "Tile Header" %}{% endcomment %}
+    <div class="bubble_container">   
+        {% if object.type_of_tile_char %}
+            <div class="tile_type" >
+                {{ object.type_of_tile_char }}
             </div>
-    {% else %}
-        <div class='bubble_container' style='position: relative;'>   
-    {% endif %}
-            {% if object.type_of_tile_char %}
-                <div class='tile_type' >
-                    {{ object.type_of_tile_char }}
-                </div>
-            {% endif %}
+        {% endif %}
 
-            {% if object.total_questions %}
-                <div class="tile_total_questions" >
-                    Total {{ object.total_questions }}
-                </div>
-            {% endif %}
-        </div>
+        {% if object.total_questions %}
+            <div class="tile_total_questions" >
+                Total {{ object.total_questions }}
+            </div>
+        {% endif %}
+    </div>
 
     {% comment %} title {% endcomment %}
 
     {% if object.tile_headline %}
-        <div class='tile_title'> 
+        <div class="tile_title"> 
             {{ object.tile_headline }}
         </div>
     {% endif %}
     
     {% if object.author %}
-        <div class='tile_author'> 
+        <div class="tile_author"> 
             {{ object.author }}
         </div>
     {% endif %}
 
     <div class="writes_and_crtdate">
         {% if object.total_writes %}
-            <div class="tile_total_writes" style='display: inline;'>
+            <div class="tile_total_writes">
                 {{ object.total_writes }} writes
             </div> 
         {% endif %}
 
-        <span style='margin: 0 4px; display: inline'>•</span>
+        <span class="space-holder-dot">•</span>
 
         {% if object.created_at %}
-            <div class="tile_creation_date" style='display: inline;'>
+            <div class="tile_creation_date">
                 {{ object.created_at|timesince }} ago
             </div>
         {% endif %}
