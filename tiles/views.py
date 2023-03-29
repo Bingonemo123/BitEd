@@ -126,9 +126,6 @@ class TileCreateView(LoginRequiredMixin, CreateView):
         tile_obj = form.save(commit=False)
         tile_obj.author = self.request.user
         tile_obj.save()
-        for parent_tile in form.cleaned_data['parents']:
-            parent_tile.children.add(tile_obj)
-            parent_tile.save()
         return super().form_valid(form)
 
 class MyTilesListView (ListView):

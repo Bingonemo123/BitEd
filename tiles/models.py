@@ -57,7 +57,7 @@ class Tile(models.Model):
     total_writes = models.IntegerField(default=0)
 
     # Relations
-    children = models.ManyToManyField('self', blank=True)
+    parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     questions = models.ManyToManyField(Question, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

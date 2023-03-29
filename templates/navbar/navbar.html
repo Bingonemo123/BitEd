@@ -1,19 +1,22 @@
 {% extends "navbar/navbar_base.html" %}
 
-
 {% block homenavbar %}
 
 <nav class="navigation-bar">
 
     <div class="nav-bar logo">
         <!-- <img src="src\trademarks\logo_name_Linux.png" alt="Bited"> -->
-        <a class='navbar-link' style='text-decoration:none;' href="{% url 'home' %}">Bited</a>
+        <a class="navbar-link" style="text-decoration:none;" href="{% url 'home' %}">BITED</a>
     </div>
 
     <div class="nav-bar search-box">
         <input type="text" class="nav-bar tbox" placeholder="Search">
         <span> &nbsp; </span>
         <button class="nav-bar-srch-btn"> Search</button>
+    </div>
+
+    <div>
+        <a href="{% url 'map' %}">Map</a>   
     </div>
 
     <button onclick="window.location.href={% url 'createQuestion' %};">
@@ -27,21 +30,20 @@
         {% endif %}
     </div>
 
-    
     <div class="profile-corner">
         {% if user.is_authenticated %}
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{user.username}}
+                {{ user.username }}
             </button>
             <ul class="dropdown-menu">
-                <li><a href='{% url "user_update" user.pk %}' class='dropdown-item'> Profile</a></li>
-                <li><a href='{% url "logout" %}' class='dropdown-item'> Log out</a></li>
+                <li><a href="{% url 'user_update' user.pk %}" class="dropdown-item"> Profile</a></li>
+                <li><a href="{% url 'logout' %}" class="dropdown-item"> Log out</a></li>
             </ul>
 
         </div>
             {% else %}
-            <a class='navbar-link' href="{% url 'login' %}">Login/Sign Up</a>
+            <a class="navbar-link" href="{% url 'login' %}">Login/Sign Up</a>
             {% endif %}
     </div>
 

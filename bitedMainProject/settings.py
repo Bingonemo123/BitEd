@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     'profile',
     'tiles',
     'writing',
-    'questions'
+    'questions',
+    'map'
 ]
 
 MIDDLEWARE = [

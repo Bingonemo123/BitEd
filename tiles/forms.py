@@ -34,9 +34,9 @@ class SubTileBooleanForm(forms.ModelForm):
         model = Tile
         exclude = '__all__'
     
-InlineSubTilesListFormSet = inlineformset_factory(Tile, Tile.children.through,
+InlineSubTilesListFormSet = inlineformset_factory(Tile, Tile,
                                                   form=SubTileBooleanForm,
-                                                  fk_name='to_tile',
+                                                #   fk_name='to_tile',
                                                   fields = [],
                                                   can_delete=False,
                                                   extra=0)
@@ -58,12 +58,6 @@ PersonalFormset = formset_factory(PersonalQueryQuestionsForm)
 #### Tile Create Form #####
 
 class TileCreateForm(forms.ModelForm):
-    parents = forms.ModelMultipleChoiceField(
-        queryset=Tile.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False
-    )
-
     class Meta:
         model = Tile
-        fields = ['tile_headline', 'type_of_tile_char']
+        fields = ['tile_headline', 'type_of_tile_char', 'parent']

@@ -11,8 +11,6 @@
     <script src="{% static 'navbar/navbar.js' %}"> </script>
 {% endblock head_scripts %}
 
-
-
 {% block navbar %}
     <header>
         {% block homenavbar %}
@@ -20,6 +18,6 @@
         {% endblock homenavbar %}
     </header>
 
-    {{block.super}}
+    {{ block.super }}
 
 {% endblock navbar %}

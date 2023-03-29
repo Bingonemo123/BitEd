@@ -1,9 +1,12 @@
 {
     "cSpell.words": [
+        "csrftoken",
         "Formset",
         "formsets",
         "inlineformset",
-        "resequence"
+        "mnode",
+        "resequence",
+        "xhttp"
     ],
     "cSpell.ignoreWords": [
         "Creat",

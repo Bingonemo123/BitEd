@@ -20,7 +20,8 @@
 
 .logo {
     font-size: 1.5em;
-    font-weight: bold
+    font-weight: bold;
+    font-family: 'Rockwell';
 }
 .search-box {
     margin-left: auto;
