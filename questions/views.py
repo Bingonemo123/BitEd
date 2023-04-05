@@ -4,13 +4,13 @@ from django.views.generic.edit import FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy
 
-from questions.forms import SelectTilesFormset
+from questions.forms import TileSelectionForm
 from questions.forms import basic_formset
 from questions.forms import ChoiceFormset
 from questions.forms import QuestionChoiceForm
 from django.forms import modelformset_factory
 
-
+from questions.forms import QuestionCreateForm
 from questions.models import Question
 from questions.models import QuestionChoice
 from tiles.models import Tile
@@ -19,10 +19,7 @@ from tiles.models import Tile
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
     model = Question
-
-    fields = ['question_title', 
-              'question_body', 
-              'question_explanation']
+    form_class = QuestionCreateForm
         
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,6 +44,8 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
         question_obj.owner = self.request.user
         question_obj.save()
 
+        form.save_m2m() # needed for taggit plugin
+
         correct_answer_setted = False
 
         for idx, choice in enumerate(self.formset):
@@ -58,18 +57,6 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
                     correct_answer_setted = True 
                 choice_obj.choice_to = question_obj
                 choice_obj.save()
-            
-        # Create Tile
-        '''tile_obj = Tile(
-            tile_headline = form.cleaned_data['question_title'],
-            author = self.request.user,
-            type_of_tile_char='Q',
-            expected_reward=0,
-            total_questions=1,
-
-        )
-        tile_obj.save()
-        tile_obj.questions.add(question_obj)'''
 
         return super().form_valid(form)
     
@@ -130,11 +117,12 @@ class MyQuestionsUpdate(UpdateView):
 class SelectTiles(FormView,  SingleObjectMixin):
     ''' For selecting Tiles after creating Question '''
     model = Question
-    template_name = 'tiles/tile_form_list.html'
-    form_class = SelectTilesFormset
+    template_name = 'tiles/tile_selection.html'
+    form_class = TileSelectionForm
     success_url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
+        print([f.name for f in Question._meta.get_fields()])
         self.object = self.get_object()
         return super().get(request, *args, **kwargs)
     
@@ -153,6 +141,10 @@ class SelectTiles(FormView,  SingleObjectMixin):
     
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['form_kwargs'] = {'obj': self.object}
         return kwargs
 
+class SelectTiles(UpdateView):
+    model = Question
+    template_name = 'tiles/tile_selection.html'
+    success_url = reverse_lazy('home')
+    form_class = TileSelectionForm

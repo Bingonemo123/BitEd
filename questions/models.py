@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
+from taggit.managers import TaggableManager
 
 User = get_user_model()
 
@@ -14,6 +15,8 @@ class Question (models.Model):
     correct_choice = models.ForeignKey('QuestionChoice',null=True, blank=True, on_delete=models.SET_NULL)
 
     owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+
+    tags = TaggableManager()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,28 +1,28 @@
-{% extends 'navbar/navbar.html' %}
+{% extends "navbar/navbar.html" %}
 {% load static %}
 
 {% block head_links %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'questions/question_form.css' %}">
+    <link rel="stylesheet" href="{% static 'questions/question_form.css' %}"/>
 {% endblock head_links %}
 
-
 {% block content %}
+    {% load crispy_forms_tags %}
     <form method="post" action="" id="form-container" > 
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
 
         First Choice is Correct. Choices will be presented in random order.
 
-        <p></p>
+        &nbsp;
 
         {{ non_form_errors }}
         {{ formset.management_form }}
         {% for choice in formset %}
-        <div class='choice-form'>
+        <div class="choice-form">
             {{ choice.as_table }}
-            <button id='form-{{ forloop.counter }}-delete-button' class="delete-form" type="button">Delete</button>
-            <p></p>
+            &nbsp;
+            <button id="form-{{ forloop.counter }}-delete-button" class="delete-form" type="button">Delete</button>
         </div>
         {% endfor %}
         <button id="add-form" type="button">Add Another Choice</button>
@@ -30,8 +30,10 @@
     </form>
 {% endblock content %}
 
-
 {% block body_scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    {% comment %} https://codepen.io/dannibla/pen/QGLyBW {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" integrity="sha512-9UR1ynHntZdqHnwXKTaOm1s6V9fExqejKvg5XMawEMToW4sSw+3jtLrYfZPijvnwnnE8Uol1O9BcAskoxgec+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{ block.super }}
     <script src="{% static 'questions/question_form.js' %}"> </script>
 {% endblock body_scripts %}

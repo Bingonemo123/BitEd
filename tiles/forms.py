@@ -19,7 +19,6 @@ class writeRequestDataForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_block_total_questions(self):  
-        print(self.questions_queryset)    
         self.random_questions = get_random_questions(self.questions_queryset, 
                                    self.cleaned_data['block_total_questions'])
         if self.random_questions is None:
@@ -28,7 +27,11 @@ class writeRequestDataForm(forms.Form):
             return self.cleaned_data['block_total_questions']
         
 class SubTileBooleanForm(forms.ModelForm):
-    is_selected = forms.BooleanField(required=False, label='')
+
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_selected'] = forms.BooleanField(required=False,
+                                                         label= str(self.instance))
 
     class Meta:
         model = Tile
@@ -36,10 +39,11 @@ class SubTileBooleanForm(forms.ModelForm):
     
 InlineSubTilesListFormSet = inlineformset_factory(Tile, Tile,
                                                   form=SubTileBooleanForm,
-                                                #   fk_name='to_tile',
                                                   fields = [],
                                                   can_delete=False,
                                                   extra=0)
+
+
 
 class PersonalQueryQuestionsForm(forms.Form):
 

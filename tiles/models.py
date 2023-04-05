@@ -36,11 +36,9 @@ def headline_unique(value):
             params={'value': value},
         )
 
-
 class Tile(models.Model):
     # static data
-    tile_headline = models.CharField(max_length=128,
-                                     validators=[headline_unique]) 
+    tile_headline = models.CharField(max_length=128, unique=True) 
     pointer_url = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     subtype_of_tile = models.IntegerField(blank=True, null=True)

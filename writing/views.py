@@ -9,8 +9,13 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
+
+
 from questions.models import QuestionChoice
 from writing.models import UserAnswer
+from tiles.models import WriteRequestData
 
 # Forms
 # https://stackoverflow.com/questions/27321692/override-a-django-generic-class-based-view-widget
@@ -66,7 +71,18 @@ class WritingFormView(SingleObjectMixin, FormView):
         return result
 
     def get_success_url(self):
-        return reverse('writing:reviewing', kwargs={'pk': self.object.pk})
+        if self.object.wrd.block_mode == 1:
+            self.block_questions = UserAnswer.objects.filter(wrd=self.object.wrd)
+            try:
+                self.next_question = self.block_questions.get(
+                    block_number = self.object.block_number + 1
+                    )
+                return reverse('writing:writing', 
+                            kwargs={'pk': self.next_question.pk})
+            except ObjectDoesNotExist:
+                return reverse('home')
+        else:
+            return reverse('writing:reviewing', kwargs={'pk': self.object.pk})
 
 # Create your views here.
 class QuestionView (LoginRequiredMixin, DetailView):
@@ -118,7 +134,26 @@ class ReviewingView(DetailView):
             self.next_question = self.block_questions.get(
                 block_number = self.object.block_number + 1
                 )
-            return reverse('writing:writing', 
-                           kwargs={'pk': self.next_question.pk})
         except ObjectDoesNotExist:
             return reverse('home')
+        if self.wrd.finished:
+            return reverse('writing:reviewing', 
+                        kwargs={'pk': self.next_question.pk})
+        else:
+            return reverse('writing:writing', 
+                        kwargs={'pk': self.next_question.pk})
+
+
+
+
+def resume_wrd(request, pk):
+    resume_wrd = get_object_or_404(WriteRequestData, pk=pk)
+    if resume_wrd.finished:
+        query = UserAnswer.objects.filter(wrd=resume_wrd).order_by('block_number')
+        first_question = query.first()
+        return redirect("writing:reviewing", pk=first_question.pk)
+    else:
+        query = UserAnswer.objects.filter(wrd=resume_wrd, 
+                                          choosen_answer_obj=None).order_by('block_number')
+        first_question = query.first()
+        return redirect("writing:writing", pk=first_question.pk)

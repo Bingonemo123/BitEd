@@ -18,7 +18,7 @@ ANSWER_STATE = [
 class UserAnswer(models.Model):
     wrd = models.ForeignKey(WriteRequestData, on_delete=models.CASCADE) # block id
     answer_to = models.ForeignKey(Question, on_delete=models.CASCADE)
-    block_number = models.IntegerField(null=True)
+    block_number = models.IntegerField(null=True) # number in block
     choosen_answer = models.IntegerField(null=True, blank=True)
     choosen_answer_obj = models.ForeignKey(QuestionChoice, 
                                         null=True, 

@@ -1,8 +1,12 @@
 from django.template.loader import render_to_string
-from tiles.models import TYPES_OF_TILES
 from django.http import JsonResponse
 
 from tiles.rand import get_random_home_tiles
+
+from tiles.models import Tile
+from tiles.models import TYPES_OF_TILES
+from questions.models import Question
+from itertools import chain
 
 NEWS_COUNT_PER_PAGE = 12
 
@@ -47,3 +51,19 @@ def scroll_tiles_load(request, *args, **kwargs):
         "scroll_content": content,
         "end_pagination": False
     }) 
+
+
+def get_all_questions(tile):
+    questions_queryset = tile.questions.all()
+    for subtile in Tile.objects.filter(parent=tile):
+        questions_queryset = chain(questions_queryset, get_all_questions(subtile))
+
+    return questions_queryset
+
+
+def get_all_questions_num(tile):
+    questions_num = tile.questions.all().count()
+    for subtile in Tile.objects.filter(parent=tile):
+        questions_num += get_all_questions_num(subtile)
+
+    return questions_num

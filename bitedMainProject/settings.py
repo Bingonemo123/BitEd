@@ -61,13 +61,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
-    'home',
+    "crispy_bootstrap5",
     'registration',
-    'profile',
-    'tiles',
-    'writing',
+    'crispy_forms',
     'questions',
-    'map'
+    'profile',
+    'writing',
+    'taggit',
+    'tiles',
+    'home',
+    'map',
 ]
 
 MIDDLEWARE = [
@@ -176,3 +179,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 PASSWORD_RESET_TIMEOUT = 14400
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

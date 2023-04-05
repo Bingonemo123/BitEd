@@ -10,7 +10,7 @@
     </div>
 
     <div class="nav-bar search-box">
-        <input type="text" class="nav-bar tbox" placeholder="Search">
+        <input type="text" class="nav-bar tbox" placeholder="Search"/>
         <span> &nbsp; </span>
         <button class="nav-bar-srch-btn"> Search</button>
     </div>
@@ -19,8 +19,9 @@
         <a href="{% url 'map' %}">Map</a>   
     </div>
 
-    <button onclick="window.location.href={% url 'createQuestion' %};">
-        Create</button>
+    <a href="{% url 'createQuestion' %}" target="_blank" rel="noopener noreferrer">Create</a>
+    {% comment %} <button onclick="window.location.href={% url 'createQuestion' %};">
+        Create</button> {% endcomment %}
 
     <div class="nav-bar balance">
         {% if balance %} 

@@ -14,9 +14,7 @@ class MapView(TemplateView):
         if is_ajax(request):
             tile_pk = int(request.GET.get('mnode')[5:])
             tile_obj = get_object_or_404(Tile, pk=tile_pk)
-            print(tile_obj.__dir__())
-            children_set = tile_obj.tile_set.all()
-            print(children_set)
+            children_set = Tile.objects.filter(parent=tile_obj)
             data = serializers.serialize('json', list(children_set))
             return HttpResponse(data)
         return super().get(request, *args, **kwargs)

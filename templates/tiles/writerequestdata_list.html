@@ -4,7 +4,17 @@
 {{ block.super }}
 <ul>
     {% for wrd in object_list %}
-        <li>{{ wrd.id }} - {{ wrd.tile_created_from.tile_headline }} </li>
+        <li>{{ wrd.id }} | 
+            {{ wrd.tile_created_from.tile_headline }}
+        | Total {{ wrd.block_total_questions }} questions | 
+        {{ wrd.created_at }}
+        {% if wrd.finished %}
+            | <a href="{% url 'writing:resume_block' wrd.id %}"> review </a>
+        {% else %}
+            | <a href="{% url 'writing:resume_block' wrd.id %}"> continue </a>
+            
+        {% endif %}
+    </li>
     {% empty %}
         <li>No history yet.</li>
     {% endfor %}

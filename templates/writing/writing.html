@@ -1,22 +1,22 @@
-{% extends 'navbar/navbar.html' %}
+{% extends "navbar/navbar.html" %}
 {% load static %}
 
 {% block head_links %}
 {{ block.super }}
-    <link rel="stylesheet" href="{% static 'writing/writing.css'%}">
+    <link rel="stylesheet" href="{% static 'writing/writing.css' %}"/>
 {% endblock head_links %}
 
 {% block content %}
-<div class='question_body'>
+<div class="question_body">
 {{ object.answer_to.question_body|safe }}
 </div>
 
-<div class='answers_flex'>
-    <div class='answers_box'>
+<div class="answers_flex">
+    <div class="answers_box">
         <form action="" method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit"/>
     </form></div>
 </div>
 

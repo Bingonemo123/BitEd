@@ -1,34 +1,39 @@
-{% extends 'navbar/navbar.html' %}
+{% extends "navbar/navbar.html" %}
 {% load static %}
 
 {% block head_links %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'tiles/base_tile_details.css'%}">
-    <link rel="stylesheet" href="{% static 'tiles/tile_view.css'%}">
+    <link rel="stylesheet" href="{% static 'tiles/base_tile_details.css' %}"/>
+    <link rel="stylesheet" href="{% static 'tiles/tile_view.css' %}"/>
 {% endblock head_links %}
 
 {% block content %}
-    {% include 'tiles/base_tile_details.html' %}
+    {% include "tiles/base_tile_details.html" %}
 
-    <div class='block-settings'>
-        <form action='' method="post">
-            {% csrf_token%}
-            {{ form.as_p }}
-        <input type="submit" class='btn btn-primary' value='Submit'>
-        <input type="hidden" name='text' value=" {{ next }}">
+    <form action="" method="post">
+        <div class="block-settings">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Submit"/>
+            <input type="hidden" name="text" value=" {{ next }} "/>
+
+        </div>
+
+    <div class="subtiles">
+        {% if inline_formset|length %}
+            Select SubTiles:
+            {{ inline_formset.management_form }}
+            {% for tile in inline_formset %}
+                <div class="choice-form">
+                    <br/>
+                    {{ tile.as_table }}
+                </div>
+            {% endfor %}
+        {% else %}
+            No SubTiles.
+        {% endif %}
     </div>
+    </form>
 
-    <div class='subtiles'>
-        Select SubTiles:
-        {{ inline_formset.management_form }}
-        {% for tile in inline_formset %}
-            <div class='choice-form'>
-                <p></p>
-                {{ tile.instance.from_tile }}
-                {{ tile.as_table }}
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class='personal-filter'>{{ personal_formset }}</div>
+    {% comment %} <div class="personal-filter">{{ personal_formset }}</div> {% endcomment %}
 {% endblock content %}
