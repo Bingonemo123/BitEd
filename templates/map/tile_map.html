@@ -1,0 +1,29 @@
+{% extends "navbar/navbar.html" %}
+{% load static %}
+
+{% block head_scripts %}
+  {{ block.super }}
+  <script src="{% static 'map/map.js' %}"></script>
+{% endblock head_scripts %}
+
+{% block content %}
+<div class="accordion" id="TileMapMainContainer">
+
+    <div class="accordion-item">
+
+      <button class="accordion-button" id="tile-0" type="button" data-bs-toggle="collapse" data-bs-target="#RootZero" aria-expanded="true" aria-controls="RootZero">
+        Root
+        &nbsp;
+        <a href="{% url 'tiles:tile_detail_view' 0 %}"><img height="20" width="20" src="{% static 'map/icon/green-play-button-icon.svg' %}" alt=""/></a>
+      </button>
+
+      <div id="RootZero" class="accordion-collapse collapse" data-bs-parent="#TileMapMainContainer">
+        <div class="accordion-body">
+        </div>
+      </div>
+
+    </div>
+
+</div>
+   
+{% endblock content %}

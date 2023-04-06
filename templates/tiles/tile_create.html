@@ -1,0 +1,14 @@
+{% extends 'navbar/navbar.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class='block-settings'>
+        <form action='' method="post">
+            {% csrf_token%}
+            {{ form.as_p }}
+        <input type="submit" class='btn btn-primary' value='Submit'>
+        <input type="hidden" name='text' value=" {{ next }}">
+    </div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+factory-boy = "*"
+django-environ = "*"
+django-verify-email = "*"
+pyyaml = "*"
+djlint = "*"
+django-crispy-forms = "*"
+django-taggit = "*"
+crispy-bootstrap5 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

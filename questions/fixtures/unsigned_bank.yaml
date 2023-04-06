@@ -1,0 +1,74 @@
+- fields:
+    created_at: '2013-03-16T17:41:28+00:00'
+    question_body: "<div id=\"questionText\" style=\"font-size: 17pt;\"><p>A 60-year-old\
+      \ woman comes to the office for follow-up of chronic tension-type headaches.\_\
+      \ Her headaches have not improved after several trials of medications, including\
+      \ those recommended by a neurologist specializing in the management of headaches.\_\
+      \ The patient says, \"I'm really not surprised that this last medication didn't\
+      \ work either.\_ All these drug companies just want to make money.\_ I doubt\
+      \ that anything will help.\"\_ When asked if she would consider pursuing biofeedback,\
+      \ relaxation training, or stress management therapy, she responds, \"There's\
+      \ no point\u2014how can I relax or do therapy when my head is pounding?\"\_\
+      \ The patient's other medical problems include hypertension and hypercholesterolemia,\
+      \ which are well controlled with medication.\_ She has a history of depression\
+      \ following her divorce in her 40s but was unwilling to take an antidepressant\
+      \ or see a counselor at that time.\_ Which of the following statements is the\
+      \ most appropriate response to this patient's concerns?</p></div>"
+    question_explanation: "<div class=\"explanation mt-0\" id=\"explanation-container\"\
+      ><div><ul class=\"nav nav-tabs\" role=\"tablist\"><li class=\"nav-item\"><a\
+      \ class=\"nav-link active\" data-target=\"#first-explanation\" data-toggle=\"\
+      tab\" style=\"font-size: 17pt;\">Explanation</a></li><li class=\"nav-item empty-nav-item\"\
+      ></li></ul></div><div id=\"explanation\" style=\"font-size: 17pt;\"><div class=\"\
+      tab-content\"><div style=\"visibility: hidden; height: 0px;\"><div class=\"\
+      pull-left\"><b>Explanation:</b></div><div class=\"clearfix\"></div></div><br/><div\
+      \ class=\"tab-pane active\" id=\"first-explanation\"><p>This patient remains\
+      \ symptomatic despite the best efforts of the physician to treat her with multiple\
+      \ medication trials, and she rejects all recommended nonpharmacological approaches.\_\
+      \ Such patients believe that no treatment will help and appear not to want to\
+      \ improve.\_ They are often frustrating to manage and can leave the physician\
+      \ feeling angry and manipulated.\_ The understandable tendency to want to refer\
+      \ this patient to another provider or specialist should be avoided <strong>(Choice\
+      \ E)</strong>.</p><p>These patients often have underlying depression but will\
+      \ refuse referral to a psychiatrist.\_ They are needy for attention and unconsciously\
+      \ wish to remain symptomatic so that they can continue to see a physician.\_\
+      \ The best approach is to <strong>empathize</strong> with them and <strong>attempt\
+      \ to engage</strong> them in a <strong>collaborative plan</strong> in which\
+      \ there is mutual agreement about realistic treatment approaches and <strong>limited\
+      \ expectations</strong>.\_ Empathizing with the patient's frustration over disappointing\
+      \ outcomes and focusing on alleviation of symptoms rather than a cure is often\
+      \ helpful.</p><p><strong>(Choices A and C)</strong>\_ There is insufficient\
+      \ information on this patient to diagnose depression, and she would likely reject\
+      \ this explanation of her poor response.\_ She has previously rejected counseling\
+      \ and is currently resistant to other treatment approaches; therefore, she is\
+      \ unlikely to agree to counseling at this stage.</p><p><strong>(Choice B)</strong>\_\
+      \ This statement attempts to confront this patient by pointing out her help-rejecting\
+      \ pattern of behavior.\_ This would likely be perceived as judgmental, resulting\
+      \ in loss of rapport and defensiveness.\_ However, it could be useful as part\
+      \ of a therapeutic intervention by a skilled therapist in the context of structured\
+      \ psychotherapy.</p><p><strong>(Choice F)</strong>\_ The physician has already\
+      \ encouraged the patient to consider nonpharmacological approaches.\_ Rather\
+      \ than continuing to make treatment recommendations that will likely be rejected,\
+      \ the physician should develop a collaborative focus on a small goal that she\
+      \ identifies.</p><p><strong>Educational objective:</strong><br/>Help-rejecting\
+      \ patients who are hopeless about treatment can lead the physician to become\
+      \ frustrated and confrontational and to desire to refer the patient to another\
+      \ provider.\_ Clear expression of empathy and a collaborative approach with\
+      \ limited goals are the most effective approaches.</p></div></div></div><div\
+      \ class=\"references ng-star-inserted\" style=\"font-size: 17pt;\"><div class=\"\
+      header\"><b>References</b></div><div class=\"content\"><ul><li class=\"ng-star-inserted\"\
+      ><a href=\"http://www.ncbi.nlm.nih.gov/pubmed/23547575\" target=\"_blank\"><span>Managing\
+      \ difficult encounters: understanding physician, patient, and situational factors.</span></a></li><!--\
+      \ --></ul></div></div><!-- --><div class=\"standards ng-star-inserted\"><div\
+      \ class=\"content d-flex justify-content-start\"><div class=\"standard d-flex\
+      \ flex-column ng-star-inserted\"><div class=\"standard-description\">Psychiatry</div><div\
+      \ class=\"standard-header\">Subject</div></div><div class=\"standard d-flex\
+      \ flex-column ng-star-inserted\"><div class=\"standard-description\">Psychiatric/Behavioral\
+      \ &amp; Substance Use Disorder</div><div class=\"standard-header\">System</div></div><div\
+      \ class=\"standard d-flex flex-column ng-star-inserted\"><div class=\"standard-description\"\
+      >Physician patient communication</div><div class=\"standard-header\">Topic</div></div><!--\
+      \ --></div></div><!-- --><!-- --></div>"
+    question_title: "10065 A 60-year-old woman comes to the office for follow-up of\
+      \ chronic tension-type headaches.\_ Her headac"
+    updated_at: '2013-03-16T17:41:28+00:00'
+  model: questions.Question
+  pk: 10065

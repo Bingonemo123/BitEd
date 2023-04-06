@@ -1,0 +1,61 @@
+
+<figure class="tile">
+    {% comment "Tile Header" %}{% endcomment %}
+    <div class="bubble_container">   
+        {% if object.type_of_tile_char %}
+            <div class="tile_type" >
+                {{ object.type_of_tile_char }}
+            </div>
+        {% endif %}
+
+        {% if object.total_questions %}
+            <div class="tile_total_questions" >
+                Total {{ object.total_questions }}
+            </div>
+        {% endif %}
+    </div>
+
+    {% comment %} title {% endcomment %}
+
+    {% if object.tile_headline %}
+        <div class="tile_title"> 
+            {{ object.tile_headline }}
+        </div>
+    {% endif %}
+    
+    {% if object.author %}
+        <div class="tile_author"> 
+            {{ object.author }}
+        </div>
+    {% endif %}
+
+    <div class="writes_and_crtdate">
+        {% if object.total_writes %}
+            <div class="tile_total_writes">
+                {{ object.total_writes }} writes
+            </div> 
+        {% endif %}
+
+        <span class="space-holder-dot">•</span>
+
+        {% if object.created_at %}
+            <div class="tile_creation_date">
+                {{ object.created_at|timesince }} ago
+            </div>
+        {% endif %}
+    </div>
+
+    {% if object.expected_reward %}
+        <div class="tile_expected_reward">
+            {{ object.expected_reward }} K
+        </div>
+    {% endif %}
+    
+    
+    {% if object.total_pass %}
+        <div class="tile_pass_percentge">
+            Pass Rate: {{ object.total_pass }}
+        </div>
+    {% endif %}
+    
+</figure>
