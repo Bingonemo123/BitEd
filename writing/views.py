@@ -121,6 +121,8 @@ class ReviewingView(DetailView):
                                       initial={
                         'choosen_answer': self.object.choosen_answer_obj.pk
                          })
+        writingform.fields['choosen_answer'].widget.attrs.update(
+                            {"onclick":"return false;"})
         context['form'] = writingform
         print('correct', self.object.answer_to.correct_choice.choice_text)
         context['correct_answer'] = self.object.answer_to.correct_choice.choice_text

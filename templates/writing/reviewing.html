@@ -3,7 +3,7 @@
 
 {% block head_links %}
 {{ block.super }}
-    <link rel="stylesheet" href="{% static 'writing/writing.css' %}">
+    <link rel="stylesheet" href="{% static 'writing/writing.css' %}"/>
 {% endblock head_links %}
 
 {% block content %}
@@ -24,8 +24,8 @@
             {% endif %}
         
         {% endfor %}
-
-        <input type="button" onclick="window.location.href='{{ next_question_url }}';" value="Next">
+        <br/>
+        <input type="button" onclick="window.location.href='{{ next_question_url }}';" value="Next"/>
     </form></div>
 </div>
 

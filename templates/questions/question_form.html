@@ -20,10 +20,11 @@
         {{ formset.management_form }}
         {% for choice in formset %}
         <div class="choice-form">
-            {{ choice.as_table }}
+            {{ choice }}
             &nbsp;
-            <button id="form-{{ forloop.counter }}-delete-button" class="delete-form" type="button">Delete</button>
+            <button id="form-{{ forloop.counter }}-delete-button" class="delete-form" type="button">Delete</button>            
         </div>
+        <br/>
         {% endfor %}
         <button id="add-form" type="button">Add Another Choice</button>
         <button type="submit">Submit</button>

@@ -50,3 +50,9 @@ button {
     border-color: orange;
     font-family: monospace;
 }
+
+header {
+    position: sticky;
+    top: 0px;
+    z-index: 3;
+}
