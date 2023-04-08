@@ -3,10 +3,7 @@
 Due to high time consumption of perfect development high-yield approach is desired. Based on that  will be time invested during this development phase, only in that aspects of site, which are crucial for it's functionality.
 
 - [ ] Personal Filter Logic
-- [ ] Upload New Questions
 - [ ] Writing Authorize on Owned Blocks
-- [ ] [Future] add js event listeners `blur` and `input` to Sign page
-- [ ] limit Tile image size on resize
 - [ ] Search Engine
 - [ ] Develope Django Rest Api
 - [ ] SSL Certificate

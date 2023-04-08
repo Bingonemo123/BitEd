@@ -2,7 +2,8 @@
 .question_body{
     display: flex;
     justify-content: center;
-    margin: 10%;
+    margin: 0 23em;
+    margin-top: 5em;
 }
 
 .answers_box{
@@ -15,6 +16,7 @@
 .answers_flex{
     display: flex;
     justify-content: center;
+    font-size: 17pt;
 }
 
 /* .explanation{
