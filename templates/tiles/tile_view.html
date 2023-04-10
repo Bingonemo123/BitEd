@@ -8,32 +8,38 @@
 {% endblock head_links %}
 
 {% block content %}
+    <div class="grid-content">
     {% include "tiles/base_tile_details.html" %}
 
     <form action="" method="post">
-        <div class="block-settings">
-                {% csrf_token %}
-                {{ form.as_p }}
-            <input type="submit" class="btn btn-primary" value="Submit"/>
-            <input type="hidden" name="text" value=" {{ next }} "/>
+        <section class="limiter">
+            <div class="block-settings">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                <input type="submit" class="btn btn-primary" value="Submit"/>
+                <input type="hidden" name="text" value=" {{ next }} "/>
 
-        </div>
+            </div>
+        </section>
 
-    <div class="subtiles">
-        {% if inline_formset|length %}
-            Select SubTiles:
-            {{ inline_formset.management_form }}
-            {% for tile in inline_formset %}
-                <div class="choice-form">
-                    <br/>
-                    {{ tile.as_table }}
+        <section class="limited">
+            <div class="subtiles">
+                {% if inline_formset|length %}
+                Select SubTiles:
+                {{ inline_formset.management_form }}
+                {% for tile in inline_formset %}
+                    <div class="choice-form">
+                        <br/>
+                        {{ tile.as_table }}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    No SubTiles.
+                    {% endif %}
                 </div>
-            {% endfor %}
-        {% else %}
-            No SubTiles.
-        {% endif %}
-    </div>
+        </section>
     </form>
+    </div>
 
     {% comment %} <div class="personal-filter">{{ personal_formset }}</div> {% endcomment %}
 {% endblock content %}

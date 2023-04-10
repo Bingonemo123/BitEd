@@ -80,6 +80,8 @@ class WritingFormView(SingleObjectMixin, FormView):
                 return reverse('writing:writing', 
                             kwargs={'pk': self.next_question.pk})
             except ObjectDoesNotExist:
+                self.object.wrd.finished = True
+                self.object.wrd.save()
                 return reverse('home')
         else:
             return reverse('writing:reviewing', kwargs={'pk': self.object.pk})
@@ -133,7 +135,7 @@ class ReviewingView(DetailView):
         self.wrd = self.object.wrd
         self.block_questions = UserAnswer.objects.filter(wrd=self.wrd)
         try:
-            self.next_question = self.block_questions.get(
+            self.next_question = self.block_questions.get( # can have directly wrd parameter on useranswers
                 block_number = self.object.block_number + 1
                 )
         except ObjectDoesNotExist:
@@ -144,9 +146,6 @@ class ReviewingView(DetailView):
         else:
             return reverse('writing:writing', 
                         kwargs={'pk': self.next_question.pk})
-
-
-
 
 def resume_wrd(request, pk):
     resume_wrd = get_object_or_404(WriteRequestData, pk=pk)

@@ -10,3 +10,17 @@ html,body {
     padding: 10px;
     background-color: white;
 }
+form {
+    display: flex;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.subtiles {
+    flex-basis: 0px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }

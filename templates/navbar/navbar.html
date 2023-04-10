@@ -9,11 +9,15 @@
         <a class="navbar-link" style="text-decoration:none;" href="{% url 'home' %}">BITED</a>
     </div>
 
-    <div class="nav-bar search-box">
-        <input type="text" class="nav-bar tbox" placeholder="Search"/>
-        <span> &nbsp; </span>
-        <button class="nav-bar-srch-btn"> Search</button>
-    </div>
+    {% block navbar_content %}
+    
+        <div class="nav-bar search-box">
+            <input type="text" class="nav-bar tbox" placeholder="Search"/>
+            <span> &nbsp; </span>
+            <button class="nav-bar-srch-btn"> Search</button>
+        </div>
+
+    {% endblock navbar_content %}
 
     <div>
         <a href="{% url 'map' %}">Map</a>   
