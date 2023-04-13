@@ -1,0 +1,79 @@
+
+.login-form{
+    margin: 1em 44em;
+}
+
+/* CSS */
+.button-7 {
+  background-color: #0095ff;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.button-7:hover,
+.button-7:focus {
+  background-color: #07c;
+}
+
+.button-7:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.button-7:active {
+  background-color: #0064bd;
+  box-shadow: none;
+}
+
+.flex--inputs{
+    gap: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.flex--item{
+    margin-left: auto;
+}
+
+.fs-caption{
+    font-size: 12px;
+    --blue-600: hsl(206,100%,40%);
+    --blue-500: hsl(206,100%,52%);
+    --blue-700: hsl(209,100%,37.5%);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.s-link {
+    --theme-link-color: var(--blue-600);
+    --theme-link-color-hover: var(--blue-500);
+    --theme-link-color-visited: var(--blue-700);
+
+
+    --_li-fc: var(--theme-link-color);
+    --_li-fc-hover: var(--theme-link-color-hover);
+    --_li-fc-visited: var(--theme-link-color-visited);
+    color: var(--_li-fc);
+    cursor: pointer;
+    text-decoration: none;
+    user-select: auto;
+}

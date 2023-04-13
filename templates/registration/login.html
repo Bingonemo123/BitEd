@@ -1,5 +1,11 @@
-{% extends 'bitedMainProject/base.html' %}
-    
+{% extends "navbar/navbar.html" %}
+{% load static %}
+
+{% block head_links %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'registration/login.css' %}"/>
+{% endblock head_links %}
+
 {% block content %}
 
     {% if form.errors %}
@@ -22,17 +28,18 @@
             {% endfor %}
         </ul>
     {% endif %} 
-
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token%}
-        {{ form.as_p }}
-        <input type="submit" class='btn btn-primary' value='Login'>
-        <input type="hidden" name='next' value="{{ request.GET.next }}">
-        
-        <input type='button' class='btn btn-primary btn-signup'
-        value='Sign up' onclick="window.location.href='{% url 'signup' %}'"%> 
-        
-        <input type='button' class='btn btn-primary btn-password-reset'
-        value='Forgot password?' onclick="window.location.href='{% url 'password_reset' %}'"%> 
-    
+    {% load crispy_forms_tags %}
+    <form action="{% url 'login' %}" class="login-form" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="flex--inputs">
+            <input type="submit" class="button-7" value="Login"/>
+            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+            
+            <input type="button" class="button-7"
+            value='Sign up' onclick="window.location.href='{% url 'signup' %}'"%/> 
+            
+            <a class="flex--item s-link fs-caption" href="{% url 'password_reset' %}">Forgot password?</a>
+        </div>
+    </form>
 {% endblock content %}

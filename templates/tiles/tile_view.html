@@ -24,18 +24,18 @@
 
         <section class="limited">
             <div class="subtiles">
-                {% if inline_formset|length %}
-                Select SubTiles:
-                {{ inline_formset.management_form }}
-                {% for tile in inline_formset %}
-                    <div class="choice-form">
-                        <br/>
-                        {{ tile.as_table }}
-                    </div>
-                    {% endfor %}
-                    {% else %}
+                {% comment %} {% if inline_formset|length %} {% endcomment %}
+                    Select SubTiles:
+                    {{ inline_formset.management_form }}
+                    {% for tile in inline_formset %}
+                        <div class="choice-form">
+                            <br/>
+                            {{ tile.as_table }}
+                        </div>
+                        {% endfor %}
+                {% comment %} {% else %}
                     No SubTiles.
-                    {% endif %}
+                {% endif %} {% endcomment %}
                 </div>
         </section>
     </form>

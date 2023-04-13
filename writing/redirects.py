@@ -43,7 +43,7 @@ def useranswer_redirect(current_useranswer, direction=None):
             return reverse_lazy('writing:writing', 
                         kwargs={'pk': target_useranswer.pk})
         
-        elif target_useranswer.answer_state & 7: # when it training mode question is not answered
+        elif target_useranswer.answer_state & 7: # when in training mode question is not answered
             return reverse_lazy('writing:writing', 
                         kwargs={'pk': target_useranswer.pk})
         else:

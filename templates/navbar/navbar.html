@@ -38,7 +38,7 @@
     <div class="profile-corner">
         {% if user.is_authenticated %}
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user.username }}
             </button>
             <ul class="dropdown-menu">
@@ -48,7 +48,7 @@
 
         </div>
             {% else %}
-            <a class="navbar-link" href="{% url 'login' %}">Login/Sign Up</a>
+            <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
             {% endif %}
     </div>
 

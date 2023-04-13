@@ -18,8 +18,10 @@ from tiles.forms import TileCreateForm
 from tiles.forms import InlineSubTilesListFormSet
 from tiles.forms import PersonalFormset
 
+from itertools import chain
 from tiles.loader import get_all_questions_num
 from tiles.loader import get_all_questions
+
 
 # Create your views here.
 class TileDetailView(DetailView):
@@ -44,7 +46,8 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
     # from Formview how to pass data to form ? widget
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
-        context['inline_formset'] = self.formset(self.request.POST,instance=self.object)
+        context['inline_formset'] = InlineSubTilesListFormSet(self.request.POST,
+                                                              instance=self.object)
         return context
     
     def post(self, request, *args, **kwargs):
@@ -54,12 +57,15 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         self.formset = InlineSubTilesListFormSet(self.request.POST, 
                                                  instance=self.object)
         # if one subtile is selected 
-        if any([subtileform.get('is_selected', False)
-                 for subtileform in self.formset.cleaned_data]):
-            
-            self.questions_queryset = list(get_all_questions(self.object))
-        else: # ->  only Tiles Questions
-            self.questions_queryset = self.object.questions.all()
+        self.questions_queryset = self.object.questions.all()
+        
+        for subtileform in self.formset.cleaned_data:
+            if subtileform.get('is_selected', False):
+                self.questions_queryset = chain(
+                    self.questions_queryset,
+                    get_all_questions(subtileform.get("id")))
+        
+        self.questions_queryset = list(self.questions_queryset)
 
         return super().post(request, *args, **kwargs)
     
