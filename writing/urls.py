@@ -2,6 +2,7 @@ from django.urls import path, include
 from writing.views import WritingView
 from writing.views import ReviewingView
 from writing.views import resume_wrd
+from writing.redirects import useranswer_redirect
 
 app_name = 'writing'
 urlpatterns = [
@@ -17,6 +18,6 @@ urlpatterns = [
     path('resume/<int:pk>/',
          resume_wrd,
          name='resume_block'
-         )
+         )        
 ]
 

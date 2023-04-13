@@ -16,13 +16,15 @@ from django.shortcuts import get_object_or_404
 from questions.models import QuestionChoice
 from writing.models import UserAnswer
 from tiles.models import WriteRequestData
+from writing.redirects import useranswer_redirect
 
 # Forms
 # https://stackoverflow.com/questions/27321692/override-a-django-generic-class-based-view-widget
 class WritingForm(forms.ModelForm):
     
     choosen_answer = forms.ChoiceField( widget=forms.RadioSelect(),
-                                       label='Choose answer')
+                                       label='Choose answer',
+                                       required=False)
 
     def __init__(self, question_object, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,33 +60,35 @@ class WritingFormView(SingleObjectMixin, FormView):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
         self.object = self.get_object()
+        if "navbar-next-button" in request.POST:
+            self.navbar_direction = 'next'
+        elif "navbar-previous-button" in request.POST:
+            self.navbar_direction = 'previous'
+
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        result =  super().form_valid(form)
 
-        self.object.answer_state = 2
-        self.object.choosen_answer_obj=QuestionChoice.objects.get(
-            pk=form.cleaned_data['choosen_answer']
-            )
-        self.object.save()
-        return result
+        if form.cleaned_data['choosen_answer']:
+            if (getattr(self, 'navbar_direction', None)
+                    and  self.object.answer_state & 9):
+                self.object.answer_state = 4 # selected
+            else:
+                self.object.answer_state = 8 # answered
+            self.object.choosen_answer_obj=QuestionChoice.objects.get(
+                pk=form.cleaned_data['choosen_answer']
+                )
+            self.object.save()
+        else:
+            self.object.anwser_state = 2 # seen
+            self.object.save()
+
+        return  super().form_valid(form)
 
     def get_success_url(self):
-        if self.object.wrd.block_mode == 1:
-            self.block_questions = UserAnswer.objects.filter(wrd=self.object.wrd)
-            try:
-                self.next_question = self.block_questions.get(
-                    block_number = self.object.block_number + 1
-                    )
-                return reverse('writing:writing', 
-                            kwargs={'pk': self.next_question.pk})
-            except ObjectDoesNotExist:
-                self.object.wrd.finished = True
-                self.object.wrd.save()
-                return reverse('home')
-        else:
-            return reverse('writing:reviewing', kwargs={'pk': self.object.pk})
+        # when question submitted
+        return useranswer_redirect(self.object,
+                                    direction=getattr(self, "navbar_direction", None))
 
 # Create your views here.
 class QuestionView (LoginRequiredMixin, DetailView):
@@ -100,8 +104,12 @@ class QuestionView (LoginRequiredMixin, DetailView):
         self.wrd = self.object.wrd
         context =  super().get_context_data(**kwargs)
         context['form'] = WritingForm(self.object.answer_to)
+        if self.object.answer_state & 12: # selected or answered
+            context['form'].fields['choosen_answer'].initial = (self.object
+                                                .choosen_answer_obj.pk)
         context['wrd'] = self.wrd
         return context
+        
 
 class WritingView(View):
 
@@ -119,33 +127,19 @@ class ReviewingView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        writingform = WritingForm(self.object.answer_to,
-                                      initial={
-                        'choosen_answer': self.object.choosen_answer_obj.pk
-                         })
+        writingform = WritingForm(self.object.answer_to)
+
+        if self.object.answer_state & 12: # selected or answered
+            writingform.fields['choosen_answer'].initial = (self.object
+                                                .choosen_answer_obj.pk)
+
         writingform.fields['choosen_answer'].widget.attrs.update(
                             {"onclick":"return false;"})
         context['form'] = writingform
-        print('correct', self.object.answer_to.correct_choice.choice_text)
         context['correct_answer'] = self.object.answer_to.correct_choice.choice_text
-        context['next_question_url'] = self.get_success_url()
+        context['next_question_url'] = useranswer_redirect(self.object, direction='next')
+        context['previous_question_url'] = useranswer_redirect(self.object, direction='previous')
         return context
-
-    def get_success_url(self):
-        self.wrd = self.object.wrd
-        self.block_questions = UserAnswer.objects.filter(wrd=self.wrd)
-        try:
-            self.next_question = self.block_questions.get( # can have directly wrd parameter on useranswers
-                block_number = self.object.block_number + 1
-                )
-        except ObjectDoesNotExist:
-            return reverse('home')
-        if self.wrd.finished:
-            return reverse('writing:reviewing', 
-                        kwargs={'pk': self.next_question.pk})
-        else:
-            return reverse('writing:writing', 
-                        kwargs={'pk': self.next_question.pk})
 
 def resume_wrd(request, pk):
     resume_wrd = get_object_or_404(WriteRequestData, pk=pk)

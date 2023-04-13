@@ -6,11 +6,12 @@ from questions.models import QuestionChoice
 ANSWER_STATE = [
     (1, 'Unseen'),
     (2, 'Seen'),
-    (3, 'Answered'),
-    (4, 'Correct'),
-    (5, 'Incorrect'),
-    (6, 'Unselected Timeout'),
-    (7, 'Selected Timeout')
+    (4, 'Selected'),
+    (8, 'Answered'),
+    (16, 'Correct'),
+    (32, 'Incorrect'),
+    (64, 'Unselected Timeout'),
+    (128, 'Selected Timeout')
 ]
 
 # Create your models here.

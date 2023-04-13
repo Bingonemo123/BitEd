@@ -23,6 +23,13 @@
     font-weight: bold;
     font-family: 'Rockwell';
 }
+
+.navbar-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
 .search-box {
     margin-left: auto;
     margin-right: auto;
@@ -30,6 +37,7 @@
     max-width: 300px;
     display: inline-flex;
 }
+
 
 .tbox {
     font-family: monospace;

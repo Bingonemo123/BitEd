@@ -13,7 +13,7 @@
 
 <div class="answers_flex">
     <div class="answers_box">
-        <form action="" method='post'>
+        <form id="hypothetical" action="" method='post'>
         {% csrf_token %}
         <p><label>{{ form.choosen_answer.label }}:</label></p>
         {% for radio in form.choosen_answer %}

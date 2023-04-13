@@ -81,7 +81,7 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         self.wrd.save()
 
         # Generate New Block
-        for blk_indx, question in enumerate(form.random_questions):
+        for blk_indx, question in enumerate(form.random_questions, start=1):
             userasnwer = UserAnswer(
                 wrd=self.wrd,
                 answer_to=question,
@@ -89,7 +89,7 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
             )
             userasnwer.save()
 
-            if blk_indx == 0:
+            if blk_indx == 1:
                 self.first_question = userasnwer
 
         result =  super().form_valid(form)

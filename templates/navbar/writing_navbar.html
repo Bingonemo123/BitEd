@@ -1,12 +1,33 @@
 {% extends "navbar/navbar.html" %}
+{% load static %}
 
 {% block navbar_content %}
+<div class="navbar-content">
 
-    
-<ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-</ul>
+    <div class="pagination ">
+        <div class="page-item">
+            {% if previous_question_url %}
+                <a class="page-link" href="{{ previous_question_url }}">Previous</a>
+            {% else %}
+                <input class="page-link" name="navbar-previous-button" id="navbar-previous-button" type="submit"  form="hypothetical" value="Previous"/>
+            {% endif %}
+        </div>
 
+        <div class="page-item"><a class="page-link" href="#">{{ object.block_number }}/{{ object.wrd.block_total_questions }} </a></div>
+        
+        <div class="page-item">
+            {% if next_question_url %}
+                <a class="page-link" href="{{ next_question_url }}">Next</a>
+            {% else %}
+                <input class="page-link" name="navbar-next-button" id="navbar-next-button" type="submit" form="hypothetical" value="Next"/>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
 {% endblock navbar_content %}
+
+{% block head_scripts %}
+    {{ block.super }}
+    <script src="{% static 'writing/nav_buttons.js' %}" ></script>
+{% endblock head_scripts %}
