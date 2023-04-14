@@ -22,7 +22,8 @@ class writeRequestDataForm(forms.Form):
         self.random_questions = get_random_questions(self.questions_queryset, 
                                    self.cleaned_data['block_total_questions'])
         if self.random_questions is None:
-            raise ValidationError('Not Enough Questions in Database', code='invalid')
+            raise ValidationError(f"""Not Enough Questions in Database.
+                    Total Questions Found: {len(self.questions_queryset)} """, code='invalid')
         else:
             return self.cleaned_data['block_total_questions']
         

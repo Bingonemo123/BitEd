@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="{% static 'tiles/tile_view.css' %}"/>
 {% endblock head_links %}
 
+{% block body_scripts %}
+    {{ block.super }}
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+    <script src="{% static 'tiles/tile_view.js' %}"></script>
+{% endblock body_scripts %}
+
 {% block content %}
     <div class="grid-content">
     {% include "tiles/base_tile_details.html" %}
@@ -23,20 +30,24 @@
         </section>
 
         <section class="limited">
-            <div class="subtiles">
-                {% comment %} {% if inline_formset|length %} {% endcomment %}
-                    Select SubTiles:
-                    {{ inline_formset.management_form }}
-                    {% for tile in inline_formset %}
-                        <div class="choice-form">
-                            <br/>
-                            {{ tile.as_table }}
-                        </div>
-                        {% endfor %}
-                {% comment %} {% else %}
-                    No SubTiles.
-                {% endif %} {% endcomment %}
-                </div>
+            <fieldset class="subtiles" id="fieldset--override">
+                <legend id="legend--override" >Select SubTiles:
+                    &nbsp;
+                    <input type="checkbox" id="select-all" />
+                    <label for="select-all">Select All</label>
+                </legend>
+                    {% if inline_formset|length %}
+                        {{ inline_formset.management_form }}
+                        {% for tile in inline_formset %}
+                            <div class="choice-form">
+                                <br/>
+                                {{ tile.as_table }}
+                            </div>
+                            {% endfor %}
+                    {% else %}
+                        No SubTiles.
+                    {% endif %}
+                </fieldset>
         </section>
     </form>
     </div>
