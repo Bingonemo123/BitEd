@@ -11,5 +11,8 @@
     "cSpell.ignoreWords": [
         "Creat",
         "inputype"
+    ],
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
     ]
 }

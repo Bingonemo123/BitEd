@@ -56,9 +56,8 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         self.object = self.get_object()
         self.formset = InlineSubTilesListFormSet(self.request.POST, 
                                                  instance=self.object)
-        # if one subtile is selected 
+
         self.questions_queryset = self.object.questions.all()
-        
         for subtileform in self.formset.cleaned_data:
             if subtileform.get('is_selected', False):
                 self.questions_queryset = chain(
