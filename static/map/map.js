@@ -57,6 +57,7 @@ function sendGetAjax(mnode){
 
             var link_button = `<a href="/tiles/${subtile['pk']}/"><img height="20" width="20" src="/static/map/icon/green-play-button-icon.svg" alt=""></a>`
             subAccordion_button.innerHTML += link_button;
+            subAccordion_button.innerHTML += "&nbsp";
 
             subAccordion_item.appendChild(subAccordion_button);
 

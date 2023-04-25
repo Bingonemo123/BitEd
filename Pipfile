@@ -13,6 +13,7 @@ djlint = "*"
 django-crispy-forms = "*"
 django-taggit = "*"
 crispy-bootstrap5 = "*"
+social-auth-app-django = "*"
 
 [dev-packages]
 

@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
-    "crispy_bootstrap5",
+    'crispy_bootstrap5',
+    'social_django',
     'registration',
     'crispy_forms',
     'questions',
@@ -81,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'bitedMainProject.urls'
@@ -96,6 +98,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -165,6 +169,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 LOGIN_REDIRECT_URL= '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -183,3 +188,21 @@ PASSWORD_RESET_TIMEOUT = 14400
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Social Login Configuration
+
+try:
+    from bitedMainProject import facebook_settings
+    SOCIAL_AUTH_FACEBOOK_KEY = facebook_settings.SOCIAL_AUTH_FACEBOOK_KEY
+    SOCIAL_AUTH_FACEBOOK_SECRET = facebook_settings.SOCIAL_AUTH_FACEBOOK_SECRET
+except:
+    print('NO SOCIAL LOGIN CONFIGURED')
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+# SOCIAL_AUTH_URL_NAMESPACE = 'registration'

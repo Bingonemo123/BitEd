@@ -10,12 +10,17 @@
 {% block head_scripts %}
     {{ block.super }}
     <script src="{% static 'home/home.js' %}"> </script>
+    <script src="{% static 'map/map.js' %}"></script>
 {% endblock head_scripts %}
 
 {% block content %}
 
     <div class="content-container">
-        {{ tiles|safe }}
+        <div class="left-sidebar">
+             {{ sidebar }} </div>
+        <div class="grid-container">
+            {{ tiles }}
+        </div>
     </div>
 
 {% endblock content %}

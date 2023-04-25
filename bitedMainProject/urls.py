@@ -28,5 +28,8 @@ urlpatterns = [
     path('tiles/', include('tiles.urls')),
     path('question/', include('questions.urls')),
     path('verification/', include('verify_email.urls')),
-    path('map/', include('map.urls'))
+    path('map/', include('map.urls')),
+    path('', include('social_django.urls', namespace='social'))
 ]
+
+

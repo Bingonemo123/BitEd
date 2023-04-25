@@ -21,7 +21,6 @@ function loadContent() {
     var scrTop = document.documentElement.scrollTop || document.body.scrollTop;
     var scrollMargin = contentHeight - (winHeight + scrTop)
     var csrftoken = getCookie('csrftoken');
-    console.log(scrollMargin);
 
     if (scrollMargin <= 200 && end_pagination === false && block_request === false){
         block_request = true;
@@ -32,7 +31,7 @@ function loadContent() {
         xhttp.onload = function() {
             var jsonTiles = JSON.parse(this.responseText);
             // https://stackoverflow.com/questions/7327056/appending-html-string-to-the-dom
-            var contentEl = document.querySelector('.content-container');
+            var contentEl = document.querySelector('.grid-container');
             contentEl.insertAdjacentHTML( 'beforeend', jsonTiles.scroll_content);
             block_request = false;
         }
@@ -58,22 +57,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // https://stackoverflow.com/questions/48443225/listening-to-scroll-event-on-window-vs-on-document-leads-to-conflict-between-ha
-    for (const x of Array(5).keys()) {
-        var csrftoken = getCookie('csrftoken');
-        var xhttp = new XMLHttpRequest();
+    // for (const x of Array(5).keys()) {
+    //     var csrftoken = getCookie('csrftoken');
+    //     var xhttp = new XMLHttpRequest();
 
-        xhttp.onload = function() {
-            var jsonTiles = JSON.parse(this.responseText);
-            // https://stackoverflow.com/questions/7327056/appending-html-string-to-the-dom
-            var contentEl = document.querySelector('.content-container');
-            contentEl.insertAdjacentHTML( 'beforeend', jsonTiles.scroll_content);
-            block_request = false;
-        }
-        xhttp.open('GET', '/', true);
-        xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-        xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhttp.send();
-      }
+    //     xhttp.onload = function() {
+    //         var jsonTiles = JSON.parse(this.responseText);
+    //         // https://stackoverflow.com/questions/7327056/appending-html-string-to-the-dom
+    //         var contentEl = document.querySelector('.content-container');
+    //         contentEl.insertAdjacentHTML( 'beforeend', jsonTiles.scroll_content);
+    //         block_request = false;
+    //     }
+    //     xhttp.open('GET', '/', true);
+    //     xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+    //     xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    //     xhttp.send();
+    //   }
     while (loadContent()==true){}
 
     window.onscroll = loadContent;

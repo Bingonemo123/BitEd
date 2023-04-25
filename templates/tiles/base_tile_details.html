@@ -8,11 +8,18 @@
             </div>
         {% endif %}
 
-        {% if object.total_questions %}
-            <div class="tile_total_questions" >
-                Total {{ object.total_questions }}
+        <div class="tile_total_questions" >
+            In Tile:
+            {% if object.total_questions %}
+                {{ object.total_questions }}
+            {% else %}
+                0
+            {% endif %}
+            <div>
+                Total 100
             </div>
-        {% endif %}
+
+        </div>
     </div>
 
     {% comment %} title {% endcomment %}

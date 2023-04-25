@@ -35,9 +35,15 @@ html,body {
   } */
 
 
+  
+  .content-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0 auto;
+  }
 
-
-.content-container {
+.grid-container {
     --grid-layout-gap: 15px;
     --grid-column-count: 4;
     --grid-item--min-width: 250px;
@@ -55,5 +61,15 @@ html,body {
 
     padding:0 8vw;
     height: 100%;
+    flex: 1;
 
+}
+
+
+.left-sidebar {
+    flex-shrink: 0;
+}
+
+.accordion-button {
+    padding: revert;
 }
