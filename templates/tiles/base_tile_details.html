@@ -4,7 +4,7 @@
     <div class="bubble_container">   
         {% if object.type_of_tile_char %}
             <div class="tile_type" >
-                {{ object.type_of_tile_char }}
+                {{ object.get_type_of_tile_char_display }}
             </div>
         {% endif %}
 

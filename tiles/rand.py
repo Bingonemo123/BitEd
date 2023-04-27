@@ -1,5 +1,7 @@
 import random
 from tiles.models import Tile
+from django.shortcuts import get_object_or_404
+
 
 
 def get_random_questions(qs, n):
@@ -33,7 +35,7 @@ def get_random_home_tiles(n=12):
                 return []
         tile_return_list = []
         for pk in pkl:
-            tile = Tile.objects.filter(pk=pk).first()
+            tile = get_object_or_404(Tile, pk=pk)
             if tile:
                 tile_return_list.append(tile)
             else:

@@ -16,22 +16,8 @@ def rnd_tiles_to_context ():
     requested_random_tiles = get_random_home_tiles(n=16)
     if requested_random_tiles is None:
         return {}
-    custom_forms = []
-    for tile in requested_random_tiles:
-        tile_form = {}
-        tile_form['img_url'] = tile.img_url
-        tile_form['type_of_tile_char'] = dict(TYPES_OF_TILES)[tile.type_of_tile_char]
-        tile_form['tile_headline'] = tile.tile_headline
-        tile_form['author'] = tile.author
-        tile_form['created_at'] = tile.created_at
-        tile_form['expected_reward'] = tile.expected_reward
-        tile_form['total_pass'] = tile.total_pass
-        tile_form['total_writes'] = tile.total_writes
-        tile_form['total_questions'] = tile.total_questions
-        tile_form['id'] = tile.id
-        custom_forms.append(tile_form)
     context = {
-                'tiles': custom_forms}
+                'tiles': requested_random_tiles}
     return context
 
 def get_tiles_view (request, tile_context={}):

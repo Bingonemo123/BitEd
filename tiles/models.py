@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 TYPES_OF_TILES = (
-    ('T', 'Tile/Tag'),
+    ('T', 'Topic'),
     ('B', 'Block'),
     ('O', 'Official Test'),
     ('S', 'Subject'),
