@@ -1,43 +1,15 @@
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.core.cache import cache
 
 from tiles.rand import get_random_home_tiles
 
 from tiles.models import Tile
-from tiles.models import TYPES_OF_TILES
-from questions.models import Question
 from itertools import chain
 
 NEWS_COUNT_PER_PAGE = 12
 
-# TODO: Convert To List View + Find way for scrolling mechanism
-
-def rnd_tiles_to_context ():
-    requested_random_tiles = get_random_home_tiles(n=16)
-    if requested_random_tiles is None:
-        return {}
-    context = {
-                'tiles': requested_random_tiles}
-    return context
-
-def get_tiles_view (request, tile_context={}):
-
-    context = rnd_tiles_to_context() 
-    context['tile_context'] = tile_context
-
-    return render_to_string('tiles/tiles_list_string.html', context, request=request)
-
-def scroll_tiles_load(request, *args, **kwargs):
-    content = ''
-    context = rnd_tiles_to_context()
-    
-    content += render_to_string('tiles/tiles_list_string.html', context, request=request)
-
-    return JsonResponse({
-        "scroll_content": content,
-        "end_pagination": False
-    }) 
-
+# TODO: Convert To List View 
 
 def get_all_questions(tile):
     questions_queryset = tile.questions.all()
@@ -53,3 +25,37 @@ def get_all_questions_num(tile):
         questions_num += get_all_questions_num(subtile)
 
     return questions_num
+
+
+def rnd_tiles_to_context ():
+    requested_random_tiles = get_random_home_tiles(n=16)
+    if requested_random_tiles is None:
+        return {}
+    
+    for tile in requested_random_tiles:
+        tile_total = cache.get(str(tile.pk))
+        if tile_total is None:
+            tile_total = get_all_questions_num(tile)
+            cache.add(str(tile.pk), tile_total)
+            tile.total_questions = tile_total
+            tile.save()
+
+    context = {
+                'tiles': requested_random_tiles}
+    return context
+
+def get_tiles_view (request):
+    context = rnd_tiles_to_context() 
+    return render_to_string('tiles/tiles_list_string.html', context, request=request)
+
+def scroll_tiles_load(request, *args, **kwargs):
+    context = rnd_tiles_to_context()
+
+    return JsonResponse({
+        "scroll_content": render_to_string(
+                    'tiles/tiles_list_string.html',
+                      context, request=request),
+        "end_pagination": False
+    }) 
+
+

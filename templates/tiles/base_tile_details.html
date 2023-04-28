@@ -10,13 +10,14 @@
 
         <div class="tile_total_questions" >
             In Tile:
-            {% if object.total_questions %}
-                {{ object.total_questions }}
-            {% else %}
-                0
-            {% endif %}
+                {{ object.questions.all.count }}
             <div>
-                Total 100
+                Total 
+                {% if object.total_questions %}
+                    {{ object.total_questions }}
+                {% else %}
+                    0
+                {% endif %}
             </div>
 
         </div>

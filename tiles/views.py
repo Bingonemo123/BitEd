@@ -31,7 +31,6 @@ class TileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['object'].type_of_tile_char = dict(TYPES_OF_TILES)[self.object.type_of_tile_char]
         context['form'] = writeRequestDataForm()
         context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
         # context['personal_formset'] = PersonalFormset()

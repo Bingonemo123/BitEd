@@ -206,3 +206,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # SOCIAL_AUTH_URL_NAMESPACE = 'registration'
+
+
+# Caching 
+# add(), set(), touch() cull cache only
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "Bited_main_cache_table",
+    }
+}
