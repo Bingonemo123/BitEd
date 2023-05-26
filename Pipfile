@@ -15,6 +15,7 @@ django-taggit = "*"
 crispy-bootstrap5 = "*"
 social-auth-app-django = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
 
