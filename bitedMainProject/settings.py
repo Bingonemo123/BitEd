@@ -115,9 +115,19 @@ DEFAULT_DOMAIN = 'http://tvildiani.com'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ["DBENGINE"],
+        'NAME': os.environ["DBNAME"],
+        'USER': os.environ["DBUSER"],
+        'PASSWORD': os.environ["DBPASSWORD"],
+        'HOST': os.environ["DBHOST"],
+        'PORT': os.environ["PORT"],
     }
+
+#   'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+    
 }
 
 

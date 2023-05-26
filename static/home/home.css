@@ -36,7 +36,7 @@ html,body {
 
 
   
-  .content-container {
+.content-container {
       display: flex;
       justify-content: space-between;
       width: 100%;
@@ -65,9 +65,20 @@ html,body {
 
 }
 
+.relative-sidebar{
+    position: fixed;
+    flex-shrink: 0;
+    z-index: 10;
+}
 
 .left-sidebar {
-    flex-shrink: 0;
+    position: absolute;
+    min-width: max-content;
+    max-height: 90vh;
+    overflow: auto;
+    top: 5px;
+    left: 5px;
+
 }
 
 .accordion-button {

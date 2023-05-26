@@ -21,6 +21,7 @@ from tiles.forms import PersonalFormset
 from itertools import chain
 from tiles.loader import get_all_questions_num
 from tiles.loader import get_all_questions
+from django.core.cache import cache
 
 
 # Create your views here.
@@ -34,6 +35,13 @@ class TileDetailView(DetailView):
         context['form'] = writeRequestDataForm()
         context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
         # context['personal_formset'] = PersonalFormset()
+        tile_total = cache.get(str(self.object.pk))
+        if tile_total is None:
+            tile_total = get_all_questions_num(self.object)
+            cache.add(str(self.object.pk), tile_total)
+            self.object.total_questions = tile_total
+            self.object.save()
+
         return context
     
 class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
@@ -117,6 +125,7 @@ class TileView(View):
 
 class TileCreateView(LoginRequiredMixin, CreateView):
     '''Currently in Profile'''
+    # https://github.com/codingjoe/django-select2
     model = Tile
     form_class = TileCreateForm
     template_name = 'tiles/tile_create.html'

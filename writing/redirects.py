@@ -27,7 +27,7 @@ def get_neighbour(useranswer, direction=None):
 def useranswer_redirect(current_useranswer, direction=None):
 
     target_useranswer = get_neighbour(current_useranswer, direction)
-    
+
     if target_useranswer is None: # finished block
         current_useranswer.wrd.finished = True
         current_useranswer.wrd.save()
@@ -40,6 +40,11 @@ def useranswer_redirect(current_useranswer, direction=None):
         elif current_useranswer.wrd.block_mode == 1: # test mode           
             if direction is None:
                 target_useranswer = get_neighbour(current_useranswer, 'next')
+                if target_useranswer is None: # finished block
+                    current_useranswer.wrd.finished = True
+                    current_useranswer.wrd.save()
+                    return reverse_lazy('home')
+                
             return reverse_lazy('writing:writing', 
                         kwargs={'pk': target_useranswer.pk})
         

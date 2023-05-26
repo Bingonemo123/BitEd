@@ -18,6 +18,9 @@ class Question (models.Model):
 
     tags = TaggableManager()
 
+    next_question_in_group = models.ForeignKey("self", null=True, blank=True, default=None,
+                                                on_delete=models.SET_DEFAULT)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
