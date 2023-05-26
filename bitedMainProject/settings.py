@@ -46,9 +46,7 @@ if DEBUG is None:
 if  DEBUG is None:
     DEBUG = True
 
-ALLOWED_HOSTS = ['http://www.tvildiani.com', '37.110.175.239', 
-                'tvildiani.com', 'www.tvildiani.com', 
-                '.tvildiani.com', '127.0.0.1', "*"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
