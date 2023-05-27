@@ -106,7 +106,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bitedMainProject.wsgi.application'
 
-DEFAULT_DOMAIN = 'http://tvildiani.com'
+DEFAULT_DOMAIN = 'https://bited.ge'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
