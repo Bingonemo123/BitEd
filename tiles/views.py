@@ -9,7 +9,6 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
 from tiles.models import Tile
-from tiles.models import TYPES_OF_TILES
 from tiles.models import WriteRequestData
 from writing.models import UserAnswer
 
@@ -17,11 +16,6 @@ from tiles.forms import writeRequestDataForm
 from tiles.forms import TileCreateForm
 from tiles.forms import InlineSubTilesListFormSet
 from tiles.forms import PersonalFormset
-
-from itertools import chain
-from tiles.loader import get_all_questions_num
-from tiles.loader import get_all_questions
-from django.core.cache import cache
 
 
 # Create your views here.
@@ -35,13 +29,8 @@ class TileDetailView(DetailView):
         context['form'] = writeRequestDataForm()
         context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
         # context['personal_formset'] = PersonalFormset()
-        tile_total = cache.get(str(self.object.pk))
-        if tile_total is None:
-            tile_total = get_all_questions_num(self.object)
-            cache.add(str(self.object.pk), tile_total)
-            self.object.total_questions = tile_total
-            self.object.save()
-
+        self.object.get_total_questions_num
+        
         return context
     
 class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
@@ -67,12 +56,8 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         self.questions_queryset = self.object.questions.all()
         for subtileform in self.formset.cleaned_data:
             if subtileform.get('is_selected', False):
-                self.questions_queryset = chain(
-                    self.questions_queryset,
-                    get_all_questions(subtileform.get("id")))
+                self.questions_queryset |= subtileform.get("id").get_all_questions()
         
-        self.questions_queryset = list(self.questions_queryset)
-
         return super().post(request, *args, **kwargs)
     
     def get_form_kwargs(self):

@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from questions.models import Question
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from tree_queries.models import TreeNode
+from django.core.cache import cache
+
 # Create your models here.
 TYPES_OF_TILES = (
     ('T', 'Topic'),
@@ -36,7 +39,7 @@ def headline_unique(value):
             params={'value': value},
         )
 
-class Tile(models.Model):
+class Tile(TreeNode):
     # static data
     tile_headline = models.CharField(max_length=128, unique=True) 
     pointer_url = models.URLField(null=True, blank=True)
@@ -55,11 +58,26 @@ class Tile(models.Model):
     total_writes = models.IntegerField(default=0)
 
     # Relations
-    parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
+    # parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     questions = models.ManyToManyField(Question, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def get_total_questions_num(self):
+        tile_total = cache.get(str(self.pk))
+        if tile_total is None:
+            tile_total = self.get_all_questions().count()
+            cache.add(str(self.pk), tile_total, timeout=28800)
+            self.total_questions = tile_total
+            self.save()
+        return self.total_questions
+    
+    def get_all_questions(self):
+        subtiles = self.descendants(include_self=True)
+        questions_queryset = Question.objects.filter(tile__in=subtiles)
+        return questions_queryset
 
 
     def __str__(self) -> str:

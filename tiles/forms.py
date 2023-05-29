@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from tiles.models import BLOCK_MODE_CHOICES
 from tiles.models import BLOCK_SECTOR_CHOICES
 from tiles.models import Tile
-from tiles.rand import get_random_questions
+from tiles.rand import fastest_get_random_questions
 
 class writeRequestDataForm(forms.Form):
     block_mode = forms.ChoiceField(choices=BLOCK_MODE_CHOICES)
@@ -19,7 +19,7 @@ class writeRequestDataForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_block_total_questions(self):  
-        self.random_questions = get_random_questions(self.questions_queryset, 
+        self.random_questions = fastest_get_random_questions(self.questions_queryset, 
                                    self.cleaned_data['block_total_questions'])
         if self.random_questions is None:
             raise ValidationError(f"""Not Enough Questions in Database.
