@@ -6,27 +6,22 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitedMainProject.settings")
 django.setup()
 
 # Now this script or any imported module can use any part of Django it needs.
-from tiles.models import Tile
-from tiles.rand import get_random_questions
-from tiles.rand import random_questions_random_sample
-
-root = Tile.objects.get(pk=0)
-
-import time
-
-allqs = root.get_all_questions()
-
-st = time.time()
-r1 = get_random_questions(allqs, 40)
-print(time.time() -st, len(r1))
-
-st = time.time()
-r1 = random_questions_random_sample(allqs, 40)
-print(time.time() -st, r1.count())
+from questions.models import Question
+from questions.models import QuestionChoice
+from django.db.models import Q
 
 
+answers_with = QuestionChoice.objects.filter(Q(choice_text__icontains="\t\t\t\t") )
+
+qs = [ans.question_to for ans in answers_with if ans.question_to not in qs]
 
 
+# Question object (6996) Question object (6981) ?
+# Question object (9566) Question object (9563) + 
+# Question object (10146) Question object (10145) + 
+# Question object (11948) Question object (11947) +
 
 
-# print(get_random_questions(allq, 40))
+# Biostatistics 
+# Questions without graphs
+# user answer 1682

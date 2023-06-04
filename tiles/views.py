@@ -70,7 +70,7 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         self.wrd = WriteRequestData(
             requested_by = self.request.user,
             block_mode = form.cleaned_data['block_mode'],
-            block_total_questions = form.cleaned_data['block_total_questions'],
+            block_total_questions = len(form.random_questions),
             timed = form.cleaned_data['timed'],
             block_sector = form.cleaned_data['sector'],
             tile_created_from = self.object

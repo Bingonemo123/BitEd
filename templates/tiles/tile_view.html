@@ -23,7 +23,8 @@
             <div class="block-settings">
                     {% csrf_token %}
                     {{ form.as_p }}
-                <input type="submit" class="btn btn-primary" value="Submit"/>
+                    If there are grouped questions in a tile, the total number of questions may be higher. <br>
+                    <input type="submit" class="btn btn-primary" value="Submit"/>
                 <input type="hidden" name="text" value=" {{ next }} "/>
 
             </div>
