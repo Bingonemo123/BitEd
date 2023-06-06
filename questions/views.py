@@ -1,5 +1,6 @@
+from typing import Optional
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy
@@ -9,6 +10,11 @@ from questions.forms import basic_formset
 from questions.forms import ChoiceFormset
 from questions.forms import QuestionChoiceForm
 from django.forms import modelformset_factory
+
+from writing.forms import WritingForm
+from django.contrib.auth.mixins import UserPassesTestMixin
+
+
 
 from questions.forms import QuestionCreateForm
 from questions.models import Question
@@ -112,6 +118,18 @@ class MyQuestionsUpdate(UpdateView):
     
     def get_success_url(self) -> str:
         return reverse_lazy('select_tiles', kwargs={"pk":self.object.pk})
+    
+class QuestionPreview(UserPassesTestMixin, DetailView):
+    model = Question
+    template_name = "questions/question_preview.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = WritingForm(self.object)
+        return context
+    
+    def test_func(self) -> bool | None:
+        return self.request.user.is_superuser
     
 
 class SelectTiles(FormView,  SingleObjectMixin):

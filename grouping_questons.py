@@ -11,9 +11,13 @@ from questions.models import QuestionChoice
 from django.db.models import Q
 
 
-answers_with = QuestionChoice.objects.filter(Q(choice_text__icontains="\t\t\t\t") )
+print(Question.objects.filter(next_question_in_group__isnull=False).values_list('id', 'next_question_in_group'))
 
-qs = [ans.question_to for ans in answers_with if ans.question_to not in qs]
+
+# answers_with = QuestionChoice.objects.filter(Q(choice_text__icontains="\t\t\t\t") )
+
+# qs = list(set([ans.choice_to for ans in answers_with]))
+# print(len(qs))
 
 
 # Question object (6996) Question object (6981) ?
@@ -25,3 +29,7 @@ qs = [ans.question_to for ans in answers_with if ans.question_to not in qs]
 # Biostatistics 
 # Questions without graphs
 # user answer 1682
+# 1822
+
+# order change user answer 1718 + 
+#
