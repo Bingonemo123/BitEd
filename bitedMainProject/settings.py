@@ -230,3 +230,12 @@ CACHES = {
 
 TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/js/tinymce/tinymce.min.js")
 # TINYMCE_COMPRESSOR = False
+
+TINYMCE_DEFAULT_CONFIG = {
+    "plugins" :  "advlist, autolink, link, image, lists, charmap, preview, anchor, pagebreak,"
+                 "searchreplace, wordcount, visualblocks, visualchars, code, fullscreen, insertdatetime,"
+                 "media, table, emoticons, template, help",
+    "promotion": False,
+    
+}
+
