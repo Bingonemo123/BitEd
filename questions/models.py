@@ -3,14 +3,17 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from taggit.managers import TaggableManager
 
+from tinymce import models as tinymce_models
+
+
 User = get_user_model()
 
 
 # Create your models here.
 class Question (models.Model):
     question_title = models.CharField(max_length=150)
-    question_body = models.TextField()
-    question_explanation = models.TextField()
+    question_body = tinymce_models.HTMLField()
+    question_explanation = tinymce_models.HTMLField()
 
     correct_choice = models.ForeignKey('QuestionChoice',null=True, blank=True, on_delete=models.SET_NULL)
 

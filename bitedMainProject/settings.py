@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'questions',
     'profile',
+    'tinymce',
     'writing',
     'taggit',
     'tiles',
@@ -225,3 +226,7 @@ CACHES = {
         "LOCATION": "Bited_main_cache_table",
     }
 }
+
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/js/tinymce/tinymce.min.js")
+# TINYMCE_COMPRESSOR = False

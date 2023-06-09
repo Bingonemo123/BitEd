@@ -1,7 +1,7 @@
 import sys, os, django
 import random
 
-sys.path.append(r"C:\Users\MSI\Documents\repos\BitEd") #here store is root folder(means parent).
+sys.path.append(r"C:\Users\MSI\Documents\repos\BitEd") # here store is root folder(means parent).
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitedMainProject.settings")
 django.setup()
 
@@ -10,14 +10,10 @@ from questions.models import Question
 from questions.models import QuestionChoice
 from django.db.models import Q
 
+answers_with = QuestionChoice.objects.filter(Q(choice_text__icontains="\t\t\t\t") )
 
-print(Question.objects.filter(next_question_in_group__isnull=False).values_list('id', 'next_question_in_group'))
-
-
-# answers_with = QuestionChoice.objects.filter(Q(choice_text__icontains="\t\t\t\t") )
-
-# qs = list(set([ans.choice_to for ans in answers_with]))
-# print(len(qs))
+qs = list(set([ans.choice_to for ans in answers_with]))
+print(len(qs))
 
 
 # Question object (6996) Question object (6981) ?
@@ -32,4 +28,4 @@ print(Question.objects.filter(next_question_in_group__isnull=False).values_list(
 # 1822
 
 # order change user answer 1718 + 
-#
+# 1846 + 

@@ -14,8 +14,6 @@ from django.forms import modelformset_factory
 from writing.forms import WritingForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 
-
-
 from questions.forms import QuestionCreateForm
 from questions.models import Question
 from questions.models import QuestionChoice
@@ -131,7 +129,6 @@ class QuestionPreview(UserPassesTestMixin, DetailView):
     def test_func(self) -> bool | None:
         return self.request.user.is_superuser
     
-
 class SelectTiles(FormView,  SingleObjectMixin):
     ''' For selecting Tiles after creating Question '''
     model = Question

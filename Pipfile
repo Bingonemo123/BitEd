@@ -17,6 +17,7 @@ social-auth-app-django = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
 django-tree-queries = "*"
+django-tinymce = "*"
 
 [dev-packages]
 
