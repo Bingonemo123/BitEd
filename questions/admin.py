@@ -14,6 +14,9 @@ class QuestionAdmin(admin.ModelAdmin):
 
     def preview(self, obj):
         return format_html('<a href="/question/preview/{}">Preview Question</a>'.format(obj.pk))  # however you generate the link
+    
+class QuestionChoiceAdmin(admin.ModelAdmin):
+    raw_id_fields = ['choice_to']
 
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(QuestionChoice)
+admin.site.register(QuestionChoice, QuestionChoiceAdmin)

@@ -13,8 +13,11 @@ from django.db.models import Q
 answers_with = QuestionChoice.objects.filter(Q(choice_text__icontains="\t\t\t\t") )
 
 qs = list(set([ans.choice_to for ans in answers_with]))
-print(len(qs))
 
+for x, quest in enumerate(qs, 1):
+    print(x, quest)
+    print(QuestionChoice.objects.filter(choice_to = quest).values("choice_text", "pk"))
+    input()
 
 # Question object (6996) Question object (6981) ?
 # Question object (9566) Question object (9563) + 
