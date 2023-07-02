@@ -5,11 +5,12 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'navbar/navbar.css' %}"/>
 {% endblock head_links %}
-
-{% block head_scripts %}
+    
+{% comment %} {% block head_scripts %}
     {{ block.super }}
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script src="{% static 'navbar/navbar.js' %}"> </script>
-{% endblock head_scripts %}
+{% endblock head_scripts %} {% endcomment %}
 
 {% block navbar %}
     <header>
@@ -17,7 +18,5 @@
         
         {% endblock homenavbar %}
     </header>
-
     {{ block.super }}
-
 {% endblock navbar %}

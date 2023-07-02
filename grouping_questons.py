@@ -133,7 +133,6 @@ def test_1():
 q = test()
 print(UserAnswer.objects.filter(answer_to = q[0])[0].answer_state)
 
-
 # timer = []
 
 # while len(timer) < 1000:

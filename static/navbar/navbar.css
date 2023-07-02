@@ -64,3 +64,8 @@ header {
     top: 0px;
     z-index: 3;
 }
+
+
+.dark_mode{
+    background-color: #121212;
+}

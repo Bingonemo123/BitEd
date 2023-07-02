@@ -18,3 +18,18 @@
 // }
 
 // )
+
+// Listen for click on toggle switch
+
+window.addEventListener("DOMContentLoaded", (event) => {
+
+    var switch_dark_mode= document.getElementById("DarkModeSwitchCheckDefault");
+    switch_dark_mode.addEventListener("click", (event) => {
+        if(switch_dark_mode.checked) {
+                    document.body.classList.add("dark_mode");
+                } else {
+                    document.body.classList.remove("dark_mode");
+                    
+    }})
+
+});

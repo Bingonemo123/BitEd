@@ -6,6 +6,7 @@
         "inlineformset",
         "mnode",
         "resequence",
+        "subtiles",
         "xhttp"
     ],
     "cSpell.ignoreWords": [
