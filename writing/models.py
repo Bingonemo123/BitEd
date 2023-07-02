@@ -4,14 +4,11 @@ from questions.models import Question
 from questions.models import QuestionChoice
 
 ANSWER_STATE = [
-    (1, 'Unseen'),
-    (2, 'Seen'),
-    (4, 'Selected'),
-    (8, 'Answered'),
-    (16, 'Correct'),
-    (32, 'Incorrect'),
-    (64, 'Unselected Timeout'),
-    (128, 'Selected Timeout')
+    (1, 'Seen'), # Unseen
+    (2, 'Selected'), # Not Selected (Not Submitted)
+    (4, 'Submitted'), # Not Submited ( Not answered )
+    (8, 'Correct'), # Incorrect
+    (16, 'Timeout') # Answered Timely
 ]
 
 # Create your models here.
@@ -25,7 +22,7 @@ class UserAnswer(models.Model):
                                         null=True, 
                                         blank=True,
                                         on_delete=models.CASCADE)
-    answer_state = models.IntegerField(choices=ANSWER_STATE, default=1)
+    answer_state = models.IntegerField(choices=ANSWER_STATE, default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

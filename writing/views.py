@@ -42,21 +42,24 @@ class WritingFormView(SingleObjectMixin, FormView):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-
-        if form.cleaned_data['choosen_answer']:
-            if (getattr(self, 'navbar_direction', None)
-                    and  self.object.answer_state & 9):
-                self.object.answer_state = 4 # selected
-            else:
-                self.object.answer_state = 8 # answered
+        ##################################### Writing View ##########################
+        #####################################    Seen +    ##########################
+        ##################### Selected + ###########|########### Selected - #########
+        ########## Submitted + ###### Submitted - ##|## Submitted + ## Submitted - ##
+        ## Correct + ## Correct - ##|               |## Correct - ###|             |
+        self.object.answer_state |= 1 # Seen
+        if form.cleaned_data['choosen_answer']: # selected
+            self.object.answer_state |= 2 # Selected
             self.object.choosen_answer_obj=QuestionChoice.objects.get(
                 pk=form.cleaned_data['choosen_answer']
-                )
-            self.object.save()
-        else:
-            self.object.anwser_state = 2 # seen
-            self.object.save()
-
+                    )
+            
+        if not getattr(self, 'navbar_direction', False): # Submitted/Answered
+            self.object.answer_state |= 4 # Submitted
+            if self.object.wrd.block_mode == 2: # In Training Mode
+                if form.cleaned_data.get('choosen_answer') == self.object.answer_to.correct_choice.pk:
+                    self.object.answer_state |= 8 # Correct
+        self.object.save()
         return  super().form_valid(form)
 
     def get_success_url(self):
@@ -78,7 +81,7 @@ class QuestionView (LoginRequiredMixin, DetailView):
         self.wrd = self.object.wrd
         context =  super().get_context_data(**kwargs)
         context['form'] = WritingForm(self.object.answer_to)
-        if self.object.answer_state & 12: # selected or answered
+        if self.object.answer_state & 2: # Selected
             context['form'].fields['choosen_answer'].initial = (self.object
                                                 .choosen_answer_obj.pk)
         context['wrd'] = self.wrd
@@ -103,7 +106,7 @@ class ReviewingView(DetailView):
         context = super().get_context_data(**kwargs)
         writingform = WritingForm(self.object.answer_to)
 
-        if self.object.answer_state & 12: # selected or answered
+        if self.object.answer_state & 2: # Selected 
             writingform.fields['choosen_answer'].initial = (self.object
                                                 .choosen_answer_obj.pk)
 

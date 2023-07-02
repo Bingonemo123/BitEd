@@ -13,8 +13,8 @@
                 {{ object.questions.all.count }}
             <div>
                 Total 
-                {% if object.total_questions %}
-                    {{ object.total_questions }}
+                {% if object.get_total_questions_num %}
+                    {{ object.get_total_questions_num }}
                 {% else %}
                     0
                 {% endif %}

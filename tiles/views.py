@@ -1,3 +1,4 @@
+import time
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
@@ -8,14 +9,20 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
+
 from tiles.models import Tile
 from tiles.models import WriteRequestData
 from writing.models import UserAnswer
 
 from tiles.forms import writeRequestDataForm
 from tiles.forms import TileCreateForm
+from tiles.forms import PersonalQueryQuestionsForm
 from tiles.forms import InlineSubTilesListFormSet
-from tiles.forms import PersonalFormset
+
+
+from tiles.loader import subquery_personal_filter_stats_loader
+from tiles.loader import nested_personal_filter_stats_loader
+from tiles.loader import personal_filters_by_questions
 
 
 # Create your views here.
@@ -28,9 +35,19 @@ class TileDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = writeRequestDataForm()
         context['inline_formset'] = InlineSubTilesListFormSet(instance=self.object)
-        # context['personal_formset'] = PersonalFormset()
-        self.object.get_total_questions_num
-        
+        context['personal_form'] = PersonalQueryQuestionsForm()
+        self.object.get_total_questions_num # function 
+
+        if self.request.user.is_authenticated:
+            max_questions_queryset = self.object.get_all_questions()
+
+            st = time.time()
+            ordered_agr_numbers = nested_personal_filter_stats_loader(max_questions_queryset, 
+                                                                        self.request.user)
+            print(time.time() - st)
+            ordered_agr_numbers[0] = self.object.get_total_questions_num - ordered_agr_numbers[0]
+            context['personal_form_iterator'] = zip (context['personal_form']["personal_filter"], 
+                                                     ordered_agr_numbers )        
         return context
     
 class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
@@ -41,9 +58,13 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
 
     # from Formview how to pass data to form ? widget
     def get_context_data(self, **kwargs):
+        """ This get context data is for Post Request aka after error
+        Load. There is Idea [TODO:] to make on get context function """
         context =  super().get_context_data(**kwargs)
         context['inline_formset'] = InlineSubTilesListFormSet(self.request.POST,
                                                               instance=self.object)
+        context['personal_form'] = PersonalQueryQuestionsForm(self.request.POST)
+        
         return context
     
     def post(self, request, *args, **kwargs):
@@ -52,12 +73,20 @@ class writeRequestDataFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         self.object = self.get_object()
         self.formset = InlineSubTilesListFormSet(self.request.POST, 
                                                  instance=self.object)
+        self.personal_form = PersonalQueryQuestionsForm(self.request.POST)
 
-        self.questions_queryset = self.object.questions.all()
+        choosen_questions = self.object.questions.all()
         for subtileform in self.formset.cleaned_data:
             if subtileform.get('is_selected', False):
-                self.questions_queryset |= subtileform.get("id").get_all_questions()
-        
+                choosen_questions |= subtileform.get("id").get_all_questions()
+
+        if not self.personal_form.is_valid():
+            return self.form_invalid(self.personal_form)
+
+        self.questions_queryset = personal_filters_by_questions(choosen_questions,
+                                                               self.personal_form,
+                                                               self.request.user)
+
         return super().post(request, *args, **kwargs)
     
     def get_form_kwargs(self):

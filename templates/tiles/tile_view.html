@@ -51,6 +51,35 @@
                     {% endif %}
                 </fieldset>
         </section>
+
+        <section class="limited">
+            <fieldset class="personal-field" id="fieldset--override">
+                        {{ personal_form.management_form }}
+                        <legend id="legend--override" >
+                            {{ personal_form.personal_filter.label_tag }}
+                        </legend>
+                            <div class="personal-form">
+                                {% if personal_form_iterator %}
+                                    {% for filter_mode, mode_numbers in personal_form_iterator %}
+                                    <p>  
+                                        {{ filter_mode }}
+                                        <span class="badge text-bg-primary rounded-pill"> {{ mode_numbers }} </span>
+                                    </p>
+                                    {% endfor %}
+
+                                {% else %}
+                                    {% for filter_mode in personal_form.personal_filter %}
+                                    <p>  
+                                        {{ filter_mode }}                                
+                                    </p>
+                                    {% endfor %}
+                                {% endif %}
+    
+
+                            </div>
+
+                </fieldset>
+        </section>
     </form>
     </div>
 

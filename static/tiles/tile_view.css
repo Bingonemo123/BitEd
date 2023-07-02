@@ -18,12 +18,25 @@ section {
     display: flex;
     flex-direction: column;
   }
+
   
-.subtiles {
+.subtiles, .personal-field {
+    
     flex-basis: 0px;
     flex-grow: 1;
     overflow-y: auto;
-  }
+    
+}
+.text-bg-primary {
+    font-family: 'Courier New', Courier, monospace;
+}
+    
+.personal-field {
+    overflow-y: hidden;
+}
+/* .choice-form, .personal-form{
+    margin: 10px;
+} */
 
 #fieldset--override {
     /* border-width: 2px;
@@ -33,7 +46,7 @@ section {
     border: revert;
     min-width: revert;
     padding: revert;
-    margin: revert;
+    margin: 10px;
 
 }
 
