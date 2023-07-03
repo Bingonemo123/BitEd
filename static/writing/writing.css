@@ -33,10 +33,6 @@ img{
     max-height: 90vh;
 }
 
-#DarkModeSwitchCheckDefault{
-    float: right;
-    margin-top: 0;
-}
 
 .dark_mode{
     background-color: #121212;

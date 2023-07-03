@@ -13,7 +13,7 @@
     min-height: 3.125rem;
     box-shadow: var(--bs-sm);
     z-index: 3;
-    padding-right: 1.57vw;
+    padding-right: .57vw;
     padding-left: .57vw;
 }
 
@@ -66,6 +66,12 @@ header {
 }
 
 
+#DarkModeSwitchCheckDefault{
+    float: right;
+    margin-top: 0;
+}
+
 .dark_mode{
     background-color: #121212;
+    color: white;
 }

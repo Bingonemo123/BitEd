@@ -19,15 +19,18 @@
         </div>
 
     {% endblock navbar_content %}
-
-    <svg aria-hidden="true" class="svg-icon iconInbox" width="20" height="18" viewBox="0 0 20 18">
-        <path d="M4.63 1h10.56a2 2 0 0 1 1.94 1.35L20 10.79V15a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4.21l2.78-8.44c.25-.8 1-1.36 1.85-1.35Zm8.28 12 2-2h2.95l-2.44-7.32a1 1 0 0 0-.95-.68H5.35a1 1 0 0 0-.95.68L1.96 11h2.95l2 2h6Z"/></svg>
+    
+    {% comment %} BASKET {% endcomment %}
+    {% comment %} <svg aria-hidden="true" class="svg-icon iconInbox" width="20" height="18" viewBox="0 0 20 18">
+        <path d="M4.63 1h10.56a2 2 0 0 1 1.94 1.35L20 10.79V15a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4.21l2.78-8.44c.25-.8 1-1.36 1.85-1.35Zm8.28 12 2-2h2.95l-2.44-7.32a1 1 0 0 0-.95-.68H5.35a1 1 0 0 0-.95.68L1.96 11h2.95l2 2h6Z"/></svg> {% endcomment %}
 
     {% comment %} <div>
         <a href="{% url 'map' %}">Map</a>   
     </div> {% endcomment %}
 
-    <a href="{% url 'createQuestion' %}" target="_blank" rel="noopener noreferrer">Create</a>
+    <a href="{% url 'createQuestion' %}" target="_blank" rel="noopener noreferrer">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z"/></svg>
+    </a>
     
     {% comment %} <button onclick="window.location.href={% url 'createQuestion' %};">
         Create</button> {% endcomment %}
