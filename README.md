@@ -4,6 +4,11 @@ Due to high time consumption of perfect development high-yield approach is desir
 
 - Correct quantity questions
 - Correct links of images
+- Check update question logic [ deletion of answer option ]
+- Dark Mode
+- Social Login - fix Facebook
+- Remove Tiles bunch loading
+- Update Login Page
 - [ ] Writing Authorize on Owned Blocks
 - [ ] Search Engine
 - [ ] Develope Django Rest Api
