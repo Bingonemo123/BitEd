@@ -9,6 +9,7 @@ Due to high time consumption of perfect development high-yield approach is desir
 - Social Login - fix Facebook
 - Remove Tiles bunch loading
 - Update Login Page
+- Write tests for Personal Filters
 - [ ] Writing Authorize on Owned Blocks
 - [ ] Search Engine
 - [ ] Develope Django Rest Api
