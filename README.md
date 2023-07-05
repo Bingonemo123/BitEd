@@ -13,6 +13,7 @@ Due to high time consumption of perfect development high-yield approach is desir
 - [ ] Writing Authorize on Owned Blocks
 - [ ] Search Engine
 - [ ] Develope Django Rest Api
+- [ ] Download Images U
 
 ## Step II - Monetization
 
