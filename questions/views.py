@@ -74,12 +74,23 @@ class MyQuestionsUpdate(UpdateView):
               'question_body', 
               'question_explanation']
     
+    # creating formset template based on QuestionChoice object with specific form
+    # there is need of two kind of formsets. One is needed when question is displayed
+    # for update, when is must be preloded with excisting questionchoice objects. Here we use
+    # modelformset_facory since model in name.
+    # second one is needed for recieving updates so cald freeform formset, where input is populated
+    # form recived request. 
+
     basic_modelformset = modelformset_factory(QuestionChoice, 
                                          form=QuestionChoiceForm, extra=0)
         
     def form_valid(self, form):
         self.formset = ChoiceFormset(self.request.POST)
 
+        # check if formset has any errors
+        # forms inside formset aren't allowed to be empty. But inside formset forms don't rase form_invalide
+        # errors. so when subformset form is empty it invalid but a.k.a formset is invalid, but non_form_errors
+        # are none. (if of course there is not intrinsic formset error)
         if len(self.formset.non_form_errors()) != 0:
             return self.form_invalid(form)
 
@@ -87,8 +98,8 @@ class MyQuestionsUpdate(UpdateView):
         QuestionChoice.objects.filter(choice_to=self.object).delete()
         correct_answer_setted = False
 
-        for idx, choice in enumerate(self.formset):
-            print(choice.is_valid(), choice.cleaned_data)
+        for choice in self.formset:
+            # print(choice.is_valid(), choice.cleaned_data)
             if choice.is_valid() and (choice.has_changed() or 
                                       choice.cleaned_data.get('choice_text')):
                 choice_obj = choice.save(commit=False)
@@ -102,6 +113,9 @@ class MyQuestionsUpdate(UpdateView):
     def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             if self.request.POST:
+                # when there is post request, so formset was already populated
+                # from database, there is no need form modelformser. In this case
+                # it can be directly used 
                 context['formset'] = ChoiceFormset(self.request.POST,
                                                 error_messages={
                                                 'too_few_forms': 
@@ -161,5 +175,5 @@ class SelectTiles(FormView,  SingleObjectMixin):
 class SelectTiles(UpdateView):
     model = Question
     template_name = 'tiles/tile_selection.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('my_questions')
     form_class = TileSelectionForm

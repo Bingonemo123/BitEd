@@ -132,6 +132,7 @@ def personal_filters_by_questions(choosen_questions, personal_form, user):
                             .order_by("-updated_at")
                             .values("answer_state")[:1])
                             .bitand(8), 0))
+        filtered = True
     if 'omitted' in personal_form.cleaned_data['personal_filter']:
         questions_queryset |= choosen_questions.filter(
                             Exact(Subquery(
@@ -140,6 +141,7 @@ def personal_filters_by_questions(choosen_questions, personal_form, user):
                             .order_by("-updated_at")
                             .values("answer_state")[:1])
                             .bitand(2), 0))
+        filtered = True
     if 'correct' in personal_form.cleaned_data['personal_filter']:
         questions_queryset |= choosen_questions.filter(
                             Exact(Subquery(
@@ -148,6 +150,7 @@ def personal_filters_by_questions(choosen_questions, personal_form, user):
                             .order_by("-updated_at")
                             .values("answer_state")[:1])
                             .bitand(8), 8))
+        filtered = True
     if not filtered:
         questions_queryset = choosen_questions
 

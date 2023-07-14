@@ -21,7 +21,7 @@
         {{ formset.management_form }}
         {% for choice in formset %}
         <div class="choice-form">
-            {{ choice }}
+            {{ choice|crispy }}
             &nbsp;
             <button id="form-{{ forloop.counter }}-delete-button" class="delete-form" type="button">Delete</button>            
         </div>
