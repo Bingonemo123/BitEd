@@ -22,9 +22,10 @@ from django.db.models.lookups import Exact
 from django.db.models import Exists
 
 
-iq = QuestionChoice.objects.filter(choice_text__icontains="High").values("choice_to","choice_text")
-for i in iq:
-    print(i)
+a= list(Question.objects.filter(question_body__contains="Item 2 of 2")) 
+b = list(Question.objects.filter(question_explanation__contains="A 65-year-old man"))
+
+print(list(set(a) & set(b)))
 
 # duplicate questions = 20563
 # pk user answer 1942, 1862

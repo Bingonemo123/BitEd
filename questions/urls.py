@@ -8,7 +8,7 @@ urlpatterns = [
      path('',
           QuestionCreate.as_view(),
           name="createQuestion"),
-     path('question_update/<int:pk>', 
+     path('update/<int:pk>', 
          MyQuestionsUpdate.as_view(), 
          name='question_update'),
      path('select_tiles/<int:pk>',
