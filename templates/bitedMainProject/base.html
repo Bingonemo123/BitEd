@@ -24,7 +24,7 @@
     {% endblock head_scripts %}
 
 </head>
-<body>
+<body {% if request.session.theme == "dark" %} class="dark_mode" {% endif %}>
     {% block navbar %}
     {% endblock navbar %}
 

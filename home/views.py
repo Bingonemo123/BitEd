@@ -4,7 +4,11 @@ from tiles.loader import get_tiles_view, scroll_tiles_load
 from home.ajax import is_ajax
 
 from profile.models import Profile
+
 from map.views import mapview_for_home
+from django.http import HttpResponse
+import json
+
 # Create your views here.
 
 def home_view (request, *args, **kwargs):
@@ -23,5 +27,14 @@ def home_view (request, *args, **kwargs):
             return mapview_for_home(request)
         else:
             return scroll_tiles_load(request)
+        
+
+def dark_mode(request):
+    if is_ajax(request):
+        request.session['theme'] = json.loads(request.body)['theme']
+
+        return HttpResponse(status=204)
+
+
 
         
