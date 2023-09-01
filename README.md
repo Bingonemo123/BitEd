@@ -2,7 +2,6 @@
 
 Due to high time consumption of perfect development high-yield approach is desired. Based on that  will be time invested during this development phase, only in that aspects of site, which are crucial for it's functionality.
 
-- Correct links of images
 - Dark Mode
 - Social Login - fix Facebook
 - Remove Tiles bunch loading

@@ -6,6 +6,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitedMainProject.settings")
 django.setup()
 
 # Now this script or any imported module can use any part of Django it needs.
+from bs4 import BeautifulSoup
+
 from questions.models import Question
 from questions.models import QuestionChoice
 from django.db.models import Q
@@ -21,11 +23,47 @@ from django.db.models import F
 from django.db.models.lookups import Exact
 from django.db.models import Exists
 
+def is_image_extension(url):
+    # List of common image extensions. You can extend this list if needed.
+    image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp', '.ico']
+    
+    # Convert url to lowercase and check if it ends with any of the image extensions.
+    return any(url.lower().endswith(ext) for ext in image_extensions)
 
-a= list(Question.objects.filter(question_body__contains="Item 2 of 2")) 
-b = list(Question.objects.filter(question_explanation__contains="A 65-year-old man"))
+questions = Question.objects.all()
 
-print(list(set(a) & set(b)))
+for q in questions:
+    print(q, end=" :: ")
+
+    soup_body = BeautifulSoup(q.question_body, "html.parser")
+    soup_explan = BeautifulSoup( q.question_explanation, "html.parser")
+
+   
+    links_in_question = soup_body.find_all(['a']) + soup_explan.find_all(['a'])
+    image_links = []
+
+    for link in links_in_question:
+        if link.get('href'):
+            if is_image_extension(link.get('href')):
+                image_links.append(link)
+          
+    
+    if not image_links:
+        print( 'No image links')
+    else:
+        for link, link_next in zip(image_links[1:], image_links[2:]):
+            link['href'] = link_next['href']
+
+        if len(image_links) > 1:
+            image_links[-1]["href"] = "#"
+
+        q.question_body = str(soup_body)
+        q.question_explanation = str(soup_explan)
+        q.save()
+
+# link in qbody and explanations
+# fist link is  correct
+
 
 # duplicate questions = 20563
 # pk user answer 1942, 1862
