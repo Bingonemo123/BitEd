@@ -41,8 +41,12 @@
             
             <a class="flex--item s-link fs-caption" href="{% url 'password_reset' %}">Forgot password?</a>
         </div>
+        <br/>
+        <h6>
+        <button > 
+            {% comment "class="btn btn-primary mb-2"" %}{% endcomment %}
+            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+        </button>
+    </h6>
     </form>
-    <button class="btn btn-primary mb-2">
-        <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-    </button>
 {% endblock content %}

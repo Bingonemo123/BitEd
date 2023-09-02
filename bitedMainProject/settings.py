@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
+    'django_extensions', # not needed in production
     'crispy_bootstrap5',
     'social_django',
     'registration',
@@ -199,7 +200,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# Social Login Configuration
+################## Social Login Configuration ##################
 
 try:
     from bitedMainProject import facebook_settings
@@ -217,8 +218,33 @@ AUTHENTICATION_BACKENDS = (
 
 # SOCIAL_AUTH_URL_NAMESPACE = 'registration'
 
+# SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
+# ('name', 'name'),
+# ('email', 'email'),
+# ('picture', 'picture'),
+# ('link', 'profile_url'),
+# ]
 
-# Caching 
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'locale': 'en',
+    'fields': 'id, name, email', 
+}
+
+# SOCIAL_AUTH_PIPELINE = (
+#     'social_core.pipeline.social_auth.social_details',
+#     'social_core.pipeline.social_auth.social_uid',
+#     'social_core.pipeline.social_auth.social_user',
+#     'social_core.pipeline.user.get_username',
+#     'social_core.pipeline.social_auth.associate_by_email',
+#     'social_core.pipeline.user.create_user',
+#     'social_core.pipeline.social_auth.associate_user',
+#     'social_core.pipeline.social_auth.load_extra_data',
+#     'social_core.pipeline.user.user_details',
+# )
+
+################### Caching ##################
+
 # add(), set(), touch() cull cache only
 CACHES = {
     "default": {
@@ -227,6 +253,7 @@ CACHES = {
     }
 }
 
+################## TinyMce ##################
 
 TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/js/tinymce/tinymce.min.js")
 # TINYMCE_COMPRESSOR = False

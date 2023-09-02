@@ -30,7 +30,7 @@ urlpatterns = [
     path('question/', include('questions.urls')),
     path('verification/', include('verify_email.urls')),
     path('map/', include('map.urls')),
-    path('', include('social_django.urls', namespace='social')),
+    path('social-auth/', include('social_django.urls', namespace='social')),
     path('tinymce/', include('tinymce.urls')),
     path('dark_mode', dark_mode)
 ]
