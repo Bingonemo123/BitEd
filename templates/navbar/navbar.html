@@ -8,15 +8,22 @@
     <div class="nav-bar logo">
         <!-- <img src="src\trademarks\logo_name_Linux.png" alt="Bited"> -->
         <a class="navbar-link" style="text-decoration:none;" href="{% url 'home' %}">BITED</a>
+        <span style="background-color: #ffc107; padding: 2px 10px; border-radius: 3px; font-size: 15px;">Beta Version</span>
+
     </div>
 
     {% block navbar_content %}
     
-        <div class="nav-bar search-box navbar-content">
+        {% comment %} <div class="nav-bar search-box navbar-content">
             <input type="text" class="nav-bar tbox" placeholder="Search"/>
             <span> &nbsp; </span>
             <button class="nav-bar-srch-btn"> Search</button>
+        </div> {% endcomment %}
+
+        <div class="nav-bar search-box navbar-content" style=" background-color: #ffc107; text-align: center; padding: 0px 10px; z-index: 1000;">
+            This website is currently in pilot version. Some features may be experimental.
         </div>
+          
 
     {% endblock navbar_content %}
     
