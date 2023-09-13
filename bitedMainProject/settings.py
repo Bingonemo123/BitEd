@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'verify_email.apps.VerifyEmailConfig',
     'bitedMainProject',
-    'django_extensions', # not needed in production
+    # 'django_extensions', # not needed in production
     'crispy_bootstrap5',
     'social_django',
     'registration',
