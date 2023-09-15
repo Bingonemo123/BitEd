@@ -40,7 +40,7 @@ try:
 except KeyError:
     DEBUG = None
 if SECRET_KEY is None:
-    DEBUG = os.getenv('DEBUG')
+    DEBUG = os.getenv("DEBUG").lower() in ('true', '1', 't')
 if DEBUG is None:
     DEBUG = env('DEBUG')
 if  DEBUG is None:
