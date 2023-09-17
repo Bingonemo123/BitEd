@@ -14,10 +14,12 @@ django-crispy-forms = "*"
 django-taggit = "*"
 crispy-bootstrap5 = "*"
 social-auth-app-django = "*"
-psycopg2-binary = "*"
 gunicorn = "*"
 django-tree-queries = "*"
 django-tinymce = "*"
+whitenoise = "*"
+dj-database-url = "*"
+psycopg = {version = "*", extras = ["binary"]}
 
 [dev-packages]
 
