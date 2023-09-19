@@ -20,6 +20,7 @@ django-tinymce = "*"
 whitenoise = "*"
 dj-database-url = "*"
 psycopg = {version = "*", extras = ["binary"]}
+wfastcgi = "*"
 
 [dev-packages]
 
