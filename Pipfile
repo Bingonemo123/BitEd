@@ -19,7 +19,7 @@ django-tree-queries = "*"
 django-tinymce = "*"
 whitenoise = "*"
 dj-database-url = "*"
-psycopg = {version = "*", extras = ["binary"]}
+psycopg = {version = "*", extras = ["binary", "pool"]}
 
 [dev-packages]
 

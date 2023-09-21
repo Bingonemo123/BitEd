@@ -120,7 +120,7 @@ DATABASES = {
         'USER': os.environ["DBUSER"],
         'PASSWORD': os.environ["DBPASSWORD"],
         'HOST': os.environ["DBHOST"],
-        'PORT': 5432, # os.environ["PORT"],
+        'PORT': os.environ["PORT"],
     }
 
 #   'default': {

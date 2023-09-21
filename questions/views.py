@@ -140,7 +140,7 @@ class QuestionPreview(UserPassesTestMixin, DetailView):
         context["form"] = WritingForm(self.object)
         return context
     
-    def test_func(self) -> bool | None:
+    def test_func(self) :
         return self.request.user.is_superuser
     
 class SelectTiles(FormView,  SingleObjectMixin):
