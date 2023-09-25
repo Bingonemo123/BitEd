@@ -2,8 +2,7 @@
 .question_body{
     display: flex;
     justify-content: center;
-    margin: 0 23vw;
-    margin-top: 2vw;
+    margin: 3%;
 }
 
 .answers_box{
@@ -31,6 +30,7 @@
 
 img{
     max-height: 90vh;
+    max-width: 100%;
 }
 
 
