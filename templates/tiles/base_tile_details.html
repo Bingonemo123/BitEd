@@ -1,26 +1,33 @@
 
-<figure class="tile">
+<figure id="{{ tile_id }}" class="tile {{ display }}">
     {% comment "Tile Header" %}{% endcomment %}
-    <div class="bubble_container">   
+    <div class="bubble_container placeholder-glow">   
         {% if object.type_of_tile_char %}
             <div class="tile_type" >
                 {{ object.get_type_of_tile_char_display }}
             </div>
+        {% else %}      
+            <div class="tile_type col-2" >
+                <div class="placeholder w-100"></div>
+            </div>
         {% endif %}
 
+        {% if object %}
         <div class="tile_total_questions" >
-            In Tile:
-                {{ object.questions.all.count }}
+            In Tile: {{ object.questions.all.count }}
             <div>
-                Total 
-                {% if object.get_total_questions_num %}
-                    {{ object.get_total_questions_num }}
-                {% else %}
-                    0
-                {% endif %}
+                Total {{ object.get_total_questions_num }}
             </div>
-
         </div>
+        {% else %}
+        <div class="tile_total_questions col-3" >
+            In Tile: <span class="placeholder col-2"></span>
+            
+            <div>
+                Total <span class="placeholder col-2"></span>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     {% comment %} title {% endcomment %}
@@ -29,13 +36,19 @@
         <div class="tile_title"> 
             {{ object.tile_headline }}
         </div>
-    {% endif %}
-    
-    {% if object.author %}
-        <div class="tile_author"> 
-            {{ object.author }}
+    {% else %}
+        <div class="tile_title placeholder-glow"> 
+            <span class="placeholder col-8"></span>
+            <span class="placeholder col-10"></span>
+            <span class="placeholder col-5"></span>
         </div>
     {% endif %}
+    
+    <div class="tile_author placeholder-glow"> 
+        {% if object.author %}
+                {{ object.author }}
+        {% endif %}
+    </div>
 
     <div class="writes_and_crtdate">
         {% if object.total_writes %}
@@ -46,11 +59,13 @@
 
         <span class="space-holder-dot">•</span>
 
-        {% if object.created_at %}
-            <div class="tile_creation_date">
+        <div class="tile_creation_date placeholder-glow">
+            {% if object.created_at %}
                 {{ object.created_at|timesince }} ago
-            </div>
-        {% endif %}
+            {% else %}
+                <span class="placeholder col-5"></span>
+            {% endif %}
+        </div>
     </div>
 
     {% if object.expected_reward %}

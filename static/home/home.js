@@ -16,13 +16,20 @@ function getCookie(name) {
 
 function loadContent() {
 
-    var contentHeight = document.documentElement.scrollHeight
-    var winHeight = window.innerHeight;
-    var scrTop = document.documentElement.scrollTop || document.body.scrollTop;
-    var scrollMargin = contentHeight - (winHeight + scrTop)
-    var csrftoken = getCookie('csrftoken');
+    // The scrollHeight property returns the height of an element including padding, but excluding borders, scrollbars, or margins.
+    // Document.documentElement returns the Element that is the root element of the document (for example, the <html> element for HTML documents).
+    var docHeight = document.documentElement.scrollHeight // document.documentElement should resolve on root element with highest height
+    var winHeight = window.innerHeight; 
+    // var contentHeight = document.querySelector('.content-container').scrollHeight;
+    // var navbarHeight = document.querySelector('.navigation-bar').scrollHeight;
+    // var scrollingScreenHeight = winHeight - navbarHeight; 
 
-    if (scrollMargin <= 200 && end_pagination === false && block_request === false){
+    var scrTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var scrollMargin = docHeight - (winHeight + scrTop)
+    var csrftoken = getCookie('csrftoken');
+    
+
+    if (scrollMargin <= 200 && end_pagination === false){ // && block_request === false
         block_request = true;
         page += 1;
 
@@ -31,14 +38,23 @@ function loadContent() {
         xhttp.onload = function() {
             var jsonTiles = JSON.parse(this.responseText);
             // https://stackoverflow.com/questions/7327056/appending-html-string-to-the-dom
-            var contentEl = document.querySelector('.grid-container');
-            contentEl.insertAdjacentHTML( 'beforeend', jsonTiles.scroll_content);
+            // var contentEl = document.querySelector('.grid-container');
+            firstLoadingTile = document.getElementById("loading_tile");
+            console.log(firstLoadingTile);
+            firstLoadingTile.insertAdjacentHTML("beforebegin", jsonTiles.scroll_content);
+            firstLoadingTile.remove();
             block_request = false;
+            loadContent();
         }
         xhttp.open('GET', '/', true);
         xhttp.setRequestHeader("X-CSRFToken", csrftoken);
         xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhttp.send();
+        var contentEl = document.querySelector('.grid-container');
+        var loadingTile =  document.querySelector('#template_tile').cloneNode(true);
+        loadingTile.classList.remove("d-none");
+        loadingTile.id = "loading_tile";
+        contentEl.insertAdjacentElement( 'beforeend', loadingTile);
         return true
         }
     };
@@ -74,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //     xhttp.send();
     //   }
     while (loadContent()==true){}
-
     window.onscroll = loadContent;
 
 });

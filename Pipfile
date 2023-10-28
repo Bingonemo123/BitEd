@@ -17,7 +17,6 @@ social-auth-app-django = "*"
 gunicorn = "*"
 django-tree-queries = "*"
 django-tinymce = "*"
-whitenoise = "*"
 dj-database-url = "*"
 psycopg = {version = "*", extras = ["binary", "pool"]}
 

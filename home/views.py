@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
 
 from tiles.loader import get_tiles_view, scroll_tiles_load
 from home.ajax import is_ajax
@@ -13,7 +14,10 @@ import json
 
 def home_view (request, *args, **kwargs):
     if not is_ajax(request):
-        context = {'tiles': get_tiles_view(request)}
+        context = {'template_tile' : render_to_string(
+                    'tiles/base_tile_details.html',
+                      context={"display": "d-none", "tile_id":"template_tile"},
+                      request=request),} # 'tiles': get_tiles_view(request)
         if request.user.is_authenticated:
             profile = Profile.objects.filter(user=request.user).first()
             if profile is not None:

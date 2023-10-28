@@ -18,7 +18,7 @@ NEWS_COUNT_PER_PAGE = 12
     
 def rnd_tiles_to_context ():
     ''' Used  in Home Page '''
-    requested_random_tiles = get_random_home_tiles(n=16)
+    requested_random_tiles = get_random_home_tiles(n=1)
     if requested_random_tiles is None:
         return {}
     
