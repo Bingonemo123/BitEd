@@ -16,20 +16,29 @@
 {% block content %}
 
     <div class="content-container">
-        <div class="relative-sidebar">
+        {% comment %} <div class="relative-sidebar">
             <div class="left-sidebar">
                  {{ sidebar }} 
             </div>
         </div>
         <div class="grid-container">
              {{ template_tile }} 
-        </div>
-    </div>
+        </div> {% endcomment %}
 
-    <footer style="position: fixed; bottom: 0; width: 100%; background-color: #ffc107; text-align: center; padding: 10px; z-index: 1000;">
+        <h1 class="select-subject-label"> Select Subject </h1>
+        <div class="column-view"> 
+            <div class="column-view-0 base-column">
+                <li class="list-group-item">Medicine</li>
+            </div>
+        </div>
+        
+  
+</div>
+
+    <footer style="position: sticky; bottom: 0; width: 100%; background-color: #ffc107; text-align: center; padding: 10px; z-index: 1000;">
         Note: This website is in its pilot phase.
         For any issues or inquiries, please contact us at <a href="mailto:bitedinfo@gmail.com">bitedinfo@gmail.com</a>.
-      </footer>
+    </footer>
 
 {% endblock content %}
 

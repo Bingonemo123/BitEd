@@ -6,6 +6,8 @@ body {
     --color-success: #4bb544;
     /* https://stackoverflow.com/questions/39033070/css-color-vs-background-color-vs-background */
     background: var(--color-primary);
+    display: flex;
+    flex-direction: column;
 }
 
 html body {
@@ -13,4 +15,6 @@ html body {
     font-weight: inherit;
     line-height: inherit;
     font-family: inherit;
+    overflow: hidden;
+    height: 100vh;
 }

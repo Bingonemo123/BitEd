@@ -16,6 +16,4 @@
     "githubPullRequests.ignoredPullRequestBranches": [
         "main"
     ],
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": false
 }

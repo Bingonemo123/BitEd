@@ -43,10 +43,13 @@ if SECRET_KEY is None:
     DEBUG = os.getenv("DEBUG").lower() in ('true', '1', 't')
 if DEBUG is None:
     DEBUG = env('DEBUG')
-if  DEBUG is None:
+if DEBUG is None:
     DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 # Application definition
 

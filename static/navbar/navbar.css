@@ -1,7 +1,7 @@
 .navigation-bar{
     --bs-sm: 0 1px 2px hsla(0,0%,0%,0.1), 0 1px 4px hsla(0, 0%, 0%, 0.1), 0 2px 8px hsla(0, 0%, 0%, 0.1);
     top: 0;
-    position: sticky;
+    /* position: sticky; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,9 +60,10 @@ button {
 }
 
 header {
-    position: sticky;
+    /* position: sticky; */
     top: 0px;
     z-index: 3;
+    width: 100%;
 }
 
 
