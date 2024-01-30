@@ -4,7 +4,7 @@
 {% block head_links %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'home/home.css' %}"/>
-    <link rel="stylesheet" href="{% static 'folders/base_folder_details.css' %}"/>
+    <link rel="stylesheet" href="{% static 'tiles/base_tiles_details.css' %}"/>
 {% endblock head_links %}
 
 {% block head_scripts %}
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="grid-container">
-             {{ template_folder }} 
+             {{ tile }} 
         </div> {% endcomment %}
 
         <h1 class="select-subject-label"> Select Subject </h1>
@@ -30,7 +30,7 @@
             <div class="column-view-0 base-column">
                 <li class="list-group-item">
                     <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px">
-                    <span class='folder-name'>Medicine</span>
+                    <span class='tile-name'>Medicine</span>
                     <img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px">
                 </li>
             </div>
