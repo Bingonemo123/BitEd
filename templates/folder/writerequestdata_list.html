@@ -1,0 +1,25 @@
+{% extends "navbar/navbar.html" %}
+
+{% block content %}
+{{ block.super }}
+
+<ul>
+    {% for wrd in object_list %}
+        <li>{{ wrd.id }} 
+        | {{ wrd.folder_created_from.name }}
+        | Total {{ wrd.block_total_questions }} questions 
+        | {{ wrd.created_at }} 
+        | {{ wrd.get_block_mode_display }}
+        {% if wrd.finished %}
+            | <a href="{% url 'writing:resume_block' wrd.id %}"> review </a>
+        {% else %}
+            | <a href="{% url 'writing:resume_block' wrd.id %}"> continue </a>
+            
+        {% endif %}
+    </li>
+    {% empty %}
+        <li>No history yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

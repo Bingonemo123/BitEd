@@ -1,18 +1,18 @@
 {% load static %}
 
-<div class="accordion" id="TileMapMainContainer">
+<div class="accordion" id="folderMapMainContainer">
 
     <div class="accordion-item">
 
       {% comment %} https://stackoverflow.com/questions/27560661/button-with-link-inside-bootstrap-accordion-table {% endcomment %}
-      <button class="accordion-button" id="tile-0" type="button" data-bs-toggle="collapse" data-bs-target="#RootZero" aria-expanded="true" aria-controls="RootZero">
+      <button class="accordion-button" id="folder-0" type="button" data-bs-toggle="collapse" data-bs-target="#RootZero" aria-expanded="true" aria-controls="RootZero">
         Menu
         &nbsp;
-        <a href="{% url 'tiles:tile_detail_view' 0 %}" class="map-open-link"><img height="20" width="20" src="{% static 'map/icon/green-play-button-icon.svg' %}" alt=""/></a>
+        <a href="{% url 'folder:folder_detail_view' 0 %}" class="map-open-link"><img height="20" width="20" src="{% static 'map/icon/green-play-button-icon.svg' %}" alt=""/></a>
         &nbsp;
       </button>
 
-      <div id="RootZero" class="accordion-collapse collapse" data-bs-parent="#TileMapMainContainer">
+      <div id="RootZero" class="accordion-collapse collapse" data-bs-parent="#folderMapMainContainer">
         <div class="accordion-body">
         </div>
       </div>

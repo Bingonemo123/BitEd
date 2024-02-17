@@ -1,91 +1,44 @@
-
-.login-form{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* CSS */
-.button-7 {
-  background-color: #0095ff;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
+#customBtn {
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.15385;
-  margin: 0;
-  outline: none;
-  padding: 8px .8em;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
+  background: white;
+  color: #444;
+  width: 190px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
 }
-
-.button-7:hover,
-.button-7:focus {
-  background-color: #07c;
+#customBtn:hover {
+  cursor: pointer;
+  background-color: #001d351f;
 }
 
-.button-7:focus {
-  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+.svg-style{
+  display: block;
+
+}
+.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 12px;
+  padding-right: 42px;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
 }
 
-.button-7:active {
-  background-color: #0064bd;
-  box-shadow: none;
+.gsi-material-button-icon {
+  display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+      padding: 5px;
 }
 
-.flex--inputs{
-    gap: 5px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    max-width: 150ch;
-}
-
-.flex--item{
-    margin-left: auto;
-}
-
-.fs-caption{
-    font-size: 12px;
-    --blue-600: hsl(206,100%,40%);
-    --blue-500: hsl(206,100%,52%);
-    --blue-700: hsl(209,100%,37.5%);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.s-link {
-    --theme-link-color: var(--blue-600);
-    --theme-link-color-hover: var(--blue-500);
-    --theme-link-color-visited: var(--blue-700);
-
-
-    --_li-fc: var(--theme-link-color);
-    --_li-fc-hover: var(--theme-link-color-hover);
-    --_li-fc-visited: var(--theme-link-color-visited);
-    color: var(--_li-fc);
-    cursor: pointer;
-    text-decoration: none;
-    user-select: auto;
-}
-
-#div_id_username{
-  max-width: 150ch;
-}
-
-#div_id_password{
-  max-width: 150ch;
+.content-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

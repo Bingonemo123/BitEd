@@ -14,7 +14,7 @@ from django.shortcuts import get_object_or_404
 
 from questions.models import QuestionChoice
 from writing.models import UserAnswer
-from tiles.models import WriteRequestData
+from folder.models import WriteRequestData
 from writing.redirects import useranswer_redirect
 
 

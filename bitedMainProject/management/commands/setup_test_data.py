@@ -3,7 +3,7 @@ import random
 from django.db import transaction
 from django.core.management.base import BaseCommand
 
-from tiles.models import Tile
+from folder.models import Tile
 
 from utils.factories import TileFactory, ProfileFactory
 

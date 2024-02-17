@@ -20,19 +20,16 @@ from django.views.generic import RedirectView
 from home.views import dark_mode
 
 urlpatterns = [
-    path('', RedirectView.as_view(pattern_name='home') ),
+    path('', RedirectView.as_view(pattern_name='home')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
     path('registration/', include('registration.urls')),
-    path('profile/', include('profile.urls')), 
+    path('profile/', include('profile.urls')),
     path('writing/', include('writing.urls')),
-    path('tiles/', include('tiles.urls')),
+    path('folder/', include('folder.urls')),
     path('question/', include('questions.urls')),
     path('verification/', include('verify_email.urls')),
     path('map/', include('map.urls')),
-    path('social-auth/', include('social_django.urls', namespace='social')),
     path('tinymce/', include('tinymce.urls')),
     path('dark_mode', dark_mode)
 ]
-
-

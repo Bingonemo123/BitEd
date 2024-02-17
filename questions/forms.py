@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.forms import formset_factory
 from django.forms import modelformset_factory
 
-from tiles.models import Tile
+from folder.models import Folder
 from questions.models import QuestionChoice
 from questions.models import Question
 
@@ -43,16 +43,16 @@ class ChoiceFormset(basic_formset):
         for form in self.forms:
             form.empty_permitted = False
 
-########## TILES ###########
+########## Folders ###########
 
-class TileSelectionForm(forms.ModelForm):
+class FolderSelectionForm(forms.ModelForm):
 
     # class Meta:
     #     model = Question
     #     fields = []
 
-    tiles = forms.ModelMultipleChoiceField(
-        queryset=Tile.objects.all()
+    folders = forms.ModelMultipleChoiceField(
+        queryset=Folder.objects.all()
     )
     class Meta:
         model = Question
@@ -63,13 +63,13 @@ class TileSelectionForm(forms.ModelForm):
         # Here we fetch the currently related projects into the field,     
         # so that they will display in the form.
         if self.instance.id:
-            self.fields['tiles'].initial = self.instance.tile_set.all(
+            self.fields['folders'].initial = self.instance.folder_set.all(
             ).values_list('id', flat=True)
 
     def save(self, *args, **kwargs):
         instance = super().save(*args, **kwargs)
 
         # Here we save the modified project selection back into the database
-        instance.tile_set.set(self.cleaned_data['tiles'])
+        instance.folder_set.set(self.cleaned_data['folders'])
 
         return instance

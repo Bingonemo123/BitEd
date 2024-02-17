@@ -1,0 +1,16 @@
+{% extends "navbar/navbar.html" %}
+
+{% block content %}
+{{ block.super }}
+<ul>
+    {% for folder in object_list %}
+        <li>
+            <a href="{% url 'folder:folder_detail_view' folder.pk %}">
+            {{ folder.id }} - {{ folder.name }} </a>
+        </li>
+    {% empty %}
+        <li>No folders yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

@@ -1,0 +1,84 @@
+
+<figure id="{{ folder_id }}" class="folder {{ display }}">
+    {% comment "folder Header" %}{% endcomment %}
+    <div class="bubble_container placeholder-glow">   
+        {% if object.type %}
+            <div class="folder_type" >
+                {{ object.get_type_display }}
+            </div>
+        {% else %}      
+            <div class="folder_type col-2" >
+                <div class="placeholder w-100"></div>
+            </div>
+        {% endif %}
+
+        {% if object %}
+        <div class="folder_total_questions" >
+            In folder: {{ object.questions.all.count }}
+            <div>
+                Total {{ object.get_total_questions_num }}
+            </div>
+        </div>
+        {% else %}
+        <div class="folder_total_questions col-3" >
+            In folder: <span class="placeholder col-2"></span>
+            
+            <div>
+                Total <span class="placeholder col-2"></span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% comment %} title {% endcomment %}
+
+    {% if object.name %}
+        <div class="folder_title"> 
+            {{ object.name }}
+        </div>
+    {% else %}
+        <div class="folder_title placeholder-glow"> 
+            <span class="placeholder col-8"></span>
+            <span class="placeholder col-10"></span>
+            <span class="placeholder col-5"></span>
+        </div>
+    {% endif %}
+    
+    <div class="folder_author placeholder-glow"> 
+        {% if object.author %}
+                {{ object.author }}
+        {% endif %}
+    </div>
+
+    <div class="writes_and_crtdate">
+        {% if object.total_writes %}
+            <div class="folder_total_writes">
+                {{ object.total_writes }} writes
+            </div> 
+        {% endif %}
+
+        <span class="space-holder-dot">•</span>
+
+        <div class="folder_creation_date placeholder-glow">
+            {% if object.created_at %}
+                {{ object.created_at|timesince }} ago
+            {% else %}
+                <span class="placeholder col-5"></span>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if object.expected_reward %}
+        <div class="folder_expected_reward">
+            {{ object.expected_reward }} K
+        </div>
+    {% endif %}
+    
+    
+    {% if object.total_pass %}
+        <div class="folder_pass_percentge">
+            Pass Rate: {{ object.total_pass }}
+        </div>
+    {% endif %}
+    
+</figure>

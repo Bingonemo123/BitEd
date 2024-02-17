@@ -1,9 +1,0 @@
-{% comment %} not displayed as view {% endcomment %}
-
-{% for object in tiles %}
-    <a href="{% url 'tiles:tile_detail_view' pk=object.id %}" style='text-decoration: none'>
-        {% include 'tiles/base_tile_details.html' %}
-    </a>
-{% endfor %}
-
-

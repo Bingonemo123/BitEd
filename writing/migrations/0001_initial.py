@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('questions', '0001_initial'),
-        ('tiles', '0001_initial'),
+        ('folder', '0001_initial'),
     ]
 
     operations = [
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('answer_to', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='questions.question')),
                 ('choosen_answer_obj', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='questions.questionchoice')),
-                ('wrd', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tiles.writerequestdata')),
+                ('wrd', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='folder.writerequestdata')),
             ],
         ),
     ]

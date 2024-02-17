@@ -2,9 +2,9 @@
 
 Due to high time consumption of perfect development high-yield approach is desired. Based on that  will be time invested during this development phase, only in that aspects of site, which are crucial for it's functionality.
 
-Before removing tiles
+Before removing folders
 
-- Remove Tiles bunch loading
+- Remove folders bunch loading
 - Update Login Page
 - Write tests for Personal Filters
 - [ ] Writing Authorize on Owned Blocks

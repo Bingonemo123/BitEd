@@ -14,72 +14,60 @@ function getCookie(name) {
     return cookieValue;
   }
 
-var requestedTiles = [];
+var numberPattern = /\d+/g;
+
 
 function sendGetAjax(mnode){
-    if (requestedTiles.includes(mnode.id))
-        {
-            return;
-        }
-
+    
     var csrftoken = getCookie('csrftoken');
     var xhttp = new XMLHttpRequest();
 
     xhttp.onload = function() {
-        var jsonTiles = JSON.parse(this.responseText);
-        subAccordion_target = mnode.getAttribute('data-bs-target');
-        subAccordion_container = document.querySelector(subAccordion_target);
-        subAccordion_body = subAccordion_container.querySelector('.accordion-body');
+        var jsonFolders = JSON.parse(this.responseText);
+        var columnNumber = parseInt(
+            mnode.parentElement.parentElement.id.match(numberPattern).join(''));
+
+        // make this mnode grey selected
+
+        for (const child of mnode.parentElement.parentElement.children) {
+            child.classList.remove("grey-selected");
+          }
+
+        mnode.parentElement.classList.add("grey-selected");
+
+        // Delete next nodes
+
+
         
-        var subAccordion = document.createElement("div");
-        subAccordion.class = 'accordion';
-        subAccordion.id = `Tile_${mnode.id}_container`;
+        while (mnode.parentElement.parentElement.nextSibling != null ) {
+            mnode.parentElement.parentElement.nextSibling.remove();
+        }
+        
+        
+        var newColumn = document.createElement("div");
+        newColumn.classList.add('base-column');
+        newColumn.id = `home-column-${columnNumber + 1}`;
+        let templateFolderItem = document.getElementById("root-item");
+        let columnsContainer = document.querySelector(".column-view");
 
-        for (const subtile of jsonTiles) {
-            var subAccordion_item = document.createElement('div');
-            subAccordion_item.setAttribute('class', 'accordion-item');
+        for (const subfolder of jsonFolders) {
 
-            var subAccordion_button = document.createElement('button');
-            subAccordion_button.setAttribute('class', "accordion-button collapsed");
-            subAccordion_button.id = `tile-${subtile['pk']}`;
-            subAccordion_button.type = 'button';
-            subAccordion_button.setAttribute('data-bs-toggle', "collapse");
-            subAccordion_button.setAttribute('data-bs-target',
-                                            `#tile_target-${subtile['pk']}`);
-            subAccordion_button.setAttribute('aria-expanded', 'false');
-            subAccordion_button.setAttribute('aria-controls', `tile_target-${subtile['pk']}`);
-            subAccordion_button.textContent = subtile['fields']['tile_headline'];
-            subAccordion_button.innerHTML += "&nbsp";
+            var newFolderItem = templateFolderItem.cloneNode(true);
 
-            subAccordion_button.addEventListener('click', function() {
+            newFolderItem.querySelector('.folder-link').href = `/folder/${subfolder['pk']}/`;
+            newFolderItem.querySelector('.folder-name').innerText = subfolder['fields']['name'];
+            var inArrow = newFolderItem.querySelector('#go-in-folder-0');
+            inArrow.addEventListener('click', function() {
                 sendGetAjax(this);
             });
+            inArrow.id = `go-in-folder-${subfolder['pk']}`;
+            newFolderItem.removeAttribute("hidden"); 
 
-            var link_button = `<a href="/tiles/${subtile['pk']}/"><img height="20" width="20" src="/static/map/icon/green-play-button-icon.svg" alt=""></a>`
-            subAccordion_button.innerHTML += link_button;
-            subAccordion_button.innerHTML += "&nbsp";
+            newColumn.appendChild(newFolderItem);
 
-            subAccordion_item.appendChild(subAccordion_button);
-
-            var subAccordion_content = document.createElement('div');
-            subAccordion_content.id = `tile_target-${subtile['pk']}`;
-            subAccordion_content.setAttribute('class', "accordion-collapse collapse");
-            subAccordion_button.setAttribute('data-bs-parent', `Tile_${mnode.id}_container`);
-
-            var subAccordion_content_body = document.createElement('div');
-            subAccordion_content_body.setAttribute('class', "accordion-body");
-
-            subAccordion_content.appendChild(subAccordion_content_body);
-            subAccordion_item.appendChild(subAccordion_content);
-
-            subAccordion.appendChild(subAccordion_item);
 
         }
-        subAccordion_body.appendChild(subAccordion);
-        requestedTiles.push(mnode.id);
-
-
-
+        columnsContainer.appendChild(newColumn);
 
     }
     xhttp.open('GET', `/map?mnode=${ mnode.id }`, true);
@@ -90,9 +78,10 @@ function sendGetAjax(mnode){
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    root_button = document.querySelector('#tile-0');
+    root_button = document.querySelector('#go-in-folder-2219');
     root_button.addEventListener('click', function() {
-        sendGetAjax(this)
+        sendGetAjax(this);
+
 
     });
 

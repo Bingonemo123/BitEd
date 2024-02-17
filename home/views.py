@@ -1,7 +1,7 @@
 '''Home Page Displaying Main Module'''
 # from django.template.loader import render_to_string
 
-# from tiles.loader import get_tiles_view,
+# from folders.loader import get_folders_view,
 import json
 from profile.models import Profile
 from django.shortcuts import render
@@ -17,12 +17,12 @@ from map.views import mapview_for_home
 def home_view(request):
     '''Home page main Function '''
     if not is_ajax(request):
-        context = {}  # 'tiles': get_tiles_view(request)
+        context = {}  # 'folders': get_folders_view(request)
         if request.user.is_authenticated:
             profile = Profile.objects.filter(user=request.user).first()
             if profile is not None:
                 context['balance'] = profile.k_balance
-        context.update({'sidebar': mapview_for_home(request)})
+        # context.update({'sidebar': mapview_for_home(request)})
         return render(request, 'home/home.html', context)
     else:
         # subject expolorer

@@ -1,5 +1,5 @@
 from django.db import models
-from tiles.models import WriteRequestData
+from folder.models import WriteRequestData
 from questions.models import Question
 from questions.models import QuestionChoice
 

@@ -1,0 +1,9 @@
+{% comment %} not displayed as view {% endcomment %}
+
+{% for object in folders %}
+    <a href="{% url 'folders:folder_detail_view' pk=object.id %}" style='text-decoration: none'>
+        {% include 'folders/base_folder_details.html' %}
+    </a>
+{% endfor %}
+
+

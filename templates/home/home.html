@@ -4,7 +4,7 @@
 {% block head_links %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'home/home.css' %}"/>
-    <link rel="stylesheet" href="{% static 'tiles/base_tiles_details.css' %}"/>
+    <link rel="stylesheet" href="{% static 'folder/base_folder_details.css' %}"/>
 {% endblock head_links %}
 
 {% block head_scripts %}
@@ -15,37 +15,25 @@
 
 {% block content %}
 
-    <div class="content-container">
-        {% comment %} <div class="relative-sidebar">
-            <div class="left-sidebar">
-                 {{ sidebar }} 
-            </div>
-        </div>
-        <div class="grid-container">
-             {{ tile }} 
-        </div> {% endcomment %}
-
         <h1 class="select-subject-label"> Select Subject </h1>
+        
+        <li class="list-group-item" hidden id="root-item">
+            <a href="{% url "folder:folder_detail_view" 0 %}" class="folder-link"> <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px"></a>
+            <span class="folder-name">Root</span>
+            <a href="#" onclick="return false;" id="go-in-folder-0"><img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px"></a>
+        </li>
+
         <div class="column-view"> 
-            <div class="column-view-0 base-column">
+            <div class="base-column" id="home-column-1">
                 <li class="list-group-item">
-                    <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px">
-                    <span class='tile-name'>Medicine</span>
-                    <img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px">
+                    <a href="{% url "folder:folder_detail_view" 2219 %}"> <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px"></a>
+                    <span class="folder-name">Medicine</span>
+                    <a href="#" onclick="return false;" id="go-in-folder-2219"><img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px"></a>
                 </li>
             </div>
 
-            <div class="column-view-1 base-column">
-                <li class="list-group-item">
-                    <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px">
-                    <span class="folder-name">USMLE</span>
-                    <img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px">
-                </li>
-            </div>
+           
         </div>
-        
-  
-</div>
 
     <footer style="position: sticky; bottom: 0; width: 100%; background-color: #ffc107; text-align: center; padding: 10px; z-index: 1000;">
         Note: This website is in its pilot phase.

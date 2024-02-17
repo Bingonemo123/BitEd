@@ -52,26 +52,43 @@
 
     <div class="profile-corner">
         {% if user.is_authenticated %}
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ user.username }}
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="{% url 'user_update' user.pk %}" class="dropdown-item"> Profile</a></li>
+            <div class="dropdown">
+                {% comment %} main button {% endcomment %}
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.username }}
+                </button>
 
-                <li>
-                    <div class="form-check form-switch dropdown-item">
-                        <label class="form-check-label" for="DarkModeSwitchCheckDefault">Dark Mode </label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="DarkModeSwitchCheckDefault">
-                      </div>
-                </li>
-                <li><a href="{% url 'logout' %}" class="dropdown-item"> Log out</a></li>
-            </ul>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'user_update' user.pk %}" class="dropdown-item"> Profile</a></li>
 
-        </div>
-            {% else %}
+                    <li>
+                        <div class="form-check form-switch dropdown-item">
+                            <label class="form-check-label" for="DarkModeSwitchCheckDefault">Dark Mode </label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="DarkModeSwitchCheckDefault">
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'history' user.pk %}">History</a>
+                      </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'my_questions' %}">My Questions</a>
+                      </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'folder:folder_create_view' %}">Create Folder</a>
+                      </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'folder:folder_list_view' %}">My Folders</a>
+                      </li>
+            
+
+                    <li><a href="{% url 'logout' %}" class="dropdown-item"> Log out</a></li>
+                </ul>
+
+            </div>
+        {% else %}
             <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-            {% endif %}
+        {% endif %}
     </div>
 
 </nav>

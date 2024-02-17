@@ -9,7 +9,7 @@
 /* :root is on top of all */
 /* by default height is auto which is size of content */
 /* http://phrogz.net/css/htmlvsbody.html */
-/* if scrollbar is from html tile why it disappears when I set 
+/* if scrollbar is from html folder why it disappears when I set 
 body::-webkit-scrollbar {display: none; } ?
 
 body is bigger that default html so html displays scrollbar
@@ -61,8 +61,16 @@ html,body {
     flex-direction: row;
     gap: 10px;
     grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    grid-auto-columns: minmax(100px, 1fr);
  }
+
+.grey-selected {
+    background-color: grey;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
  
  .base-column {
                  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,

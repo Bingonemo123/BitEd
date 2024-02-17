@@ -1,0 +1,16 @@
+{% extends "navbar/navbar.html" %}
+{% load static %}
+
+{% block head_links %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'folder/folder_selection.css' %}"/>
+{% endblock head_links %}
+
+{% block content %}
+    <p>Select folders</p>
+    <form method="post" action="" id="form-container"> 
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit</button>
+    </form>
+{% endblock content %}

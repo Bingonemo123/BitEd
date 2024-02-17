@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy
 
-from questions.forms import TileSelectionForm
+from questions.forms import FolderSelectionForm
 from questions.forms import basic_formset
 from questions.forms import ChoiceFormset
 from questions.forms import QuestionChoiceForm
@@ -17,7 +17,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from questions.forms import QuestionCreateForm
 from questions.models import Question
 from questions.models import QuestionChoice
-from tiles.models import Tile
+from folder.models import Folder
 
 # Create your views here.
 
@@ -48,7 +48,7 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
         question_obj.owner = self.request.user
         question_obj.save()
 
-        form.save_m2m() # needed for taggit plugin
+        form.save_m2m()  # needed for taggit plugin
 
         correct_answer_setted = False
 
@@ -65,7 +65,7 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
     def get_success_url(self) -> str:
-        return reverse_lazy('select_tiles', kwargs={"pk":self.object.pk})
+        return reverse_lazy('select_folders', kwargs={"pk":self.object.pk})
 
 
 class MyQuestionsUpdate(UpdateView):
@@ -129,7 +129,7 @@ class MyQuestionsUpdate(UpdateView):
             return context
     
     def get_success_url(self) -> str:
-        return reverse_lazy('select_tiles', kwargs={"pk":self.object.pk})
+        return reverse_lazy('select_folders', kwargs={"pk":self.object.pk})
     
 class QuestionPreview(UserPassesTestMixin, DetailView):
     model = Question
@@ -143,11 +143,11 @@ class QuestionPreview(UserPassesTestMixin, DetailView):
     def test_func(self) :
         return self.request.user.is_superuser
     
-class SelectTiles(FormView,  SingleObjectMixin):
-    ''' For selecting Tiles after creating Question '''
+class Selectfolders(FormView,  SingleObjectMixin):
+    ''' For selecting folders after creating Question '''
     model = Question
-    template_name = 'tiles/tile_selection.html'
-    form_class = TileSelectionForm
+    template_name = 'folder/folder_selection.html'
+    form_class = FolderSelectionForm
     success_url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
@@ -160,10 +160,10 @@ class SelectTiles(FormView,  SingleObjectMixin):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        if not any([subtiles.get('is_selected', False) 
-                for subtiles in form.cleaned_data]):
-            root_tile = Tile.objects.filter(get='root')
-            root_tile.questions.add(self.object)
+        if not any([subfolders.get('is_selected', False) 
+                for subfolders in form.cleaned_data]):
+            root_folder = Folder.objects.filter(get='root')
+            root_folder.questions.add(self.object)
             
         form.save()
         return super().form_valid(form)
@@ -172,8 +172,9 @@ class SelectTiles(FormView,  SingleObjectMixin):
         kwargs = super().get_form_kwargs()
         return kwargs
 
-class SelectTiles(UpdateView):
+
+class SelectFolders(UpdateView):
     model = Question
-    template_name = 'tiles/tile_selection.html'
+    template_name = 'folder/folder_selection.html'
     success_url = reverse_lazy('my_questions')
-    form_class = TileSelectionForm
+    form_class = FolderSelectionForm

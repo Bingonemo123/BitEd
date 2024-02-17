@@ -2,7 +2,7 @@ import factory
 import factory.random
 from factory.django import DjangoModelFactory
 
-from tiles.models import Tile
+from folder.models import folder
 from profile.models import Profile, User
 factory.random.reseed_random('BHFOjfjeorhg')
 
@@ -25,16 +25,16 @@ class ProfileFactory(DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     
-class TileFactory (DjangoModelFactory):
+class folderFactory (DjangoModelFactory):
     class Meta:
-        model = Tile
+        model = folder
 
 
-    tile_headline = factory.Faker("sentence")
+    folder_headline = factory.Faker("sentence")
     pointer_url = factory.Faker("url")
     # pointer_question_id = factory.Faker("random_int")
 
-    type_of_tile_char = factory.Faker("random_element",
+    type_of_folder_char = factory.Faker("random_element",
         elements=('T', 'B', 'O', 'S', 'U'))
 
     # img_url = factory.Faker('image_url') !!! Must be Changed
