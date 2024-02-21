@@ -34,6 +34,8 @@
             {% endfor %}
         </ul>
     {% endif %} 
+    
+    {% load socialaccount %}
     <div id="gSignInWrapper">
         <a href="{% provider_login_url 'google' %}" class="customGPlusSignIn">
           <div class="gsi-material-button-icon">
