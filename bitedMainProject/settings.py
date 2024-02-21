@@ -54,6 +54,11 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,6 +87,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'bitedMainProject.urls'
@@ -110,22 +117,29 @@ DEFAULT_DOMAIN = 'https://bited.ge'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.environ["DBENGINE"],
+#         'NAME': os.environ["DBNAME"],
+#         'USER': os.environ["DBUSER"],
+#         'PASSWORD': os.environ["DBPASSWORD"],
+#         'HOST': os.environ["DBHOST"],
+#         'PORT': os.environ["PORT"],
+#     }
+
 DATABASES = {
     'default': {
-        'ENGINE': os.environ["DBENGINE"],
-        'NAME': os.environ["DBNAME"],
-        'USER': os.environ["DBUSER"],
-        'PASSWORD': os.environ["DBPASSWORD"],
-        'HOST': os.environ["DBHOST"],
-        'PORT': os.environ["PORT"],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 
 #   'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
     
-}
+
 
 
 # Password validation
@@ -178,13 +192,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Emailing settings
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_FROM = env('EMAIL_FROM')
-# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = env('GMAILAPPPASSWORD')
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_FROM = env('EMAIL_FROM')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('GMAILAPPPASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 PASSWORD_RESET_TIMEOUT = 14400
 
@@ -196,8 +210,38 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 )
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': os.getenv('GOOGLE_OAUTH2_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET'),
+            'project_id': os.getenv('GOOGLE_OAUTH2_PROJECT_ID'),
+        }
+    }
+}
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_STORE_TOKENS = True
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+LOGIN_REDIRECT_URL="/"
+LOGOUT_REDIRECT_URL="/"
+#ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+#SOCIALACCOUNT_ADAPTER = 'bitedMainProject.adapter.MySocialAccountAdapter'
+
+CSRF_TRUSTED_ORIGINS = ['https://bited.ge','https://www.bited.ge',"http://localhost/:8000/",]
 
 ################### Caching ##################
 
