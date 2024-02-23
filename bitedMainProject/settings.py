@@ -234,14 +234,18 @@ SOCIALACCOUNT_STORE_TOKENS = True
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+SITE_ID=1
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-LOGIN_REDIRECT_URL="/"
-LOGOUT_REDIRECT_URL="/"
+#SOCIALACCOUNT_LOGIN_ON_GET=True
+
+LOGIN_REDIRECT_URL="/home"
+
 #ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 #SOCIALACCOUNT_ADAPTER = 'bitedMainProject.adapter.MySocialAccountAdapter'
 
-CSRF_TRUSTED_ORIGINS = ['https://bited.ge','https://www.bited.ge',"http://localhost/:8000/",]
+CSRF_TRUSTED_ORIGINS = ['https://bited.ge','https://www.bited.ge',"http://localhost:8000/",]
 
 ################### Caching ##################
 
