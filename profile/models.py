@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 # https://docs.djangoproject.com/en/4.1/topics/auth/default/
 User = get_user_model()
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 

@@ -30,7 +30,7 @@ except KeyError:
     SECRET_KEY = None
 if SECRET_KEY is None:
     SECRET_KEY = os.getenv('SECRET_KEY')
-if SECRET_KEY is  None:
+if SECRET_KEY is None:
     SECRET_KEY = env('SECRET_KEY')
 if SECRET_KEY is None:
     SECRET_KEY = 'django-insecure-_+b48@r2t#ttge5s9(08j^rikbh!*xto$4)a9=^l&7@=q=4_*q'
@@ -117,30 +117,30 @@ DEFAULT_DOMAIN = 'https://bited.ge'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ["DBENGINE"],
-#         'NAME': os.environ["DBNAME"],
-#         'USER': os.environ["DBUSER"],
-#         'PASSWORD': os.environ["DBPASSWORD"],
-#         'HOST': os.environ["DBHOST"],
-#         'PORT': os.environ["PORT"],
-#     }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else: 
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ["DBENGINE"],
+            'NAME': os.environ["DBNAME"],
+            'USER': os.environ["DBUSER"],
+            'PASSWORD': os.environ["DBPASSWORD"],
+            'HOST': os.environ["DBHOST"],
+            'PORT': os.environ["PORT"],
+        }
 
-#   'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-    
-
-
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -190,16 +190,6 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# Emailing settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_FROM = env('EMAIL_FROM')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('GMAILAPPPASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 PASSWORD_RESET_TIMEOUT = 14400
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -235,12 +225,14 @@ SOCIALACCOUNT_STORE_TOKENS = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-SITE_ID=1
+SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 #SOCIALACCOUNT_LOGIN_ON_GET=True
 
-LOGIN_REDIRECT_URL="/home"
+LOGIN_REDIRECT_URL = "/home"
+LOGOUT_REDIRECT_URL = "/home"
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 #ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 #SOCIALACCOUNT_ADAPTER = 'bitedMainProject.adapter.MySocialAccountAdapter'

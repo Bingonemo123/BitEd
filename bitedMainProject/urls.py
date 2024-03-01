@@ -21,7 +21,7 @@ from home.views import dark_mode, google_auth
 
 urlpatterns = [
     path('', RedirectView.as_view(pattern_name='home')),
-    path('accounts/google/login/', google_auth, name='google_auth'),
+   # path('accounts/google/login/', google_auth, name='google_auth'),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
