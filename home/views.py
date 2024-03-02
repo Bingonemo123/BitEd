@@ -9,6 +9,8 @@ from django.http import HttpResponse
 from home.ajax import is_ajax
 import os
 
+from django.shortcuts import redirect
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from map.views import mapview_for_home
 
 # Create your views here.
@@ -36,12 +38,7 @@ def dark_mode(request):
         request.session['theme'] = json.loads(request.body)['theme']
 
         return HttpResponse(status=204)
-    
-import os
-import os
-from django.shortcuts import redirect, HttpResponse
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+
 
 def google_auth(request):
     try:
@@ -62,7 +59,5 @@ def google_auth(request):
         extra_params = {}
         redirect_url = client.get_redirect_url(authorization_url, extra_params)
         return redirect(redirect_url)
-    except Exception as e:
-        print(e)
-        # Handle the error gracefully (e.g., display a friendly error message to the user)
+    except Exception:
         return HttpResponse("An error occurred during authentication. Please try again later.", status=500)
