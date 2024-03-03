@@ -60,4 +60,5 @@ def google_auth(request):
         redirect_url = client.get_redirect_url(authorization_url, extra_params)
         return redirect(redirect_url)
     except Exception:
-        return HttpResponse("An error occurred during authentication. Please try again later.", status=500)
+        return HttpResponse("""An error occurred during authentication.
+                            Please try again later.""", status=500)

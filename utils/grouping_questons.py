@@ -1,7 +1,8 @@
 import sys
 import os
 import django
-import json 
+import json
+from bs4 import BeautifulSoup as bs
 
 sys.path.append(r"C:\Users\MSI\Documents\repos\BitEd")
 # here store is root folder(means parent).
@@ -9,26 +10,16 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitedMainProject.settings")
 django.setup()
 
 # Now this script or any imported module can use any part of Django it needs.
-from bs4 import BeautifulSoup as bs
 
 from questions.models import Question
 from questions.models import QuestionChoice
-from django.db.models import Q
-from writing.models import UserAnswer
-from folder.models import WriteRequestData
+
 from folder.models import Folder
-
-from django.db.models import When, Case, Value
-from django.db.models.functions import Length
-from django.db.models import Subquery, OuterRef
-
-from django.db.models import F
-from django.db.models.lookups import Exact
-from django.db.models import Exists
 
 
 directory = r'C:\Users\MSI\Desktop\BitEd\allQuestions'
  
+Step_1_folder = Folder.objects.filter(id=9259).first()
 # iterate over files in
 manual_questions = []
 
@@ -46,28 +37,34 @@ for filename in os.listdir(directory):
         system = explanation.find('div', string="System").previousSibling.text
         topic = explanation.find('div', string="Topic").previousSibling.text
 
-        if not Folder.objects.filter(name=subject):
+        if not Step_1_folder.children.filter(name=subject):
             new_subject_folder = Folder.objects.create()
             new_subject_folder.name = subject
-            new_subject_folder.parent = Folder.objects.filter(id=2220).first()
+            new_subject_folder.parent = Step_1_folder
             new_subject_folder.type = "S"
             new_subject_folder.save()
+        else:
+            new_subject_folder = Step_1_folder.children.filter(name=subject).first()
 
-        if not Folder.objects.filter(name=system):
-            new_subject_folder = Folder.objects.create()
-            new_subject_folder.name = system
-            new_subject_folder.parent = (Folder.objects
-                                               .filter(name=subject).first())
-            new_subject_folder.type = "S"
-            new_subject_folder.save()
+        if not new_subject_folder.children.filter(name=system):
+            new_system_folder = Folder.objects.create()
+            new_system_folder.name = system
+            new_system_folder.parent = new_subject_folder
+            new_system_folder.type = "S"
+            new_system_folder.save()
+        else:
+            new_system_folder = (new_subject_folder.children
+                                                .filter(name=system).first())
 
-        if not Folder.objects.filter(name=topic):
-            new_subject_folder = Folder.objects.create()
-            new_subject_folder.name = topic
-            new_subject_folder.parent = (Folder.objects
-                                               .filter(name=system).first())
-            new_subject_folder.type = "T"
-            new_subject_folder.save()
+        if not new_system_folder.children.filter(name=topic):
+            new_topic_folder = Folder.objects.create()
+            new_topic_folder.name = topic
+            new_topic_folder.parent = new_system_folder
+            new_topic_folder.type = "T"
+            new_topic_folder.save()
+        else:
+            new_topic_folder = (new_system_folder.children
+                                                .filter(name=topic).first())
          
         answers_html = bs(struct["answerContainer"], "html.parser")
         answers_list = answers_html.find_all("tr")
@@ -98,5 +95,5 @@ for filename in os.listdir(directory):
         
         q.correct_choice = correct_choice
         q.save()
-        Folder.objects.filter(name=topic).first().questions.add(q)
+        new_topic_folder.questions.add(q)
 

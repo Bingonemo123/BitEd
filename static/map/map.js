@@ -32,9 +32,12 @@ function sendGetAjax(mnode){
         for (const child of mnode.parentElement.parentElement.children) {
             child.classList.remove("grey-selected");
           }
-
+        
+          let templateFolderItem = document.getElementById("root-item");
+          
+        if (mnode.parentElement != templateFolderItem) {
         mnode.parentElement.classList.add("grey-selected");
-
+        }
         // Delete next nodes
 
 
@@ -47,7 +50,6 @@ function sendGetAjax(mnode){
         var newColumn = document.createElement("div");
         newColumn.classList.add('base-column');
         newColumn.id = `home-column-${columnNumber + 1}`;
-        let templateFolderItem = document.getElementById("root-item");
         let columnsContainer = document.querySelector(".column-view");
 
         for (const subfolder of jsonFolders) {
@@ -78,11 +80,7 @@ function sendGetAjax(mnode){
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    root_button = document.querySelector('#go-in-folder-2219');
-    root_button.addEventListener('click', function() {
-        sendGetAjax(this);
-
-
-    });
+    let rootFolderButton = document.getElementById("go-in-folder-0");
+    sendGetAjax(rootFolderButton);
 
 });

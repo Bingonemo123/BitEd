@@ -17,19 +17,16 @@
 
         <h1 class="select-subject-label"> Select Subject </h1>
         
-        <li class="list-group-item" hidden id="root-item">
-            <a href="{% url "folder:folder_detail_view" 0 %}" class="folder-link"> <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px"></a>
-            <span class="folder-name">Root</span>
-            <a href="#" onclick="return false;" id="go-in-folder-0"><img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px"></a>
-        </li>
-
+        
         <div class="column-view"> 
-            <div class="base-column" id="home-column-1">
-                <li class="list-group-item">
-                    <a href="{% url "folder:folder_detail_view" 2219 %}"> <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px"></a>
-                    <span class="folder-name">Medicine</span>
-                    <a href="#" onclick="return false;" id="go-in-folder-2219"><img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px"></a>
+            <div class="base-column" hidden id="home-column-0">
+                <li class="list-group-item" hidden id="root-item">
+                    <a href="{% url "folder:folder_detail_view" 0 %}" class="folder-link"> <img src="{% static 'home/285658_blue_folder_icon.svg' %}" alt="" height="20px" width="20px"></a>
+                    <span class="folder-name">Root</span>
+                    <a href="#" onclick="return false;" id="go-in-folder-0"><img src="{% static 'home/352072_arrow_play_icon.svg' %}" alt="" height="20px" width="20px"></a>
                 </li>
+            </div>
+            <div class="base-column" id="home-column-1">
             </div>
 
            

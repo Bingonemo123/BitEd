@@ -18,7 +18,6 @@ class MapView(TemplateView):
             folder_obj = get_object_or_404(Folder, pk=folder_pk)
             children_set = Folder.objects.filter(parent=folder_obj)
             data = serializers.serialize('json', list(children_set))
-            print(data)
             return HttpResponse(data)
         return super().get(request, *args, **kwargs)
 
