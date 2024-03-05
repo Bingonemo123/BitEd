@@ -237,7 +237,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 #ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 #SOCIALACCOUNT_ADAPTER = 'bitedMainProject.adapter.MySocialAccountAdapter'
 
-CSRF_TRUSTED_ORIGINS = ['https://bited.ge','https://www.bited.ge',"http://localhost:8000/",]
+CSRF_TRUSTED_ORIGINS = ['https://bited.ge','https://www.bited.ge',"http://localhost:8000/", "http://django-env.eba-mmfrgqep.eu-central-1.elasticbeanstalk.com/home/"]
 
 ################### Caching ##################
 
