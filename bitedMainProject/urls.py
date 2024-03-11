@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from home.views import dark_mode, google_auth
+from .views import google_oauth_login
 
 urlpatterns = [
     path('', RedirectView.as_view(pattern_name='home')),
    # path('accounts/google/login/', google_auth, name='google_auth'),
+   path('google-oauth-login/', google_oauth_login, name='google_oauth_login'),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),

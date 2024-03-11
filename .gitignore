@@ -1,6 +1,8 @@
 db.sqlite3
 .env
+env/
 facebook_settings.py
+venv/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
